@@ -4,14 +4,22 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+var indexRouter = require('./src/routes/index');
+var usersRouter = require('./src/routes/users');
 
 var app = express();
 
+const { sequelize, testConnection } = require("./src/config/database");
+
+// Probar conexión a la base de datos
+testConnection()
+  .then(() => console.log("✅ Conexión a la base de datos establecida correctamente."))
+  .catch((err) => console.error("❌ Error en la conexión a la base de datos:", err));
+
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
+app.set('view engine', 'pug');
 
 app.use(logger('dev'));
 app.use(express.json());
