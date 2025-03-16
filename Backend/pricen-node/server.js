@@ -36,5 +36,7 @@ app.listen(PORT, async () => {
   }
 });
 
+// Sincronizar la base de datos
+require("./src/config/syncDB");
 
 
