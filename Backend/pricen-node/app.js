@@ -38,6 +38,10 @@ app.use("/api/usuarios", userRoutes);
 const productRoutes = require("./src/routes/productRoutes");
 app.use("/api/productos", productRoutes);
 
+// 🚀 RUTA PARA SUPERMERCADOS (Asegúrate de que existe `src/routes/supermarketRoutes.js`)
+const supermercadoRoutes = require("./src/routes/supermercadoRoutes");
+app.use("/api/supermercados", supermercadoRoutes);
+
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));
