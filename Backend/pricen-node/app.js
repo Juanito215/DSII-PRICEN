@@ -34,6 +34,10 @@ app.use("/userRoutes", usersRouter);
 const userRoutes = require("./src/routes/userRoutes");
 app.use("/api/usuarios", userRoutes);
 
+// 🚀 RUTA PARA PRODUCTOS (Asegúrate de que existe `src/routes/productRoutes.js`)
+const productRoutes = require("./src/routes/productRoutes");
+app.use("/api/productos", productRoutes);
+
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));
