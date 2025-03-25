@@ -1,42 +1,344 @@
-#root {
-  max-width: 1280px;
+/* Estilos generales */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #e7e9eb;
+}
+
+/* Navbar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #0b7684;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+}
+
+/* Logo */
+.logo img {
+  height: 40px;
+}
+
+/* Barra de búsqueda */
+.search-bar {
+  display: flex;
+  align-items: center;
+  flex-grow: 1;
+  margin: 0 20px;
+  max-width: 500px;
+}
+
+.search-bar input {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid #8ccbcf;
+  background-color: #8ccbcf;
+  border-radius: 20px;
+  font-size: 16px;
+  outline: none;
+}
+
+.search-bar button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+.search-bar button img {
+  height: 20px;
+}
+
+/* Botones con íconos */
+.buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.icon-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 50%;
+  transition: background-color 0.3s;
+}
+
+.icon-button:hover {
+  background-color: #e9ecef;
+}
+
+.icon-button img {
+  height: 24px;
+}
+
+/* Contenido principal */
+.main-content {
+  margin-top: 70px;
+  padding: 20px;
+}
+
+/*(Recuadro azul) */
+.banner {
+  background-color: #0b7684; /* Color azul */
+  width: 100%;
+  height: 70vh;
+  padding: 10px 20px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  text-align: center;
+  color: white;
+  margin-top: 5vh auto;
+  margin-right: 18vh;
+}
+
+.banner-text {
+  width: 50%;
+}
+
+.banner h1 {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+}
+
+.banner p {
+  font-size: 1.2rem;
+  margin-bottom: 30px;
+}
+
+/* Botón CTA */
+.banner-button {
+  background-color: #ff6b6b; /* Color del botón */
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  font-size: 1rem;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.cta-button:hover {
+  background-color: #ff4c4c; /* Color al hacer hover */
+}
+
+/* imagen del banner */
+.banner-img {
+  max-width: 100%;
+  width: auto;
+  height: 90%;
+  border-radius: 10px;
+}
+
+.banner-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.productos-buscados {
+  margin-top: 40px;
+  padding: 20px;
+  text-align: left;
+}
+.productos-buscados h2 {
+  font-size: 2rem;
+  color:#0b7684;
+  margin-bottom: 20px;
+}
+
+.carrusel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: 97%;
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 0 60px;
+}
+
+.carrusel-img {
+  display: flex;
+  gap: 20px;
+  overflow: hidden;
+  width: 100%;
+  margin: 0 auto; 
+  scroll-behavior: smooth;
+  justify-content: center;
+}
+.carrusel-item{
+  flex: 0 0 calc(25% - 20px);
+  text-align: center;
+  border: 3px solid #0b7684;
+  border-radius: 33px;
+  padding: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s, box-shadow 0.3s;
+  min-width: 220px;
+  transform: scale(0.9);
+}
+
+.carrusel-item:hover {
+  transform: scale(0.95);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.carrusel-item img {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+
+.carrusel-item p {
+  margin-top: 10px;
+  font-size: 1rem;
+  color: #333
+}
+
+/* Botones de navegación */
+.carrusel-button {
+  background-color: #0b7684;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1.5rem;
+  transition: background-color 0.3s;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+}
+
+
+.carrusel-button:hover {
+  background-color: #095c68;
+}
+.carrusel-button.prev {
+  left: 10px;
+}
+.carrusel-button.next {
+  right: 10px;
+}
+
+.supermercados-comparados{
+  text-align: center;
+  margin: 40px auto;
+  padding: 20px;
+  max-width: 1200px;
+}
+
+.supermercados-comparados h2 {
+  font-size: 2rem;
+  color:#0b7684;
+  margin-bottom: 10px;
+}
+
+/* Linea decorativa */
+
+.linea-decorativa{
+  width: 100px;
+  height: 3px;
+  background-color: #0b7684;
+  margin: 0 auto 20px auto;
+}
+
+/* Lista de supermercados */
+.supermercados-lista{
+  display: flex;
+  gap: 40px;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+/* Cada supermercado */
+
+.supermercado {
   text-align: center;
 }
-
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
+.supermercado img{
+  width: 100px;
+  height: auto;
+  border-radius: 10px;
 }
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.supermercado p {
+  margin-top: 10px;
+  font-size: 1.2rem;
+  color: #333;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/* Footer */
+.footer {
+  background-color: #0b7684; /* Color de fondo */
+  color: white;
+  padding: 40px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%; /* Ocupa todo el ancho */
+  box-sizing: border-box; /* Incluye el padding en el ancho */
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+/* Logo y nombre */
+.footer-logo {
+  text-align: center;
+  flex: 0 0 200px; /* Ancho fijo para el logo */
 }
 
-.card {
-  padding: 2em;
+.footer-logo img {
+  width: 100px; /* Ajusta el tamaño del logo */
+  height: auto;
 }
 
-.read-the-docs {
-  color: #888;
+.footer-logo p {
+  margin-top: 10px;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+/* Columnas de enlaces */
+.footer-links {
+  display: flex;
+  gap: 40px;
+  flex: 1; /* Ocupa el espacio restante */
+  justify-content: space-around; /* Distribuye el espacio entre columnas */
+}
+
+.footer-column {
+  min-width: 150px;
+}
+
+.footer-column h3 {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+}
+
+.footer-column ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-column ul li {
+  margin-bottom: 8px;
+}
+
+.footer-column ul li a {
+  color: white;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.footer-column ul li a:hover {
+  color: #ff6b6b; /* Color al hacer hover */
 }
