@@ -4,6 +4,8 @@ const helmet = require("helmet");
 const morgan = require("morgan");
 const dotenv = require("dotenv");
 const { sequelize, testConnection } = require("./src/config/database");
+const cron = require("node-cron");
+const { actualizarPrecios } = require("./src/jobs/actualizarPrecios");
 
 // Cargar variables de entorno
 dotenv.config();
@@ -34,6 +36,12 @@ app.listen(PORT, async () => {
   } catch (error) {
     console.error("❌ Error al sincronizar la base de datos:", error);
   }
+});
+
+// Tarea programada para actualizar precios
+cron.schedule("0 0 * * 0", async () => {
+  console.log(" Actualización semanal de precios...");
+  await actualizarPrecios();
 });
 
 // Sincronizar la base de datos

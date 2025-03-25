@@ -30,17 +30,25 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use("/", indexRouter);
 app.use("/userRoutes", usersRouter);
 
-// 🚀 RUTA PARA USUARIOS (Asegúrate de que existe `src/routes/users.js`)
+// 🚀 RUTA PARA USUARIOS 
 const userRoutes = require("./src/routes/userRoutes");
 app.use("/api/usuarios", userRoutes);
 
-// 🚀 RUTA PARA PRODUCTOS (Asegúrate de que existe `src/routes/productRoutes.js`)
+// 🚀 RUTA PARA PRODUCTOS 
 const productRoutes = require("./src/routes/productRoutes");
 app.use("/api/productos", productRoutes);
 
-// 🚀 RUTA PARA SUPERMERCADOS (Asegúrate de que existe `src/routes/supermarketRoutes.js`)
+// 🚀 RUTA PARA SUPERMERCADOS 
 const supermercadoRoutes = require("./src/routes/supermercadoRoutes");
 app.use("/api/supermercados", supermercadoRoutes);
+
+// 🚀 RUTA PARA PRECIOS 
+const priceRoutes = require("./src/routes/precioRoutes");
+app.use("/api/precios", priceRoutes);
+
+// 🚀 RUTA PARA LISTA DE PRODUCTOS DE USUARIO
+const usuarioProductoRoutes = require("./src/routes/usuarioProductoRoutes");
+app.use("/api/usuario-producto", usuarioProductoRoutes);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
