@@ -1,5 +1,7 @@
 const UsuarioProducto = require("../models/UsuarioProducto");
 const Producto = require("../models/Producto");
+const { Op } = require("sequelize");
+
 
 // 🔹 Agregar un producto al carrito o lista del usuario
 exports.agregarProducto = async (req, res) => {
@@ -39,6 +41,39 @@ exports.agregarProducto = async (req, res) => {
         res.status(201).json({ message: "Producto agregado a la lista.", usuarioProducto });
     } catch (error) {
         console.error(" Error al agregar producto a la lista:", error);
+        res.status(500).json({ message: "Error en el servidor." });
+    }
+};
+
+// 🔹 Buscar un producto en la lista del usuario por nombre
+exports.buscarProductoPorNombre = async (req, res) => {
+    try {
+        const usuario_id = req.user.id; // ID del usuario autenticado
+        const { nombre } = req.query; // Captura el nombre desde la URL
+
+        if (!nombre) {
+            return res.status(400).json({ message: "Debe proporcionar un nombre de producto." });
+        }
+
+        const productos = await UsuarioProducto.findAll({
+            where: { usuario_id },
+            include: [
+                {
+                    model: Producto,
+                    where: {
+                        nombre: { [Op.iLike]: `%${nombre}%` }, // Búsqueda sin importar mayúsculas/minúsculas
+                    },
+                },
+            ],
+        });
+
+        if (productos.length === 0) {
+            return res.status(404).json({ message: "No se encontraron productos con ese nombre en la lista del usuario." });
+        }
+
+        res.json(productos);
+    } catch (error) {
+        console.error("❌ Error al buscar producto por nombre:", error);
         res.status(500).json({ message: "Error en el servidor." });
     }
 };

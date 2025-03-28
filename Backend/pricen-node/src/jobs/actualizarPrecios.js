@@ -6,7 +6,6 @@ exports.actualizarPrecios = async () => {
     try {
         console.log("🔄 Iniciando actualización semanal de precios...");
 
-        // Obtener todos los productos
         const productos = await Producto.findAll();
 
         for (const producto of productos) {
@@ -21,7 +20,21 @@ exports.actualizarPrecios = async () => {
 
                 if (nuevoPrecio !== null && nuevoPrecio !== producto.precio_actual) {
                     await producto.update({ precio_actual: nuevoPrecio });
-                    console.log(`✅ Precio actualizado: ${producto.nombre} en supermercado ${supermercado_id} → $${nuevoPrecio}`);
+                    console.log(`✅ Precio actualizado: ${producto.nombre} → $${nuevoPrecio}`);
+
+                    // ✅ Revisar si hay usuarios que reportaron este mismo precio y darles 50 puntos
+                    const usuariosGanadores = await Precio.findAll({
+                        where: {
+                            producto_id: producto.id,
+                            supermercado_id,
+                            precio: nuevoPrecio,
+                        },
+                        attributes: ["usuario_id"],
+                    });
+
+                    for (const { usuario_id } of usuariosGanadores) {
+                        await HistorialPuntosController.registrarPuntos(usuario_id, "Precio validado", 50);
+                    }
                 }
             }
         }

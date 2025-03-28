@@ -1,6 +1,7 @@
 const Precio = require("../models/Precio");
 const Producto = require("../models/Producto");
 const Supermercado = require("../models/Supermercado");
+const { agregarPuntos} = require("../controllers/HistorialPuntosController");
 const { op } = require("sequelize");
 
 // 🔹 Registrar un precio (Usuarios autenticados)
@@ -94,6 +95,9 @@ exports.reportarPrecio = async (req, res) => {
             usuario_id,
             precio,
         });
+
+        // Agregar puntos al historial del usuario
+        await agregarPuntos(usuario_id, 10, "Reportó un nuevo precio");
 
         res.status(201).json({ message: "Precio reportado exitosamente.", nuevoPrecio });
     } catch (error) {

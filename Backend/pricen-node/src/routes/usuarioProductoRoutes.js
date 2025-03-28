@@ -6,6 +6,7 @@ const { verifyToken } = require("../middlewares/authMiddleware"); // Protegemos 
 // 🔹 Rutas para la lista de productos del usuario
 router.post("/", verifyToken, usuarioProductoController.agregarProducto);
 router.get("/", verifyToken, usuarioProductoController.obtenerLista);
+router.get("/buscar", verifyToken, usuarioProductoController.buscarProductoPorNombre);
 router.put("/:id", verifyToken, usuarioProductoController.actualizarCantidad);
 router.delete("/:id", verifyToken, usuarioProductoController.eliminarProducto);
 
