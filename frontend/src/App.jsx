@@ -15,6 +15,7 @@ import lomo from './assets/lomocerdo.png'; // Banner
 import d1logo from './assets/d1logo.png'; // Banner
 import aralogo from './assets/aralogo.png'; // Banner
 import exitologo from './assets/exitologo.png'; // Banner
+import { useNavigate } from 'react-router-dom';
 
 function App() {
 
@@ -53,9 +54,11 @@ function App() {
     }
   }, [currentIndex, duplicateProducts, products.length]);
 
+  const navigate = useNavigate();
+
   const handleLoginClick = () => {
     // Redirige al login (puedes usar react-router-dom más adelante)
-    alert('Redirigiendo al login...');
+    navigate('/login');
   };
 
   const handleNotesClick = () => {
