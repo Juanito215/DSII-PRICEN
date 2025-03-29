@@ -2,7 +2,7 @@
 body {
   margin: 0;
   font-family: Arial, sans-serif;
-  background-color: #e7e9eb;
+  background-color: #f8f9fa;
 }
 
 /* Navbar */
@@ -48,7 +48,8 @@ body {
   background: none;
   border: none;
   cursor: pointer;
-  margin-left: 10px;
+  margin-right: 630px;
+  margin-top: 4px;
 }
 
 .search-bar button img {
@@ -87,7 +88,7 @@ body {
 /*(Recuadro azul) */
 .banner {
   background-color: #0b7684; /* Color azul */
-  width: 100%;
+  width: 104%;
   height: 70vh;
   padding: 10px 20px;
   border-radius: 10px;
@@ -116,7 +117,7 @@ body {
 
 /* Botón CTA */
 .banner-button {
-  background-color: #ff6b6b; /* Color del botón */
+  background-color: #8ccbcf; /* Color del botón */
   color: white;
   border: none;
   padding: 12px 24px;
@@ -282,12 +283,14 @@ body {
 .footer {
   background-color: #0b7684; /* Color de fondo */
   color: white;
-  padding: 40px 20px;
+  padding-top: 40px;
+  padding-right: 100px;
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  width: 100%; /* Ocupa todo el ancho */
-  box-sizing: border-box; /* Incluye el padding en el ancho */
+  width: 108.23%; /* Ocupa todo el ancho */
+  margin-left: -50px;/* Incluye el padding en el ancho */
+  margin-bottom: -20px;
 }
 
 /* Logo y nombre */
