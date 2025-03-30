@@ -3,6 +3,7 @@ body {
   margin: 0;
   font-family: Arial, sans-serif;
   background-color: #f8f9fa;
+  
 }
 
 /* Navbar */
@@ -88,7 +89,7 @@ body {
 /*(Recuadro azul) */
 .banner {
   background-color: #0b7684; /* Color azul */
-  width: 104%;
+  width: 100%;
   height: 70vh;
   padding: 10px 20px;
   border-radius: 10px;
@@ -288,7 +289,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  width: 108.23%; /* Ocupa todo el ancho */
+  width: 100%; /* Ocupa todo el ancho */
   margin-left: -50px;/* Incluye el padding en el ancho */
   margin-bottom: -20px;
 }

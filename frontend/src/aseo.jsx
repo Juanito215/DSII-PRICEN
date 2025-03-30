@@ -1,15 +1,17 @@
 import React from 'react';
-import './carnes.css';
+import './aseo.css';
 import logo from './assets/logos/logo.png';
 import homeIcon from './assets/logos/home icon.svg';
 import userIcon from './assets/logos/user icon.svg';
 import notesIcon from './assets/logos/list icon.svg';
-import featuredProductImage from './assets/carnes/carnesBanner.png';
-import cheapProductImage from './assets/carnes/lomocerdo.png';
-import product1 from './assets/carnes/producto1.png';
-import product2 from './assets/carnes/producto2.jpg';
-import product3 from './assets/carnes/producto3.png';
-import product4 from './assets/carnes/producto4.png';
+import featuredProductImage from './assets/aseo/producto1.png';
+import cheapProductImage from './assets/aseo/producto2.png';
+import product1 from './assets/aseo/producto3.png';
+import product2 from './assets/aseo/producto4.jpg';
+import product3 from './assets/aseo/producto5.png';
+import product4 from './assets/aseo/producto6.jpg';
+import product5 from './assets/aseo/producto7.png';
+
 
 function Aseo() {
   const handleHomeClick = () => {
@@ -26,9 +28,9 @@ function Aseo() {
   };
 
   return (
-    <div className="meat-page">
+    <div className="cleaning-page">
       {/* Header con logo y botones */}
-      <header className="meat-header">
+      <header className="cleaning-header">
         <div className="logo-container">
           <img src={logo} alt="Logo" className="logo" />
         </div>
@@ -49,12 +51,12 @@ function Aseo() {
       {/* Hero Section con imagen de fondo */}
       <section className="hero-section">
         <div className="hero-content">
-          <h1 className="hero-title">Carnes</h1>
-          <h2 className="hero-subtitle">Calidad en cada corte</h2>
+          <h1 className="hero-title">Aseo</h1>
+          <h2 className="hero-subtitle">Limpieza en cada producto</h2>
           <div className="search-container">
             <input 
               type="text" 
-              placeholder="Buscar cortes de carne..." 
+              placeholder="Buscar prodcutos de aseo..." 
               className="search-input"
             />
             <button className="search-button">

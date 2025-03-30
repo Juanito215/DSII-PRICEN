@@ -9,7 +9,7 @@
 .meat-page {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   color: #333;
-  width: 105%;  
+  width: 100%;  
   margin-right: 39px;
   background-color: #f8f9fa;
 }
@@ -63,7 +63,7 @@
 /* Hero Section - IMAGEN DE FONDO */
 .hero-section {
   /* CAMBIA ESTA URL POR TU IMAGEN */
-  background-image: url('./assets/carnesBanner.png');
+  background-image: url('./assets/carnes/carnesBanner.png');
   
   /* AJUSTA ESTOS VALORES PARA REDIMENSIONAR LA IMAGEN */
   background-size: cover; /* Puedes usar 'contain' o valores exactos como '1200px' */
