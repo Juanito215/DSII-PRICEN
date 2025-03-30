@@ -1,20 +1,20 @@
 import React, { useEffect } from 'react';
 import './App.css';
-import logo from './assets/logo.png'; // Importa tu logo
-import userIcon from './assets/user icon.svg'; // Ícono de usuario
-import notesIcon from './assets/list icon.svg'; // Ícono de notas
-import searchIcon from './assets/search.png'; // Ícono de búsqueda
-import banner from './assets/banner-img.png'; // Banner
-import brilla from './assets/brilla.png'; // Banner
-import brilla2 from './assets/brilla2.png'; // Banner
-import cerveza1 from './assets/cerveza bahia.png'; // Banner
-import cerveza2 from './assets/cerveza2.png'; // Banner
-import cerveza3 from './assets/cerveza3.png'; // Banner
-import chocolatina from './assets/chocolatina.png'; // Banner
-import lomo from './assets/lomocerdo.png'; // Banner
-import d1logo from './assets/d1logo.png'; // Banner
-import aralogo from './assets/aralogo.png'; // Banner
-import exitologo from './assets/exitologo.png'; // Banner
+import logo from './assets/logos/logo.png'; // Importa tu logo
+import userIcon from './assets/logos/user icon.svg'; // Ícono de usuario
+import notesIcon from './assets/logos/list icon.svg'; // Ícono de notas
+import searchIcon from './assets/logos/search.png'; // Ícono de búsqueda
+import banner from './assets/home/banner-img.png'; // Banner
+import brilla from './assets/home/brilla.png'; // Banner
+import brilla2 from './assets/home/brilla2.png'; // Banner
+import cerveza1 from './assets/home/cerveza bahia.png'; // Banner
+import cerveza2 from './assets/home/cerveza2.png'; // Banner
+import cerveza3 from './assets/home/cerveza3.png'; // Banner
+import chocolatina from './assets/home/chocolatina.png'; // Banner
+import lomo from './assets/carnes/lomocerdo.png'; // Banner
+import d1logo from './assets/logos/d1logo.png'; // Banner
+import aralogo from './assets/logos/aralogo.png'; // Banner
+import exitologo from './assets/logos/exitologo.png'; // Banner
 import { useNavigate } from 'react-router-dom';
 
 function App() {
