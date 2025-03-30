@@ -48,7 +48,7 @@
   }
   
   .header-button:hover {
-    background-color: #a30e0e;
+    background-color: #7c5a33;
   }
   
   .header-button img {
@@ -59,7 +59,7 @@
   /* Hero Section - IMAGEN DE FONDO */
   .hero-section {
     /* CAMBIA ESTA URL POR TU IMAGEN */
-    background-image: url('./assets/carnes/carnesBanner.png');
+    background-image: url('./assets/aseo/aseoBanner.png');
     
     /* AJUSTA ESTOS VALORES PARA REDIMENSIONAR LA IMAGEN */
     background-size: cover; /* Puedes usar 'contain' o valores exactos como '1200px' */
@@ -102,7 +102,7 @@
   .hero-subtitle {
     font-size: 1.8rem;
     margin-bottom: 30px;
-    text-shadow: 1px 1px 3px rgba(151, 16, 16, 0.5);
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
   }
   
   .search-container {
@@ -130,7 +130,7 @@
     background: none;
     border: none;
     cursor: pointer;
-    color: #ca1212;
+    color: #000000;
   }
   
   /* Producto destacado */
@@ -140,8 +140,9 @@
     border-radius: 10px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
     overflow: hidden;
-    margin-bottom: 30px;
+    margin-bottom: 80px;
     position: relative;
+    height: 350px;
   }
   
   .featured-product .product-info {
@@ -176,12 +177,11 @@
   }
   
   .featured-product .product-image-container {
-    width: 40%;
+    width: 35%;
   }
   
   .featured-product .product-image {
-    width: 100%;
-    height: 100%;
+    height: 300px;
     object-fit: cover;
   }
   

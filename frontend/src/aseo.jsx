@@ -73,15 +73,15 @@ function Aseo() {
       <section className="featured-product">
         <div className="product-info">
           <h2>Producto más visto</h2>
-          <p className="product-description">Lomo fino de res premium, madurado por 21 días para máximo sabor y terneza.</p>
+          <p className="product-description">Producto de limpieza de alta calidad! Deja el piso brillando y a los visitantes sorprendidos..</p>
           <button className="action-button">Anotar</button>
         </div>
         <div className="product-image-container">
           <img src={featuredProductImage} alt="Producto destacado" className="product-image" />
         </div>
         <div className="product-price">
-          <span className="price">$32,000</span>
-          <span className="store">Éxito</span>
+          <span className="price">$2,000</span>
+          <span className="store">D1</span>
         </div>
       </section>
 
@@ -92,12 +92,12 @@ function Aseo() {
         </div>
         <div className="product-info">
           <h2>Producto más económico</h2>
-          <p className="product-description">Lomo de cerdo, ideal para asar o guisar, con un precio inigualable.</p>
+          <p className="product-description">Producto de limpieza ideal para limpiar.</p>
           <button className="action-button">Anotar</button>
         </div>
         <div className="product-price">
-          <span className="price">$24,500</span>
-          <span className="store">D1</span>
+          <span className="price">$3,500</span>
+          <span className="store">ARA</span>
         </div>
       </section>
 
@@ -108,40 +108,40 @@ function Aseo() {
           {/* Producto 1 */}
           <div className="product-card">
             <img src={product1} alt="Carne de res" className="product-image" />
-            <h3 className="product-name">Lomo fino</h3>
+            <h3 className="product-name">Brilla King</h3>
             <div className="product-meta">
-              <span className="product-price">$31,500</span>
-              <span className="product-store">Carulla</span>
+              <span className="product-price">$1,500</span>
+              <span className="product-store">D1</span>
             </div>
           </div>
 
           {/* Producto 2 */}
           <div className="product-card">
             <img src={product2} alt="Carne de cerdo" className="product-image" />
-            <h3 className="product-name">Chuleta de cerdo</h3>
+            <h3 className="product-name">Brilla King - Bicarbonato</h3>
             <div className="product-meta">
-              <span className="product-price">$18,900</span>
-              <span className="product-store">Jumbo</span>
+              <span className="product-price">$2,000</span>
+              <span className="product-store">D1  </span>
             </div>
           </div>
 
           {/* Producto 3 */}
           <div className="product-card">
             <img src={product3} alt="Pollo" className="product-image" />
-            <h3 className="product-name">Pechuga de pollo</h3>
+            <h3 className="product-name">Detergente - Bonaropa</h3>
             <div className="product-meta">
-              <span className="product-price">$12,300</span>
-              <span className="product-store">Olimpica</span>
+              <span className="product-price">$4,000</span>
+              <span className="product-store">Ara</span>
             </div>
           </div>
 
           {/* Producto 4 */}
           <div className="product-card">
             <img src={product4} alt="Carne molida" className="product-image" />
-            <h3 className="product-name">Carne molida</h3>
+            <h3 className="product-name">Brilla King - Limon</h3>
             <div className="product-meta">
-              <span className="product-price">$21,700</span>
-              <span className="product-store">Exito</span>
+              <span className="product-price">$1,700</span>
+              <span className="product-store">D1</span>
             </div>
           </div>
         </div>
