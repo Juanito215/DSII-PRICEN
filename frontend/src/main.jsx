@@ -5,6 +5,7 @@ import App from './App.jsx'
 import Carnes from './carnes.jsx'
 import Login from './login.jsx'
 import Aseo from './aseo.jsx'
+import FrutasVerduras from './frutasVerduras.jsx'
 import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom'
 
 createRoot(document.getElementById('root')).render(
@@ -15,6 +16,7 @@ createRoot(document.getElementById('root')).render(
         <Route path="/carnes" element={<Carnes />} />
         <Route path="/login" element={<Login />} />
         <Route path="/aseo" element={<Aseo />} />
+        <Route path ="frutasVerduras" element={<FrutasVerduras/>} />
       </Routes>
     </Router>
   </StrictMode>,
