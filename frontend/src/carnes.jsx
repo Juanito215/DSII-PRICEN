@@ -47,7 +47,7 @@ function Carnes() {
       </header>
 
       {/* Hero Section con imagen de fondo */}
-      <section className="hero-section">
+      <section className="hero-section-carnes">
         <div className="hero-content">
           <h1 className="hero-title">Carnes</h1>
           <h2 className="hero-subtitle">Calidad en cada corte</h2>

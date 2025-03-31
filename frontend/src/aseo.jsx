@@ -49,7 +49,7 @@ function Aseo() {
       </header>
 
       {/* Hero Section con imagen de fondo */}
-      <section className="hero-section">
+      <section className="hero-section-aseo">
         <div className="hero-content">
           <h1 className="hero-title">Aseo</h1>
           <h2 className="hero-subtitle">Limpieza en cada producto</h2>
