@@ -4,7 +4,9 @@ const bcrypt = require("bcrypt");
 
 // Registrar usuario
 exports.register = async (req, res) => {
-
+  res.setHeader("Access-Control-Allow-Origin", "http://localhost:5173");
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
   console.log("📩 Datos recibidos en registro:", req.body); 
 
   try {

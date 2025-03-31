@@ -6,12 +6,23 @@ const dotenv = require("dotenv");
 const { sequelize, testConnection } = require("./src/config/database");
 const cron = require("node-cron");
 const { actualizarPrecios } = require("./src/jobs/actualizarPrecios");
+const cors = require("cors");
+const port = process.env.PORT || 3000;
 
 // Cargar variables de entorno
 dotenv.config();
 
 const app = express();
 const app = require("./app");
+app.use(cors());
+app.use(express.json());
+
+
+app.use(cors({
+  origin: "http://localhost:5173", // URL del frontend (ajústala si es otra)
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  allowedHeaders: ["Content-Type", "Authorization"]
+}));
 
 // Middlewares
 app.use(express.json()); // Para manejar JSON
@@ -37,6 +48,11 @@ app.listen(PORT, async () => {
     console.error("❌ Error al sincronizar la base de datos:", error);
   }
 });
+
+app.listen(port, () => {
+  console.log("Servidor corriendo en http://localhost:3000");
+}
+);
 
 // Tarea programada para actualizar precios
 cron.schedule("0 0 * * 0", async () => {

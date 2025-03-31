@@ -10,11 +10,21 @@ var usersRouter = require("./src/routes/userRoutes");
 var app = express();
 
 const { sequelize, testConnection } = require("./src/config/database");
+const cors = require("cors");
 
 // Probar conexión a la base de datos
 testConnection()
   .then(() => console.log("✅ Conexión a la base de datos establecida correctamente."))
   .catch((err) => console.error("❌ Error en la conexión a la base de datos:", err));
+
+  const corsOptions = {
+    origin: "http://localhost:5173", // Cambia esto según el puerto del frontend (si usas Vite)
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+    allowedHeaders: "Content-Type, Authorization",
+    credentials: true,
+};
+
+app.use(cors(corsOptions));  
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
