@@ -49,7 +49,7 @@ function FrutasVerduras() {
       </header>
 
       {/* Hero Section con imagen de fondo */}
-      <section className="hero-section">
+      <section className="hero-section-verduras">
         <div className="hero-content">
           <h1 className="hero-title">Frutas y verduras</h1>
           <h2 className="hero-subtitle">¡Calidad y frescura de la tierra!</h2>
