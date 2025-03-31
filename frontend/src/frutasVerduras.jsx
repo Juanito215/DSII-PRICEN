@@ -1,17 +1,19 @@
 import React from 'react';
-import './carnes.css';
+import './frutasVerduras.css';
 import logo from './assets/logos/logo.png';
 import homeIcon from './assets/logos/home icon.svg';
 import userIcon from './assets/logos/user icon.svg';
 import notesIcon from './assets/logos/list icon.svg';
-import featuredProductImage from './assets/carnes/carnesBanner.png';
-import cheapProductImage from './assets/carnes/lomocerdo.png';
-import product1 from './assets/carnes/producto1.png';
-import product2 from './assets/carnes/producto2.jpg';
-import product3 from './assets/carnes/producto3.png';
-import product4 from './assets/carnes/producto4.png';
+import featuredProductImage from './assets/verduras/image 4.png';
+import cheapProductImage from './assets/verduras/image 5.png';
+import product1 from './assets/verduras/image 4.png';
+import product2 from './assets/verduras/image 5.png';
+import product3 from './assets/verduras/producto1.png';
+import product4 from './assets/verduras/producto2.png';
+import product5 from './assets/aseo/producto7.png';
 
-function Carnes() {
+
+function FrutasVerduras() {
   const handleHomeClick = () => {
     // Redirigir al home (usar react-router)
     window.location.href = '/';
@@ -26,9 +28,9 @@ function Carnes() {
   };
 
   return (
-    <div className="meat-page">
+    <div className="fruits-page">
       {/* Header con logo y botones */}
-      <header className="meat-header">
+      <header className="fruits-header">
         <div className="logo-container">
           <img src={logo} alt="Logo" className="logo" />
         </div>
@@ -49,12 +51,12 @@ function Carnes() {
       {/* Hero Section con imagen de fondo */}
       <section className="hero-section">
         <div className="hero-content">
-          <h1 className="hero-title">Carnes</h1>
-          <h2 className="hero-subtitle">Calidad en cada corte</h2>
+          <h1 className="hero-title">Frutas y verduras</h1>
+          <h2 className="hero-subtitle">¡Calidad y frescura de la tierra!</h2>
           <div className="search-container">
             <input 
               type="text" 
-              placeholder="Buscar cortes de carne..." 
+              placeholder="Buscar prodcutos de aseo..." 
               className="search-input"
             />
             <button className="search-button">
@@ -71,15 +73,15 @@ function Carnes() {
       <section className="featured-product">
         <div className="product-info">
           <h2>Producto más visto</h2>
-          <p className="product-description">Lomo fino de res premium, madurado por 21 días para máximo sabor y terneza.</p>
+          <p className="product-description">Limon Pajarito</p>
           <button className="action-button">Anotar</button>
         </div>
         <div className="product-image-container">
           <img src={featuredProductImage} alt="Producto destacado" className="product-image" />
         </div>
         <div className="product-price">
-          <span className="price">$32,000</span>
-          <span className="store">Éxito</span>
+          <span className="price">$2,000</span>
+          <span className="store">D1</span>
         </div>
       </section>
 
@@ -90,12 +92,12 @@ function Carnes() {
         </div>
         <div className="product-info">
           <h2>Producto más económico</h2>
-          <p className="product-description">Lomo de cerdo, ideal para asar o guisar, con un precio inigualable.</p>
+          <p className="product-description">Frescura en cada sabor.</p>
           <button className="action-button">Anotar</button>
         </div>
         <div className="product-price">
-          <span className="price">$24,500</span>
-          <span className="store">D1</span>
+          <span className="price">$3,500</span>
+          <span className="store">ARA</span>
         </div>
       </section>
 
@@ -106,40 +108,40 @@ function Carnes() {
           {/* Producto 1 */}
           <div className="product-card">
             <img src={product1} alt="Carne de res" className="product-image" />
-            <h3 className="product-name">Lomo fino</h3>
+            <h3 className="product-name">Limones Pajarito</h3>
             <div className="product-meta">
-              <span className="product-price">$31,500</span>
-              <span className="product-store">Carulla</span>
+              <span className="product-price">$1,500</span>
+              <span className="product-store">D1</span>
             </div>
           </div>
 
           {/* Producto 2 */}
           <div className="product-card">
             <img src={product2} alt="Carne de cerdo" className="product-image" />
-            <h3 className="product-name">Chuleta de cerdo</h3>
+            <h3 className="product-name">Banano</h3>
             <div className="product-meta">
-              <span className="product-price">$18,900</span>
-              <span className="product-store">Jumbo</span>
+              <span className="product-price">$700</span>
+              <span className="product-store">D1  </span>
             </div>
           </div>
 
           {/* Producto 3 */}
           <div className="product-card">
             <img src={product3} alt="Pollo" className="product-image" />
-            <h3 className="product-name">Pechuga de pollo</h3>
+            <h3 className="product-name">Aguacate</h3>
             <div className="product-meta">
-              <span className="product-price">$12,300</span>
-              <span className="product-store">Olimpica</span>
+              <span className="product-price">$4,000</span>
+              <span className="product-store">Ara</span>
             </div>
           </div>
 
           {/* Producto 4 */}
           <div className="product-card">
             <img src={product4} alt="Carne molida" className="product-image" />
-            <h3 className="product-name">Carne molida</h3>
+            <h3 className="product-name">Piña</h3>
             <div className="product-meta">
-              <span className="product-price">$21,700</span>
-              <span className="product-store">Exito</span>
+              <span className="product-price">$2,700</span>
+              <span className="product-store">D1</span>
             </div>
           </div>
         </div>
@@ -148,4 +150,4 @@ function Carnes() {
   );
 }
 
-export default Carnes;
+export default FrutasVerduras;
