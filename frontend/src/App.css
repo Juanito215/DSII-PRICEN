@@ -177,6 +177,7 @@ body {
   margin: 0 auto; 
   scroll-behavior: smooth;
   justify-content: center;
+  transition: transform 0.5s ease-in-out;
 }
 .carrusel-item{
   flex: 0 0 calc(25% - 20px);
@@ -289,7 +290,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  width: 100%; /* Ocupa todo el ancho */
+  width: 103.9%; /* Ocupa todo el ancho */
   margin-left: -50px;/* Incluye el padding en el ancho */
   margin-bottom: -20px;
 }

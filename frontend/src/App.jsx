@@ -47,12 +47,19 @@ function App() {
   };
 
   useEffect(() => {
-    if (currentIndex === duplicateProducts.length - products.length ) {
+    // Si llegamos al final derecho (duplicado)
+    if (currentIndex >= products.length * 2) {
       setTimeout(() => {
-        setCurrentIndex(0);
+        setCurrentIndex(products.length); // Reinicia al inicio "real" (no al 0 absoluto)
       }, 0);
     }
-  }, [currentIndex, duplicateProducts, products.length]);
+    // Si llegamos al inicio izquierdo (antes del 0)
+    else if (currentIndex <= 0) {
+      setTimeout(() => {
+        setCurrentIndex(products.length); // Reinicia al final "real"
+      }, 0);
+    }
+  }, [currentIndex, products.length]);
 
   const navigate = useNavigate();
 
