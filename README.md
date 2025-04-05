@@ -5,5 +5,4 @@ Integrantes
 
 - Jesus Ediber Arenas Gúzman
 - Joseph David Herrera Libreros
-- Juan David Perez Valencia
 - Juan David Cuellar López
