@@ -157,40 +157,6 @@
     display: flex;
     justify-content: space-between;
   }
-  
-  .footer-logo {
-    display: flex;
-    align-items: center;
-  }
-  
-  .footer-logo img {
-    width: 60px;
-    margin-right: 10px;
-  }
-  
-  .footer-links {
-    display: flex;
-    gap: 50px;
-  }
-  
-  .footer-links div h3 {
-    font-size: 1.2rem;
-  }
-  
-  .footer-links ul {
-    list-style: none;
-    padding: 0;
-  }
-  
-  .footer-links ul li {
-    margin-bottom: 5px;
-  }
-  
-  .footer-links ul li a {
-    color: white;
-    text-decoration: none;
-  }
-  
-  .footer-links ul li a:hover {
-    text-decoration: underline;
-  }
+.about-footer a{
+  color: rgb(253, 253, 253);
+}
