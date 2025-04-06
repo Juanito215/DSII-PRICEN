@@ -1,0 +1,196 @@
+/* General */
+.about-container {
+    font-family: 'Arial', sans-serif;
+    color: #333;
+    background-color: #fff;
+    padding: 0;
+    margin: 0;
+  }
+  
+  /* Navbar */
+  .about-navbar {
+    background-color: 
+  #0b7684;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 50px;
+  }
+  
+  .about-logo {
+    display: flex;
+    align-items: center;
+  }
+  
+  .about-logo img {
+    width: 50px;
+    margin-right: 10px;
+  }
+  
+  .about-icons img {
+    width: 40px;
+    margin-left: 30px;
+    cursor: pointer;
+  }
+  
+  /* Sección About */
+  .about-content {
+    display: flex;
+    justify-content: flex-start; /* Alinea el contenido a la izquierda */
+    align-items: flex-start;
+    padding: 0px 50px 0px 50px; /* Espacio alrededor del contenido */
+    margin-top: 20px;
+  }
+  
+  .about-text {
+    width: 50%; /* Ocupa solo la mitad izquierda */
+    text-align: left;
+    margin-left: 0; /* Asegura que inicie desde la izquierda */
+  }
+  
+  .about-text h1 {
+    font-size: 2.5rem;
+    color: black;
+  }
+  
+  .about-text h2 {
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+    margin-top: 30px;
+  }
+  
+  .about-text p + p{
+    font-size: 1rem;
+    line-height: 1.5;
+    margin-top: 50px;
+  }
+  
+  .about-image {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+   
+  }
+  /* Imagen */
+  .about-image img {
+    width: 700px;
+    margin-top: 10px; /* Opcional, para separar un poco */
+  }
+  
+  /* Contacto */
+  .contact-section {
+    text-align: left;
+    padding: 50px;
+    width: 50%; 
+  }
+  
+  .contact-section h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+  }
+  
+  .contact-form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Asegura que todo quede alineado a la izquierda */
+    gap: 15px;
+    width: 100%;
+    max-width: 400px;
+  }
+  
+  #mensaje {
+    height: 100px; /* o cualquier tamaño que desees */
+    resize: vertical; /* permite al usuario cambiar el tamaño verticalmente, o usa 'none' para desactivarlo */
+  }
+  
+  
+  .form-group {
+    display: flex;
+    flex-direction: column; /* Asegura que la etiqueta esté encima del input */
+    width: 100%;
+  }
+  
+  .form-group label {
+    font-weight: bold;
+    margin-bottom: 5px; /* Espacio entre la etiqueta y el input */
+  }
+  
+  .form-group input,
+  .form-group textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: white;
+    color: black;
+  }
+  
+  .form-group input,
+  .form-group textarea,
+  
+  
+  .contact-form button {
+    font-family: 'Arial', sans-serif; /* Asegura que usen la misma fuente */
+  }
+  
+  .contact-form button {
+    background-color: black;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+  }
+  
+  .contact-form button:hover {
+    background-color: #444;
+  }
+  
+  /* Footer */
+  .about-footer {
+    background-color: 
+  #0b7684;
+    color: white;
+    padding: 40px 50px;
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .footer-logo {
+    display: flex;
+    align-items: center;
+  }
+  
+  .footer-logo img {
+    width: 60px;
+    margin-right: 10px;
+  }
+  
+  .footer-links {
+    display: flex;
+    gap: 50px;
+  }
+  
+  .footer-links div h3 {
+    font-size: 1.2rem;
+  }
+  
+  .footer-links ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .footer-links ul li {
+    margin-bottom: 5px;
+  }
+  
+  .footer-links ul li a {
+    color: white;
+    text-decoration: none;
+  }
+  
+  .footer-links ul li a:hover {
+    text-decoration: underline;
+  }
