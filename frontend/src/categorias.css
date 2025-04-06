@@ -1,0 +1,101 @@
+/* Estilos del navbar (igual al home) */
+  
+  /* Estilos del contenedor de categorías */
+
+  .page-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 9vh; /* Ocupa al menos toda la altura de la ventana */
+    overflow: hidden;
+  }
+  
+  .content-wrap{
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centrado vertical */
+    align-items: center; /* Centrado horizontal */
+    flex: 1;
+    width: 100%;
+    padding: 2rem 0;
+  }
+
+  .categorias-container {
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .categorias-container h1 {
+    text-align: center;
+    margin-bottom: 2rem;
+    color: #333;
+  }
+  
+  /* Grid de categorías */
+  .categorias-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1.5rem;
+  }
+  
+  .categoria-card {
+    position: relative;
+    height: 200px;
+    border-radius: 8px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    background-size: cover;
+    background-position: center;
+  }
+  
+  .categoria-card:hover {
+    transform: scale(1.03);
+  }
+  
+  .categoria-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .categoria-card h2 {
+    position: relative;
+    color: white;
+    font-size: 1.5rem;
+    text-align: center;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+    z-index: 1;
+  }
+  
+  /* Footer (igual al home) */
+  .footer-categorias {
+    background-color: #0b7684;
+    color: white;
+    padding: 40px 100px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 100%;
+    margin-top: auto; /* Empuja el footer hacia abajo */
+  }
+
+  /* Ajustes responsivos para el footer */
+@media (max-width: 768px) {
+    .footer-categorias {
+      flex-direction: column;
+      padding: 30px;
+      align-items: center;
+      text-align: center;
+    }
+    
+    .footer-categorias > div {
+      margin-bottom: 20px;
+    }
+  }

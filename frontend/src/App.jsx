@@ -72,6 +72,10 @@ function App() {
     // Despliega notas (por ahora vacío)
     alert('Desplegando notas...');
   };
+  const handleCategoriasClick = () => {
+    // Redirige a la página de categorías
+    navigate('/categorias');
+  }
 
   return (
     <>
@@ -107,7 +111,7 @@ function App() {
           <div className="banner-text">
             <h1>Compara, ahorra y elige: ¡Todo en un solo lugar!</h1>
             <p>Encuentra las mejores ofertas en aseo, alimentos y tecnologia, siempre al mejor precio!</p>
-          <button className="banner-button">¡Empezar a comparar!</button>
+          <button onClick={handleCategoriasClick} className="banner-button">¡Empezar a comparar!</button>
           
           </div>
         <div className="banner-img">

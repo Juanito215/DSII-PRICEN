@@ -1,5 +1,5 @@
 import React from 'react';
-import './About.css';
+import './about.css';
 import logo from './assets/logos/logo.png';
 import userIcon from './assets/logos/user icon.svg';
 import notesIcon from './assets/logos/list icon.svg';
