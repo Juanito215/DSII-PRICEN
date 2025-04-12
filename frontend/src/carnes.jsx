@@ -56,6 +56,15 @@ function Carnes() {
     fetchProductos();
   }, []);
 
+  const getImage = (name) => {
+    try {
+      return new URL(`/src/assets/carnes/${name}`, import.meta.url).href;
+    } catch {
+      return '/assets/carnes/default.png';
+    }
+  };
+  
+
   if (loading) return <div className="loading">Cargando productos...</div>;
   if (error) return <div className="error">Error: {error}</div>;
 
@@ -140,14 +149,7 @@ function Carnes() {
         <div className="products-grid">
           {productos.map((producto) => (
             <div key={producto.id} className="product-card">
-              <img 
-                src={producto.imageSrc}
-                alt={producto.nombre} 
-                className="product-image"
-                onError={(e) => {
-                  e.target.src = defaultProductImage;
-                }}
-              />
+              <img src={getImage(producto.imagen)} />
               <h3 className="product-name">{producto.nombre}</h3>
               <div className="product-meta">
                 <span className="product-price">

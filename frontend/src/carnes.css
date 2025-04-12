@@ -1,5 +1,4 @@
 /* Estilos generales */
-
 * {
   margin: 0;
   padding: 0;
@@ -9,8 +8,7 @@
 .meat-page {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   color: #333;
-  width: 100%;  
-  margin-right: 39px;
+  width: 100%;
   background-color: #f8f9fa;
 }
 
@@ -20,13 +18,10 @@
   justify-content: space-between;
   position: absolute;
   right: 20px;
-  /*align-items: center;*/
   padding: 20px;
   top: 0;
   left: 0;
   background-color: transparent;
-  /*box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);*/
-  box-shadow: none;
   z-index: 10;
 }
 
@@ -60,31 +55,17 @@
   height: 20px;
 }
 
-/* Hero Section - IMAGEN DE FONDO */
+/* Hero Section */
 .hero-section-carnes {
-  /* CAMBIA ESTA URL POR TU IMAGEN */
   background-image: url('./assets/carnes/carnesBanner.png');
-  
-  /* AJUSTA ESTOS VALORES PARA REDIMENSIONAR LA IMAGEN */
-  background-size: cover; /* Puedes usar 'contain' o valores exactos como '1200px' */
+  background-size: cover;
   background-position: center;
-  
-  height: 500px; /* Ajusta la altura según necesites */
+  height: 500px;
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
   margin-bottom: 40px;
-}
-
-.hero-section::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.3);
 }
 
 .hero-content {
@@ -123,7 +104,6 @@
   border-radius: 30px;
   font-size: 1.1rem;
   box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
-  background-color: #fff;
 }
 
 .search-button {
@@ -230,6 +210,8 @@
 .cheap-product .product-image {
   width: 100%;
   border-radius: 8px;
+  height: 150px; /* Altura fija para consistencia */
+  object-fit: cover; /* Asegura que la imagen cubra el espacio */
 }
 
 .cheap-product .product-info {
@@ -242,9 +224,9 @@
   margin-top: 90px;
 }
 
-/* Lista de productos */
+/* Lista de productos - CORRECCIONES PRINCIPALES */
 .products-section {
-  padding: 0 200px 40px;
+  padding: 0 20px 40px; /* Reduje el padding lateral para móviles */
 }
 
 .section-title {
@@ -256,8 +238,8 @@
 
 .products-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 25px;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
 }
 
 .product-card {
@@ -266,7 +248,10 @@
   overflow: hidden;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s, box-shadow 0.3s;
-  border: 1px solid #eee; /* Stroke/borde */
+  border: 1px solid #eee;
+  display: flex;
+  flex-direction: column;
+  height: 100%; /* Asegura uniformidad */
 }
 
 .product-card:hover {
@@ -274,30 +259,58 @@
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
 }
 
+/* Contenedor de imagen ajustado */
+.product-card .product-image-container {
+  width: 100%;
+  height: 200px; /* Altura fija */
+  overflow: hidden;
+}
+
 .product-card .product-image {
   width: 100%;
-  height: 200px;
-  object-fit: cover;
+  height: 100%;
+  object-fit: cover; /* Recorta y centra la imagen */
+  object-position: center;
+  display: block;
 }
 
 .product-card .product-name {
   padding: 15px 20px 5px;
-  font-size: 1.3rem;
+  font-size: 1.1rem; /* Reducido para evitar desbordamiento */
   color: #333;
+  flex-grow: 1;
 }
 
 .product-card .product-meta {
   display: flex;
   justify-content: space-between;
   padding: 0 20px 15px;
+  align-items: center;
 }
 
 .product-card .product-price {
   font-weight: bold;
   color: #0b7684;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
 }
 
 .product-card .product-store {
   color: #666;
+  font-size: 0.9rem;
+}
+
+/* Responsive para móviles */
+@media (max-width: 768px) {
+  .hero-title {
+    font-size: 2.5rem;
+  }
+  .hero-subtitle {
+    font-size: 1.2rem;
+  }
+  .products-section {
+    padding: 0 10px 20px;
+  }
+  .products-grid {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  }
 }
