@@ -26,7 +26,7 @@ function Categorias() {
   const categorias = [
     { id: 1, nombre: 'Carnes', imagen: carnesImg, ruta: '/carnes' },
     { id: 2, nombre: 'Aseo', imagen: aseoImg, ruta: '/aseo' },
-    { id: 3, nombre: 'Frutas y Verduras', imagen: frutasVerdurasImg, ruta: '/frutas-verduras' },
+    { id: 3, nombre: 'Frutas y Verduras', imagen: frutasVerdurasImg, ruta: '/frutasVerduras' },
     { id: 4, nombre: 'Alcohol', imagen: alcoholImg, ruta: '/categoria/alcohol' },
     // Puedes agregar más categorías aquí
   ];
