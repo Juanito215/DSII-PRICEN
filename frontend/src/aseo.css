@@ -2,7 +2,7 @@
     width: 100%;
   }
 
-  .cleaning-page {
+  .aseo-page {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     color: #333;
     width: 100%;  
@@ -11,7 +11,7 @@
   }
   
   /* Header */
-  .cleaning-header {
+  .aseo-header {
     display: flex;
     justify-content: space-between;
     position: absolute;

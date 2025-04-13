@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import './aseo.css';
 import logo from './assets/logos/logo.png';
 import homeIcon from './assets/logos/home icon.svg';
@@ -6,11 +6,7 @@ import userIcon from './assets/logos/user icon.svg';
 import notesIcon from './assets/logos/list icon.svg';
 import featuredProductImage from './assets/aseo/producto1.png';
 import cheapProductImage from './assets/aseo/producto2.png';
-import product1 from './assets/aseo/producto3.png';
-import product2 from './assets/aseo/producto4.jpg';
-import product3 from './assets/aseo/producto5.png';
-import product4 from './assets/aseo/producto6.jpg';
-import product5 from './assets/aseo/producto7.png';
+
 
 
 function Aseo() {
@@ -26,11 +22,57 @@ function Aseo() {
   const handleLoginClick = () => {
     alert('Redirigiendo al login...');
   };
+  const [productos, setProductos] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [featuredProduct, setFeaturedProduct] = useState(null);
+  const [cheapestProduct, setCheapestProduct] = useState(null);
 
+  useEffect(() => {
+    const fetchProductos = async () => {
+      try {
+        const response = await fetch('http://localhost:3000/api/productos/categoria/aseo');
+        if (!response.ok) throw new Error('Error al cargar productos');
+        const data = await response.json();
+        
+        setProductos(data);
+        
+        // Producto destacado (podría ser el más caro o con mejor rating)
+        if (data.length > 0) {
+          setFeaturedProduct(data[0]); // Ejemplo: primer producto
+          
+          // Producto más económico
+          const cheapest = data.reduce((min, product) => 
+            product.precio < min.precio ? product : min, data[0]);
+          setCheapestProduct(cheapest);
+        }
+        
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProductos();
+  } 
+  , []);
+  const getImage = (name) => {
+    try {
+      return new URL(`/src/assets/aseo/${name}`, import.meta.url).href;
+    } catch {
+      return '/assets/carnes/default.png';
+    }
+  };
+  
+  
+  if (loading) return <div className="loading">Cargando productos...</div>;
+  if (error) return <div className="error">Error: {error}</div>;
+  
   return (
-    <div className="cleaning-page">
+    <div className="aseo-page">
       {/* Header con logo y botones */}
-      <header className="cleaning-header">
+      <header className="aseo-header">
         <div className="logo-container">
           <img src={logo} alt="Logo" className="logo" />
         </div>
@@ -56,7 +98,7 @@ function Aseo() {
           <div className="search-container">
             <input 
               type="text" 
-              placeholder="Buscar prodcutos de aseo..." 
+              placeholder="Buscar productos de aseo..." 
               className="search-input"
             />
             <button className="search-button">
@@ -80,8 +122,8 @@ function Aseo() {
           <img src={featuredProductImage} alt="Producto destacado" className="product-image" />
         </div>
         <div className="product-price">
-          <span className="price">$2,000</span>
-          <span className="store">D1</span>
+          <span className="price">$32,000</span>
+          <span className="store">Éxito</span>
         </div>
       </section>
 
@@ -96,54 +138,29 @@ function Aseo() {
           <button className="action-button">Anotar</button>
         </div>
         <div className="product-price">
-          <span className="price">$3,500</span>
-          <span className="store">ARA</span>
+          <span className="price">$24,500</span>
+          <span className="store">D1</span>
         </div>
       </section>
 
-      {/* Lista de productos */}
-      <section className="products-section">
+{/* Lista de productos */}
+<section className="products-section">
         <h2 className="section-title">Nuestros productos</h2>
         <div className="products-grid">
-          {/* Producto 1 */}
-          <div className="product-card">
-            <img src={product1} alt="Carne de res" className="product-image" />
-            <h3 className="product-name">Brilla King</h3>
-            <div className="product-meta">
-              <span className="product-price">$1,500</span>
-              <span className="product-store">D1</span>
+          {productos.map((producto) => (
+            <div key={producto.id} className="product-card">
+              <img src={getImage(producto.imagen)} />
+              <h3 className="product-name">{producto.nombre}</h3>
+              <div className="product-meta">
+                <span className="product-price">
+                  ${producto.precio?.toLocaleString()}
+                </span>
+                <span className="product-store">
+                  {producto.supermercado_nombre || 'Supermercado'}
+                </span>
+              </div>
             </div>
-          </div>
-
-          {/* Producto 2 */}
-          <div className="product-card">
-            <img src={product2} alt="Carne de cerdo" className="product-image" />
-            <h3 className="product-name">Brilla King - Bicarbonato</h3>
-            <div className="product-meta">
-              <span className="product-price">$2,000</span>
-              <span className="product-store">D1  </span>
-            </div>
-          </div>
-
-          {/* Producto 3 */}
-          <div className="product-card">
-            <img src={product3} alt="Pollo" className="product-image" />
-            <h3 className="product-name">Detergente - Bonaropa</h3>
-            <div className="product-meta">
-              <span className="product-price">$4,000</span>
-              <span className="product-store">Ara</span>
-            </div>
-          </div>
-
-          {/* Producto 4 */}
-          <div className="product-card">
-            <img src={product4} alt="Carne molida" className="product-image" />
-            <h3 className="product-name">Brilla King - Limon</h3>
-            <div className="product-meta">
-              <span className="product-price">$1,700</span>
-              <span className="product-store">D1</span>
-            </div>
-          </div>
+          ))}
         </div>
       </section>
     </div>
