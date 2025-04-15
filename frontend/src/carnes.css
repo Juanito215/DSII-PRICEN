@@ -314,3 +314,17 @@
     grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
   }
 }
+.add-note-button {
+  margin: 10px auto;
+  padding: 8px;
+  font-size: 1.2rem;
+  color: white;
+  background-color: #0b7684;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+.add-note-button:hover {
+  background-color: #095c68;
+}
