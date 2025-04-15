@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.css';
 import logo from './assets/logos/logo.png'; // Importa tu logo
 import userIcon from './assets/logos/user icon.svg'; // Ícono de usuario
@@ -46,6 +46,35 @@ function App() {
       prevIndex === duplicateProducts.length - 1 ? 0 : prevIndex + 1);
   };
 
+  const [usuario, setUsuario] = useState(null);
+
+  useEffect(() => {
+    const fetchPerfil = async () => {
+      const token = localStorage.getItem("token");
+      if (!token) return;
+
+      try {
+        const res = await fetch("http://localhost:3000/api/usuarios/perfil", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        if (!res.ok) {
+          throw new Error("No se pudo obtener el perfil");
+        }
+
+        const data = await res.json();
+        setUsuario(data); // Guarda el objeto usuario completo
+      } catch (error) {
+        console.error("Error al obtener perfil:", error.message);
+        setUsuario(null); // Por si el token es inválido
+      }
+    };
+
+    fetchPerfil();
+  }, []);
+
   useEffect(() => {
     // Si llegamos al final derecho (duplicado)
     if (currentIndex >= products.length * 2) {
@@ -63,19 +92,34 @@ function App() {
 
   const navigate = useNavigate();
 
-  const handleLoginClick = () => {
-    // Redirige al login (puedes usar react-router-dom más adelante)
-    navigate('/login');
-  };
-
   const handleNotesClick = () => {
     // Despliega notas (por ahora vacío)
-    alert('Desplegando notas...');
+    navigate('/notas');
   };
   const handleCategoriasClick = () => {
     // Redirige a la página de categorías
     navigate('/categorias');
   }
+
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [showDropdown, setShowDropdown] = useState(false);
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    setIsLoggedIn(!!token);
+  }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("nombreUsuario");
+    setIsLoggedIn(false);
+    alert("Has cerrado sesión.");
+    navigate("/login");
+  };
+
+  const toggleDropdown = () => {
+    setShowDropdown(!showDropdown);
+  };
 
   return (
     <>
@@ -83,6 +127,13 @@ function App() {
         {/* Logo a la izquierda */}
         <div className="logo">
           <img src={logo} alt="Logo" />
+          <header>
+        {usuario ? (
+          <p>Hola, <strong>{usuario.nombre}</strong> 👋</p>
+        ) : (
+          <p>No has iniciado sesión</p>
+        )}
+      </header>
         </div>
 
         {/* Barra de búsqueda en el centro */}
@@ -93,11 +144,26 @@ function App() {
           </button>
         </div>
 
-        {/* Botones a la derecha */}
-        <div className="buttons">
-          <button onClick={handleLoginClick} className="icon-button">
-            <img src={userIcon} alt="Login" />
+        {/* Boton de Usuario */}
+        <div className="user-dropdown">
+          <button onClick={toggleDropdown} className="icon-button">
+            <img src={userIcon} alt="Usuario" />
           </button>
+          {showDropdown && isLoggedIn && (
+            <div className="dropdown-menu">
+              <button onClick={() => navigate('/perfil')}>Perfil</button>
+              <button onClick={handleLogout}>Cerrar sesión</button>
+            </div>
+          )}
+          {showDropdown && !isLoggedIn && (
+            <div className="dropdown-menu">
+              <button onClick={() => navigate('/login')}>Iniciar sesión</button>
+            </div>
+          )}
+        </div>
+
+        {/* Boton de notas */}
+        <div className="buttons">
           <button onClick={handleNotesClick} className="icon-button">
             <img src={notesIcon} alt="Notas" />
           </button>
