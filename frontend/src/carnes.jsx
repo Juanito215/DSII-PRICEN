@@ -6,16 +6,13 @@ import userIcon from './assets/logos/user icon.svg';
 import notesIcon from './assets/logos/list icon.svg';
 import featuredProductImage from './assets/carnes/carnesBanner.png';
 import cheapProductImage from './assets/carnes/lomocerdo.png';
+import { useNavigate } from 'react-router-dom';
 
 
 function Carnes() {
   const handleHomeClick = () => {
     // Redirigir al home (usar react-router)
     window.location.href = '/';
-  };
-
-  const handleNotesClick = () => {
-    alert('Desplegando notas...');
   };
 
   const handleLoginClick = () => {
@@ -53,9 +50,41 @@ function Carnes() {
       }
     };
 
+  const saved = localStorage.getItem('productosCarnes');
+  if (saved) {
+    setProductos(JSON.parse(saved));
+    setLoading(false);
+  } else {
+    fetchProductos();
+  }
+
     fetchProductos();
   }, []);
 
+  const isAuthenticated = () => {
+    const token = localStorage.getItem('token');
+    return token !== null;
+  };
+  
+  const handleAddToNotes = (producto) => {
+    if (!isAuthenticated()) {
+      alert('Debes iniciar sesión para agregar productos.');
+      window.location.href = '/login';
+      return;
+    }
+
+    const notasGuardadas = JSON.parse(localStorage.getItem('notas')) || [];
+    const existe = notasGuardadas.find((p) => p.id === productos.id);
+    
+    if (existe) {
+      alert(`El producto "${producto.nombre}" ya está en tus notas.`);
+      return;
+    }
+    notasGuardadas.push(producto);
+    localStorage.setItem('notas', JSON.stringify(notasGuardadas));
+    alert(`Producto "${producto.nombre}" añadido a tus notas.`);
+  };
+  
   const getImage = (name) => {
     try {
       return new URL(`/src/assets/carnes/${name}`, import.meta.url).href;
@@ -63,7 +92,10 @@ function Carnes() {
       return '/assets/carnes/default.png';
     }
   };
-  
+  const navigate = useNavigate();
+  const handleNotesClick = () => {
+    navigate('/notas');
+  }
 
   if (loading) return <div className="loading">Cargando productos...</div>;
   if (error) return <div className="error">Error: {error}</div>;
@@ -159,6 +191,14 @@ function Carnes() {
                   {producto.supermercado_nombre || 'Supermercado'}
                 </span>
               </div>
+              <button 
+                className="add-note-button"
+                onClick={() => handleAddToNotes(producto)}
+                title="Añadir a notas"
+                >
+                  ➕
+                </button>
+                
             </div>
           ))}
         </div>
