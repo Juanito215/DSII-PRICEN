@@ -66,25 +66,48 @@ function Carnes() {
     return token !== null;
   };
   
+  const [notas, setNotas] = useState([]);
+  const [mostrarNotas, setMostrarNotas] = useState(false);
+  
+  // Cargar notas al iniciar el componente
+  useEffect(() => {
+    if (isAuthenticated()) {
+      const notasGuardadas = JSON.parse(localStorage.getItem('notas')) || [];
+      setNotas(notasGuardadas);
+    }
+  }, []);
+  /*Tampoco quitar nada de esto pues nos tiramos las notas */
+
   const handleAddToNotes = (producto) => {
     if (!isAuthenticated()) {
       alert('Debes iniciar sesión para agregar productos.');
       window.location.href = '/login';
       return;
     }
-
-    const notasGuardadas = JSON.parse(localStorage.getItem('notas')) || [];
-    const existe = notasGuardadas.find((p) => p.id === productos.id);
-    
-    if (existe) {
-      alert(`El producto "${producto.nombre}" ya está en tus notas.`);
-      return;
-    }
-    notasGuardadas.push(producto);
-    localStorage.setItem('notas', JSON.stringify(notasGuardadas));
-    alert(`Producto "${producto.nombre}" añadido a tus notas.`);
+  
+    setNotas(prevNotas => {
+      const existe = prevNotas.some(p => p.id === producto.id);
+      
+      if (existe) {
+        alert(`El producto "${producto.nombre}" ya está en tus notas.`);
+        return prevNotas;
+      }
+      
+      const nuevasNotas = [...prevNotas, producto];
+      localStorage.setItem('notas', JSON.stringify(nuevasNotas));
+      alert(`Producto "${producto.nombre}" añadido a tus notas.`);
+      return nuevasNotas;
+    });
   };
   
+  const removeFromNotes = (productId) => {
+    setNotas(prevNotas => {
+      const nuevasNotas = prevNotas.filter(item => item.id !== productId);
+      localStorage.setItem('notas', JSON.stringify(nuevasNotas));
+      return nuevasNotas;
+    });
+  };
+
   const getImage = (name) => {
     try {
       return new URL(`/src/assets/carnes/${name}`, import.meta.url).href;
@@ -93,13 +116,15 @@ function Carnes() {
     }
   };
   const navigate = useNavigate();
-  const handleNotesClick = () => {
-    navigate('/notas');
+
+  const handleNotesClick = () => {      /*No quitar, no se que pasaria si se quita, quizas se tire todo lo de notas */
+    navigate('/notas', {state: { from: '/carnes' }});
   }
 
   if (loading) return <div className="loading">Cargando productos...</div>;
   if (error) return <div className="error">Error: {error}</div>;
 
+      /*HTML */
 
   return (
     <div className="meat-page">
@@ -113,9 +138,22 @@ function Carnes() {
             <img src={homeIcon} alt="Home" />
             <span>Home</span>
           </button>
-          <button onClick={handleNotesClick} className="header-button">
-            <img src={notesIcon} alt="Notas" />
-          </button>
+          
+          {/* Botón de notas en el navbar */}
+          <div className="notes-wrapper">
+            <button 
+              onClick={handleNotesClick} 
+              className="header-button notes-button"
+              title="Mis notas"
+            >
+              <img src={notesIcon} alt="Notas" />
+              {notas.length > 0 && (
+                <span className="notes-badge">{notas.length}</span>
+              )}
+            </button>
+            
+          </div>
+          
           <button onClick={handleLoginClick} className="header-button">
             <img src={userIcon} alt="Perfil" />
           </button>
