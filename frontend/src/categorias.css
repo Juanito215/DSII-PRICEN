@@ -2,6 +2,44 @@
   
   /* Estilos del contenedor de categorías */
 
+  /* Navbar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 5%;
+  background-color: #0b7684;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+}
+
+/* Botones */
+.buttons {
+  display: flex; /* Añadido */
+  gap: 15px; /* Añadido para espacio entre botones */
+}
+
+.icon-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 50%;
+  transition: background-color 0.3s;
+}
+
+.icon-button:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.icon-button img {
+  height: 24px;
+  width: 24px;
+}
   .page-container {
     display: flex;
     flex-direction: column;
@@ -47,7 +85,11 @@
     transition: transform 0.3s ease;
     background-size: cover;
     background-position: center;
+    display: flex; /* Añadido */
+    justify-content: center; /* Añadido */
+    align-items: center; /* Añadido */
   }
+  
   
   .categoria-card:hover {
     transform: scale(1.03);
@@ -62,7 +104,7 @@
     background: rgba(0, 0, 0, 0.4);
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: center; /* Ya estaba, pero es importante */
   }
   
   .categoria-card h2 {
@@ -72,6 +114,8 @@
     text-align: center;
     text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
     z-index: 1;
+    width: 100%; /* Añadido para asegurar que ocupe todo el ancho */
+    padding: 0 10px; /* Añadido para evitar que el texto toque los bordes */
   }
   
   /* Footer (igual al home) */
