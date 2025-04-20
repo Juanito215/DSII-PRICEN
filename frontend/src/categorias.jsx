@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import carnesImg from './assets/carnes/carnesBanner.png';
 import aseoImg from './assets/aseo/aseoBanner.png';
 import frutasVerdurasImg from './assets/verduras/fruits-header.avif';
-import alcoholImg from './assets/carnes/carnesBanner.png';
+import alcoholImg from './assets/home/alcohol.png';
 
 function Categorias() {
   const navigate = useNavigate();

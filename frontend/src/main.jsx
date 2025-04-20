@@ -9,6 +9,7 @@ import FrutasVerduras from './frutasVerduras.jsx'
 import About from './about.jsx'
 import Categorias from './categorias.jsx'
 import Notas from './notas.jsx'
+import Resultados from './resultados.jsx'
 import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom'
 
 createRoot(document.getElementById('root')).render(
@@ -23,6 +24,7 @@ createRoot(document.getElementById('root')).render(
         <Route path="/about" element={<About />} />
         <Route path="/categorias" element={<Categorias />} />
         <Route path="/notas" element={<Notas />} />
+        <Route path="/resultados" element={<Resultados />} />
         <Route path="*" element={<h1>404 Not Found</h1>} />      
       </Routes>
     </Router>
