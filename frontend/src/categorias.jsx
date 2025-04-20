@@ -40,7 +40,7 @@ function Categorias() {
     <div className="page-container">
       {/* Navbar igual al home */}
       <div className="navbar">
-        <div className="logo">
+        <div className="logo-app">
           <img src={logo} alt="Logo" />
         </div>
 

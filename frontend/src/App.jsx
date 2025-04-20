@@ -126,7 +126,7 @@ function App() {
     <>
       <div className="navbar">
         {/* Logo a la izquierda */}
-        <div className="logo">
+        <div className="logo-app">
           <img src={logo} alt="Logo" />
           <header>
             {usuario ? (

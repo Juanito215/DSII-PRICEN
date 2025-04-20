@@ -193,7 +193,7 @@ function Resultados() {
                     }}
                   />
                   <h3>{producto.nombre}</h3>
-                  <div className="product-info">
+                  <div className="product-info-resultados">
                     <span className="price">
                       ${producto.precio?.toLocaleString('es-CO') || 'N/A'}
                     </span>
