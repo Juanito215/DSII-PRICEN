@@ -22,15 +22,14 @@ body {
 }
 
 /* Logo */
-.logo {
+.logo-app {
   display: flex;
   align-items: center;
-  gap: 15px;
-  min-width: 200px;
+  gap: 15px;  
 }
 
-.logo img {
-  height: 40px;
+.logo-app img {
+  height: 50px;
 }
 
 /* Barra de búsqueda */
