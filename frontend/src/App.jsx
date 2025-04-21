@@ -95,7 +95,7 @@ function App() {
   };
 
   const handleNotesClick = () => {
-    navigate('/notas');
+    navigate('/notas', {state: { from: '/' }});
   };
 
   const handleCategoriasClick = () => {
