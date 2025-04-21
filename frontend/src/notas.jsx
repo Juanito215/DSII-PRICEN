@@ -46,7 +46,7 @@ function Notas() {
           {notas.map((producto) => (
             <li key={producto.id} className="nota-item">
               <div>
-                <strong>{producto.nombre}</strong> – ${producto.precio.toLocaleString()}
+                <strong>{producto.nombre}</strong> – ${producto.precio?.toLocaleString()}
                 <span className="nota-store"> ({producto.supermercado_nombre})</span>
               </div>
               <button className="remove-btn" onClick={() => handleRemove(producto.id)}>
