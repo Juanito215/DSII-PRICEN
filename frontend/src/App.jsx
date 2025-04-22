@@ -21,6 +21,8 @@ function App() {
   const [currentIndex, setCurrentIndex] = React.useState(0);
   const [searchTerm, setSearchTerm] = useState('');
   const navigate = useNavigate();
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+
 
   const products = [
     {id: 1, image: brilla, name: 'Detergente Brilla'},
@@ -44,6 +46,17 @@ function App() {
     setCurrentIndex((prevIndex) => 
       prevIndex === duplicateProducts.length - 1 ? 0 : prevIndex + 1);
   };
+
+    // Abre o cierra el sidebar (al hacer click en el menú hamburguesa)
+    const handleNavBarClick = () => {
+      setSidebarOpen((prev) => !prev);
+    };
+      // Función para redireccionar y cerrar el sidebar cuando se selecciona una categoría
+    const handleNavBarSelect = (path) => {
+      navigate(path);
+      setSidebarOpen(false);
+    };
+  
 
   const [usuario, setUsuario] = useState(null);
 
@@ -125,6 +138,13 @@ function App() {
   return (
     <>
       <div className="navbar">
+        {/* Botón de menú hamburguesa */}
+        <div classname="navbar-left">
+          {/*Botones */}
+          <button className='menu-button' onClick={handleNavBarClick}>
+            <span className="hamburger-icon"></span>
+          </button>
+        </div>
         {/* Logo a la izquierda */}
         <div className="logo-app">
           <img src={logo} alt="Logo" />
@@ -136,7 +156,6 @@ function App() {
             )}
           </header>
         </div>
-
         {/* Barra de búsqueda en el centro - Ahora funcional */}
         <form className="search-bar" onSubmit={handleSearch}>
           <input 
@@ -150,6 +169,19 @@ function App() {
           </button>
         </form>
 
+        {/* Botón de categorías */}
+        <div className={`sidebar ${sidebarOpen ? 'open' : ''}`}>
+          <button classname="close-sidebar" onClick={handleNavBarClick}>
+            &times;
+          </button>
+          <h3>Categorías</h3>
+          <ul>
+            <li onClick={() => handleNavBarSelect('/categorias/aseo')}>Aseo</li>
+            <li onClick={() => handleNavBarSelect('/categorias/carnes')}>Carnes</li>
+            <li onClick={() => handleNavBarSelect('/categorias/frutasVerduras')}>Frutas y verduras</li>
+            <li onClick={() => handleNavBarSelect('/categorias/alcohol')}>alcohol</li>
+            </ul>
+        </div>
         {/* Boton de Usuario */}
         <div className="user-dropdown">
           <button onClick={toggleDropdown} className="icon-button">
