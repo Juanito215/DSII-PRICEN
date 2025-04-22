@@ -176,10 +176,10 @@ function App() {
           </button>
           <h3>Categorías</h3>
           <ul>
-            <li onClick={() => handleNavBarSelect('/categorias/aseo')}>Aseo</li>
-            <li onClick={() => handleNavBarSelect('/categorias/carnes')}>Carnes</li>
-            <li onClick={() => handleNavBarSelect('/categorias/frutasVerduras')}>Frutas y verduras</li>
-            <li onClick={() => handleNavBarSelect('/categorias/alcohol')}>alcohol</li>
+            <li onClick={() => handleNavBarSelect('/aseo')}>Aseo</li>
+            <li onClick={() => handleNavBarSelect('/carnes')}>Carnes</li>
+            <li onClick={() => handleNavBarSelect('/frutasVerduras')}>Frutas y verduras</li>
+            <li onClick={() => handleNavBarSelect('/alcohol')}>Alcohol</li>
             </ul>
         </div>
         {/* Boton de Usuario */}
