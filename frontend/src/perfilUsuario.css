@@ -1,0 +1,317 @@
+/* ===============================
+   perfilUsuario.css
+   Scoped bajo .profile-page
+   =============================== */
+
+/* Contenedor principal */
+.profile-page {
+  font-family: Arial, sans-serif;
+}
+
+/* ===============================
+   NAVBAR (copiado de App.css)
+   =============================== */
+.profile-page .navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #0b7684;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+}
+
+.profile-page .navbar-left {
+  display: flex;
+  align-items: center;
+}
+
+.profile-page .menu-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin-right: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.profile-page .hamburger-icon {
+  display: inline-block;
+  width: 25px;
+  height: 3px;
+  background: #fff;
+  position: relative;
+  border-radius: 2px;
+}
+
+.profile-page .hamburger-icon::before,
+.profile-page .hamburger-icon::after {
+  content: '';
+  display: block;
+  width: 25px;
+  height: 3px;
+  background: #fff;
+  position: absolute;
+  left: 0;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+
+.profile-page .hamburger-icon::before {
+  top: -8px;
+}
+
+.profile-page .hamburger-icon::after {
+  top: 8px;
+}
+
+.profile-page .logo img {
+  height: 40px;
+}
+
+.profile-page .search-bar {
+  display: flex;
+  align-items: center;
+  flex-grow: 1;
+  margin: 0 20px;
+  max-width: 500px;
+}
+
+.profile-page .search-bar input {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid #8ccbcf;
+  background-color: #8ccbcf;
+  border-radius: 20px;
+  font-size: 16px;
+  outline: none;
+}
+
+.profile-page .search-bar button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin-left: -1px; /* para unir con el input */
+}
+
+.profile-page .search-bar button img {
+  height: 20px;
+}
+
+.profile-page .buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.profile-page .icon-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 50%;
+  transition: background-color 0.3s;
+}
+
+.profile-page .icon-button:hover {
+  background-color: #e9ecef;
+}
+
+.profile-page .icon-button img {
+  height: 35px;
+}
+
+/* Empuja el contenido abajo de la navbar */
+.profile-page .main-content {
+  display: flex;
+  margin-top: 70px;
+  padding: 20px;
+  background-color: #f2f2f2;
+}
+
+/* ===============================
+   SIDEBAR
+   =============================== */
+.profile-page .sidebar {
+  width: 220px;
+  background-color: #fff;
+  padding: 1rem;
+  box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+}
+
+.profile-page .sidebar-button {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  background-color: #008C99;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+.profile-page .sidebar-button:hover {
+  background-color: #00717c;
+}
+
+/* ===============================
+   PROFILE SECTION
+   =============================== */
+.profile-page .profile-section {
+  flex: 1;
+  padding: 2rem;
+}
+
+.profile-page .profile-title {
+  color: #008C99;
+  margin: 0 0 1rem 0;
+  font-size: 1.8rem;
+  font-weight: 600;
+}
+
+.profile-page .profile-card {
+  background-color: #fff;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.profile-page .profile-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+}
+
+.profile-page .top-row {
+  flex-wrap: wrap;
+}
+
+.profile-page .profile-avatar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 1rem;
+}
+
+.profile-page .avatar-img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 50%;
+  background-color: #ccc;
+}
+
+.profile-page .profile-info {
+  flex: 1;
+  margin-top: 0.5rem;
+}
+
+.profile-page .profile-info h3 {
+  margin: 0 0 1rem 0;
+  color: #333;
+  font-size: 1.2rem;
+}
+
+.profile-page .info-field {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.7rem;
+}
+
+.profile-page .info-field label {
+  width: 140px;
+  font-weight: 500;
+  color: #333;
+}
+
+.profile-page .field-value {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  background-color: #f9f9f9;
+  padding: 0.4rem 0.6rem;
+  border-radius: 6px;
+  margin-left: 0.5rem;
+}
+
+.profile-page .field-value span {
+  margin-right: 0.5rem;
+  color: #555;
+}
+
+.profile-page .edit-icon {
+  color: #008C99;
+  cursor: pointer;
+}
+
+.profile-page .bottom-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.profile-page .points {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.profile-page .points h3 {
+  color: #008C99;
+  margin: 0;
+  font-size: 2rem;
+}
+
+.profile-page .points p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #333;
+}
+
+.profile-page .save-button {
+  background-color: #008C99;
+  color: #fff;
+  padding: 0.8rem 1.5rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.profile-page .save-button:hover {
+  background-color: #00717c;
+}
+
+/* ===============================
+   RESPONSIVE
+   =============================== */
+@media (max-width: 768px) {
+  .profile-page .main-content {
+    flex-direction: column;
+  }
+
+  .profile-page .sidebar {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1rem;
+    box-shadow: none;
+    border-bottom: 1px solid #ddd;
+  }
+
+  .profile-page .profile-row {
+    flex-direction: column;
+  }
+
+  .profile-page .bottom-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+}
