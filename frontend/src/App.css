@@ -21,6 +21,55 @@ body {
   gap: 20px;
 }
 
+/* Contenedor izquierdo de la navbar */
+.navbar-left {
+  display: flex;
+  align-items: center;
+}
+
+/* Botón menú hamburguesa */
+.menu-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin-right: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Ícono de hamburguesa */
+.hamburger-icon {
+  display: inline-block;
+  width: 25px;
+  height: 3px;
+  background: #fff;
+  position: relative;
+  border-radius: 2px;
+}
+
+/* Barras superior e inferior */
+.hamburger-icon::before,
+.hamburger-icon::after {
+  content: '';
+  display: block;
+  width: 25px;
+  height: 3px;
+  background: #fff;
+  position: absolute;
+  left: 0;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+
+.hamburger-icon::before {
+  top: -8px;
+}
+
+.hamburger-icon::after {
+  top: 8px;
+}
+
 /* Logo */
 .logo-app {
   display: flex;
@@ -421,3 +470,61 @@ body {
   font-weight: bold;
   color: white;
 }
+
+/* ===============================
+   Sidebar de Categorías
+   =============================== */
+   .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 250px;
+    height: 100%;
+    background-color: rgba(11, 118, 132, 0.5);
+    backdrop-filter: blur(10px); 
+    color: white;
+    padding: 20px;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+    z-index: 1100;
+    /* Marco elegante para la sidebar */
+    border: 2px solid rgba(255, 255, 255, 0.8);
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  }
+  
+  .sidebar.open {
+    transform: translateX(0);
+  }
+  
+  .sidebar h3 {
+    margin-top: 0;
+  }
+  
+  .sidebar ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .sidebar li {
+    margin: 15px 0;
+    cursor: pointer;
+    font-size: 1.1rem;
+    transition: color 0.3s;
+  }
+  
+  .sidebar li:hover {
+    color: #8ccbcf;
+  }
+  
+  /* Botón para cerrar el sidebar */
+  .close-sidebar {
+    background: none;
+    border: none;
+    font-size: 2rem;
+    color: white;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+  }
