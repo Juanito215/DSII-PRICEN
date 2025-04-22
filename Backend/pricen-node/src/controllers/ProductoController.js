@@ -170,6 +170,7 @@ exports.getProductosPorCategoria = async (req, res) => {
         p.id,
         p.nombre,
         p.imagen,
+        p.categoria,
         pmf.precio,
         s.nombre as supermercado_nombre
       FROM productos p

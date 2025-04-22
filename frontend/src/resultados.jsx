@@ -72,6 +72,15 @@ function Resultados() {
     navigate('/notas');
   };
 
+  const getImageURL = (nombreArchivo, categoria) => {
+    try {
+      return new URL(`/src/assets/${categoria}/${nombreArchivo}`, import.meta.url).href;
+    } catch (e) {
+      return '/default-product.png'; // Imagen por defecto si no existe
+    }
+  };
+  
+
   const handleAddToNotes = (producto) => {
     const token = localStorage.getItem('token');
     if (!token) {
@@ -185,7 +194,7 @@ function Resultados() {
               {productos.map((producto) => (
                 <div key={producto.id} className="product-card">
                   <img 
-                    src={producto.imagen || '/default-product.png'} 
+                    src={getImageURL(producto.imagen, producto.categoria)} 
                     alt={producto.nombre} 
                     onError={(e) => {
                       e.target.onerror = null; 
