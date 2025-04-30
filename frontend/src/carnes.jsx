@@ -9,6 +9,7 @@ import cheapProductImage from './assets/carnes/lomocerdo.png';
 import { useNavigate } from 'react-router-dom';
 
 
+
 function Carnes() {
   const handleHomeClick = () => {
     // Redirigir al home (usar react-router)
@@ -76,6 +77,22 @@ function Carnes() {
       setNotas(notasGuardadas);
     }
   }, []);
+
+  //Espacio para el pop up de los productos
+  const [productoSeleccionado, setProductoSeleccionado] = useState(null);
+  const [mostrarModal, setMostrarModal] = useState(false);
+
+  const abrirModal = (producto) => {
+    setProductoSeleccionado(producto);
+    setMostrarModal(true);
+  };
+  
+  const cerrarModal = () => {
+    setMostrarModal(false);
+    setProductoSeleccionado(null);
+  };
+  
+
   /*Tampoco quitar nada de esto pues nos tiramos las notas */
 
   const handleAddToNotes = (producto) => {
@@ -218,7 +235,7 @@ function Carnes() {
         <h2 className="section-title">Nuestros productos</h2>
         <div className="products-grid">
           {productos.map((producto) => (
-            <div key={producto.id} className="product-card">
+            <div key={producto.id} className="product-card" onClick={() => abrirModal(producto)}>
               <img src={getImage(producto.imagen)} />
               <h3 className="product-name">{producto.nombre}</h3>
               <div className="product-meta">
@@ -241,7 +258,31 @@ function Carnes() {
           ))}
         </div>
       </section>
-    </div>
+      // Modal para mostrar detalles del producto
+      {mostrarModal && productoSeleccionado && (
+      <div className="modal-overlay" onClick={cerrarModal}>
+        <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+          <img src={getImage(productoSeleccionado.imagen)} alt={productoSeleccionado.nombre} className="modal-image" />
+          <h2>{productoSeleccionado.nombre}</h2>
+          <p><strong>Descripción:</strong> {productoSeleccionado.descripcion || "Sin descripción"}</p>
+          <p><strong>Peso:</strong> {productoSeleccionado.peso} {productoSeleccionado.unidad_medida || "Sin peso"}</p>
+          <p><strong>Precio:</strong> ${productoSeleccionado.precio?.toLocaleString()}</p>
+          <p><strong>Supermercado:</strong> {productoSeleccionado.supermercado_nombre}</p>
+          <button 
+            className="modal-add-button"
+            onClick={() => {
+              handleAddToNotes(productoSeleccionado);
+              cerrarModal();
+            }}
+          >
+            ➕ Añadir a notas
+          </button>
+          <button className="modal-close-button" onClick={cerrarModal}>Cerrar</button>
+        </div>
+      </div>
+    )}
+
+        </div>        
   );
 }
 
