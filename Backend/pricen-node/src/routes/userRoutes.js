@@ -8,5 +8,6 @@ router.post("/register", userController.register); // Registro de usuario
 router.get("/get", userController.getUsers); // Obtener todos los usuarios
 router.post("/login", userController.login); // Login
 router.get("/perfil", verifyToken, userController.getProfile); // Obtener perfil de usuario
+router.put("/password", verifyToken, userController.updatePassword); // <-- ESTA LÍNEA
 router.put("/:id", verifyToken, userController.updateUser); // Actualizar usuario
 module.exports = router;
