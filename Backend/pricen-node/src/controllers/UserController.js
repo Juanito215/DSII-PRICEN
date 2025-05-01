@@ -134,3 +134,27 @@ exports.updateUser = async (req, res) => {
     res.status(500).json({ message: "Error en el servidor.", error: error.message });
   }
 };
+
+// Cambiar contraseña del usuario logueado
+exports.updatePassword = async (req, res) => {
+  try {
+    const { nuevaPassword } = req.body;
+    const userId = req.user.id;
+
+    if (!nuevaPassword || nuevaPassword.length < 6) {
+      return res.status(400).json({ message: "Contraseña inválida (mínimo 6 caracteres)." });
+    }
+
+    const hashedPassword = await bcrypt.hash(nuevaPassword, 10);
+
+    await Usuario.update(
+      { password_hash: hashedPassword },
+      { where: { id: userId } }
+    );
+
+    res.json({ message: "Contraseña actualizada con éxito." });
+  } catch (error) {
+    console.error("❌ Error al cambiar contraseña:", error);
+    res.status(500).json({ message: "Error en el servidor." });
+  }
+};
