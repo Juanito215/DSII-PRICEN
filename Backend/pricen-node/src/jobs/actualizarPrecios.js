@@ -1,6 +1,7 @@
-const Precio = require("../models/Precio");
+const ReportePrecio = require("../models/ReportePrecio");
 const Producto = require("../models/Producto");
 const { calcularPrecioMasFrecuente } = require("../utils/calcularPrecioFrecuente");
+const HistorialPuntosController = require("../controllers/HistorialPuntosController");
 
 exports.actualizarPrecios = async () => {
     try {
@@ -9,7 +10,7 @@ exports.actualizarPrecios = async () => {
         const productos = await Producto.findAll();
 
         for (const producto of productos) {
-            const supermercados = await Precio.findAll({
+            const supermercados = await ReportePrecio.findAll({
                 where: { producto_id: producto.id },
                 attributes: ["supermercado_id"],
                 group: ["supermercado_id"],
@@ -19,11 +20,13 @@ exports.actualizarPrecios = async () => {
                 const nuevoPrecio = await calcularPrecioMasFrecuente(producto.id, supermercado_id);
 
                 if (nuevoPrecio !== null && nuevoPrecio !== producto.precio_actual) {
-                    await producto.update({ precio_actual: nuevoPrecio });
-                    console.log(`✅ Precio actualizado: ${producto.nombre} → $${nuevoPrecio}`);
+                    const precioAntiguo = producto.precio_actual;
 
-                    // ✅ Revisar si hay usuarios que reportaron este mismo precio y darles 50 puntos
-                    const usuariosGanadores = await Precio.findAll({
+                    await producto.update({ precio_actual: nuevoPrecio });
+                    console.log(`✅ Precio actualizado: ${producto.nombre} en supermercado ${supermercado_id} → de $${precioAntiguo} a $${nuevoPrecio}`);
+
+                    // ✅ Registrar puntos a usuarios que reportaron ese precio
+                    const usuariosGanadores = await ReportePrecio.findAll({
                         where: {
                             producto_id: producto.id,
                             supermercado_id,
@@ -35,6 +38,11 @@ exports.actualizarPrecios = async () => {
                     for (const { usuario_id } of usuariosGanadores) {
                         await HistorialPuntosController.registrarPuntos(usuario_id, "Precio validado", 50);
                     }
+
+                    // ✅ (Opcional) Limpiar reportes después de la actualización
+                    // await ReportePrecio.destroy({
+                    //     where: { producto_id: producto.id, supermercado_id }
+                    // });
                 }
             }
         }

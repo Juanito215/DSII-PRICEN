@@ -2,9 +2,10 @@ const { DataTypes } = require("sequelize");
 const { sequelize } = require("../config/database");
 const Producto = require("./Producto");
 const Supermercado = require("./Supermercado");
+const Usuario = require("./Usuario");
 
-const HistorialPrecios = sequelize.define(
-  "historial_precios",
+const ReportePrecio = sequelize.define(
+  "reportes_precios",
   {
     id: {
       type: DataTypes.BIGINT,
@@ -29,27 +30,33 @@ const HistorialPrecios = sequelize.define(
       },
       onDelete: "CASCADE",
     },
-    precio_antiguo: {
+    usuario_id: {
+      type: DataTypes.BIGINT,
+      allowNull: false,
+      references: {
+        model: Usuario,
+        key: "id",
+      },
+      onDelete: "CASCADE",
+    },
+    precio_reportado: {
       type: DataTypes.DECIMAL(10, 2),
       allowNull: false,
     },
-    precio_actualizado: {
-      type: DataTypes.DECIMAL(10, 2),
-      allowNull: false,
-    },
-    fecha_cambio: {
+    fecha_reporte: {
       type: DataTypes.DATE,
       defaultValue: DataTypes.NOW,
     },
   },
   {
-    tableName: "historial_precios",
+    tableName: "reportes_precios",
     timestamps: false,
   }
 );
 
-// Definir relaciones
-HistorialPrecios.belongsTo(Producto, { foreignKey: "producto_id" });
-HistorialPrecios.belongsTo(Supermercado, { foreignKey: "supermercado_id" });
+// Relaciones
+ReportePrecio.belongsTo(Producto, { foreignKey: "producto_id" });
+ReportePrecio.belongsTo(Supermercado, { foreignKey: "supermercado_id" });
+ReportePrecio.belongsTo(Usuario, { foreignKey: "usuario_id" });
 
-module.exports = HistorialPrecios;
+module.exports = ReportePrecio;

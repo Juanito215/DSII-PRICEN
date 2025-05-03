@@ -144,9 +144,12 @@ exports.getProductosConPrecio = async (req, res) => {
           p.peso,
           p.unidad_medida,
           p.marca,
-          v.precio
+          pmf.precio,
+          s.nombre as supermercado_nombre
         FROM productos p
-        JOIN precio_mas_frecuente v ON p.id = v.producto_id
+        JOIN precio_mas_frecuente pmf ON p.id = pmf.producto_id
+        LEFT JOIN supermercados s ON pmf.supermercado_id = s.id
+        WHERE p.categoria = :categoria
       `);
   
       res.json(productosConPrecio);
@@ -171,6 +174,10 @@ exports.getProductosPorCategoria = async (req, res) => {
         p.nombre,
         p.imagen,
         p.categoria,
+        p.descripcion,
+        p.peso,
+        p.unidad_medida,
+        p.marca,
         pmf.precio,
         s.nombre as supermercado_nombre
       FROM productos p

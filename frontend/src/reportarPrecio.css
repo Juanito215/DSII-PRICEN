@@ -1,0 +1,60 @@
+/* reportarPrecio.css */
+
+.reportar-precio-page {
+    max-width: 500px;
+    margin: 80px auto;
+    padding: 30px;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  .reportar-precio-page h1 {
+    text-align: center;
+    color: #0b7684;
+    font-size: 1.8rem;
+    margin-bottom: 25px;
+  }
+  
+  .reportar-precio-page form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .reportar-precio-page label {
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .reportar-precio-page select,
+  .reportar-precio-page input[type="number"] {
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.3s ease;
+  }
+  
+  .reportar-precio-page select:focus,
+  .reportar-precio-page input[type="number"]:focus {
+    border-color: #0b7684;
+  }
+  
+  .reportar-precio-page button {
+    background-color: #0b7684;
+    color: #fff;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .reportar-precio-page button:hover {
+    background-color: #095c68;
+  }
+  

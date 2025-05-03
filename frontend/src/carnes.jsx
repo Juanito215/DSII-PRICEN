@@ -258,7 +258,7 @@ function Carnes() {
           ))}
         </div>
       </section>
-      // Modal para mostrar detalles del producto
+      {/* Modal para mostrar detalles del producto */}
       {mostrarModal && productoSeleccionado && (
       <div className="modal-overlay" onClick={cerrarModal}>
         <div className="modal-content" onClick={(e) => e.stopPropagation()}>
@@ -277,11 +277,55 @@ function Carnes() {
           >
             ➕ Añadir a notas
           </button>
+          <button 
+            className="modal-report-button"
+            onClick={() => {
+              cerrarModal();
+              navigate('/reportar-precio', { state: { producto: productoSeleccionado } });
+            }}
+          >
+            📝 Reportar nuevo precio
+          </button>
           <button className="modal-close-button" onClick={cerrarModal}>Cerrar</button>
         </div>
       </div>
     )}
 
+        {/* Footer */}
+        <div className='footer'>
+          <div className='footer-logo'>
+            <img src={logo} alt="Logo" />
+            <p>Pricen</p>
+          </div>
+          <div className='footer-links'>
+            <div className='footer-column'>
+              <h3>About Us</h3>
+              <ul>
+                <li><a href="/about">¿Quienes somos?</a></li>
+                <li><a href="/mission">Acerca de</a></li>
+                <li><a href="/team">Nuestro equipo</a></li>
+                <li><a href="/contact">Contactanos</a></li>
+              </ul>
+            </div>
+            <div className='footer-column'>
+              <h3>Services</h3>
+              <ul>
+                <li><a href="/services">¿Qué hacemos?</a></li>
+                <li><a href="/products">Productos</a></li>
+                <li><a href="/offers">Ofertas</a></li>
+                <li><a href="/brands">Marcas</a></li>
+              </ul>
+            </div>
+            <div className='footer-column'>
+              <h3>Servicios</h3>
+              <ul>
+                <li><a href="/privacy">Privacidad</a></li>
+                <li><a href="/terms">Términos y condiciones</a></li>
+                <li><a href="/cookies">Cookies</a></li>
+              </ul>
+            </div>  
+          </div>
+        </div>
         </div>        
   );
 }

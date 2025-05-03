@@ -372,6 +372,26 @@
   font-size: 1rem;
 }
 
+.modal-add-button:hover {
+  background-color: #8ccbcf;
+}
+
+.modal-report-button {
+  background-color: #0b7684;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 25px;
+  margin-top: 20px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.modal-report-button:hover {
+  background-color: #8ccbcf;
+}
+
+
 .modal-close-button {
   background-color: transparent;
   color: #888;
@@ -379,4 +399,8 @@
   margin-top: 10px;
   cursor: pointer;
   font-size: 0.9rem;
+}
+
+.modal-close-button:hover {
+  color: #000000;
 }

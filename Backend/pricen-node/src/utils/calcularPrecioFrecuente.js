@@ -1,18 +1,17 @@
-const Precio = require("../models/Precio");
-const { Op } = require("sequelize");
+const ReportePrecio = require("../models/ReportePrecio");
 
 exports.calcularPrecioMasFrecuente = async (producto_id, supermercado_id) => {
     try {
-        const precios = await Precio.findAll({
+        const reportes = await ReportePrecio.findAll({
             where: { producto_id, supermercado_id },
             attributes: ["precio"],
         });
 
-        if (precios.length === 0) return null;
+        if (reportes.length === 0) return null;
 
         // Contar la frecuencia de cada precio reportado
         const frecuencia = {};
-        precios.forEach(({ precio }) => {
+        reportes.forEach(({ precio }) => {
             frecuencia[precio] = (frecuencia[precio] || 0) + 1;
         });
 
