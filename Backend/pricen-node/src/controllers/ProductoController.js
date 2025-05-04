@@ -206,3 +206,41 @@ exports.getProductosPorCategoria = async (req, res) => {
     });
   }
 };
+
+// 🔹 producto más económico
+
+exports.getProductoMasEconomicoPorCategoria = async (req, res) => {
+  try {
+    const { categoria } = req.params;
+
+    const query = `
+      SELECT 
+          p.id,
+          p.nombre,
+          p.imagen,
+          p.descripcion,
+          p.peso,
+          p.unidad_medida,
+          p.marca,
+          p.categoria,
+          v.precio,
+          s.nombre AS supermercado_nombre
+      FROM productos p
+      JOIN precio_mas_frecuente v ON p.id = v.producto_id
+      JOIN supermercados s ON v.supermercado_id = s.id
+      WHERE p.categoria = :categoria
+      ORDER BY v.precio ASC
+      LIMIT 1;
+    `;
+
+    const [productoMasBarato] = await sequelize.query(query, {
+      replacements: { categoria },
+      type: QueryTypes.SELECT,
+    });
+
+    res.json(productoMasBarato || {});
+  } catch (error) {
+    console.error("Error al obtener el producto más económico:", error);
+    res.status(500).json({ message: "Error interno del servidor" });
+  }
+};

@@ -190,38 +190,47 @@
 
 /* Producto económico */
 .cheap-product {
-  display: inline-flex;
-  background-color: #f8f9fa;
-  justify-content: center;
-  text-align: center;
-  border-radius: 10px;
-  padding: 20px;
-  margin-bottom: 40px;
+  display: flex;
+  flex-direction: row;
   align-items: center;
-  position: relative;
-  left: 50%;
-  transform: translate(-50%, 0);
+  background-color: #ffffff; /* Recuadro blanco */
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Sombra suave */
+  padding: 20px;
+  margin: 0 auto 40px;
+  max-width: 800px;
+  width: 90%;
+  gap: 20px;
 }
 
 .cheap-product .product-image-container {
   width: 200px;
+  flex-shrink: 0;
 }
 
 .cheap-product .product-image {
   width: 100%;
+  height: 150px;
   border-radius: 8px;
-  height: 150px; /* Altura fija para consistencia */
-  object-fit: cover; /* Asegura que la imagen cubra el espacio */
+  object-fit: cover;
 }
 
 .cheap-product .product-info {
   flex: 1;
+  text-align: left;
+}
+
+.cheap-product .product-info h3 {
+  font-size: 1.5rem;
+  color: #0b7684;
+  margin-bottom: 10px;
 }
 
 .cheap-product .product-price {
-  text-align: center;
-  margin-right: 100px;
-  margin-top: 90px;
+  font-size: 1.2rem;
+  color: #0b7684;
+  font-weight: bold;
+  margin-top: 10px;
 }
 
 /* Lista de productos - CORRECCIONES PRINCIPALES */
