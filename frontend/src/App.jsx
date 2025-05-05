@@ -108,6 +108,12 @@ function App() {
   };
 
   const handleNotesClick = () => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      alert("Debes iniciar sesión para acceder a las notas.");
+      navigate('/login');
+      return;
+    }
     navigate('/notas', {state: { from: '/' }});
   };
 

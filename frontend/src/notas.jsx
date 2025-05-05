@@ -7,8 +7,48 @@ function Notas() {
   const navigate = useNavigate();
   const location = useLocation();
 
+  // Función para verificar si el usuario está autenticado
+  const isAuthenticated = () => {
+    const token = localStorage.getItem('token');
+    return token !== null;
+  };
+
+  // Función para obtener el ID del usuario desde el token JWT
+  const getUserIdFromToken = () => {
+    const token = localStorage.getItem('token');
+    if (!token) return null;
+    
+    try {
+      // Extrae el payload del token (la parte del medio)
+      const payload = token.split('.')[1];
+      // Decodifica el payload de base64
+      const decodedPayload = JSON.parse(atob(payload));
+      return decodedPayload.id;
+    } catch (error) {
+      console.error("Error al decodificar el token:", error);
+      return null;
+    }
+  };
+
   useEffect(() => {
-    const stored = localStorage.getItem('notas');
+    // Verificar si el usuario está autenticado
+    if (!isAuthenticated()) {
+      alert("Debes iniciar sesión para acceder a las notas.");
+      navigate('/login');
+      return;
+    }
+
+    // Obtener ID del usuario del token
+    const userId = getUserIdFromToken();
+    if (!userId) {
+      alert("Error de autenticación. Por favor, inicia sesión nuevamente.");
+      navigate('/login');
+      return;
+    }
+
+    // Cargar notas específicas del usuario
+    const notasKey = `notas_${userId}`;
+    const stored = localStorage.getItem(notasKey);
     if (stored) {
       setNotas(JSON.parse(stored));
     }
@@ -17,12 +57,22 @@ function Notas() {
     if (location.state?.from) {
       localStorage.setItem('lastNotesReferrer', location.state.from);
     }
-  }, [location.state]);
+  }, [location.state, navigate]);
 
   const handleRemove = (id) => {
+    const userId = getUserIdFromToken();
+    if (!userId) {
+      alert("Error de autenticación. Por favor, inicia sesión nuevamente.");
+      navigate('/login');
+      return;
+    }
+
     const nuevasNotas = notas.filter(p => p.id !== id);
     setNotas(nuevasNotas);
-    localStorage.setItem('notas', JSON.stringify(nuevasNotas));
+    
+    // Guardar notas con clave específica para el usuario
+    const notasKey = `notas_${userId}`;
+    localStorage.setItem(notasKey, JSON.stringify(nuevasNotas));
   };
 
   const handleGoBack = () => {
