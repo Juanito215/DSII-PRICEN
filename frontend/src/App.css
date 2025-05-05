@@ -157,6 +157,28 @@ body {
   width: 28px;
 }
 
+/* Botón de administrador */
+.icon-button.admin-button {
+  background-color: white;
+  border: 2px solid #0b7684;
+  color: #0b7684;
+  font-size: 1.2rem;
+  padding: 5px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.icon-button.admin-button:hover {
+  background-color: #8ccbcf;
+  color: white;
+  transform: scale(1.05);
+}
+
+
 /* User dropdown */
 .user-dropdown {
   position: relative;

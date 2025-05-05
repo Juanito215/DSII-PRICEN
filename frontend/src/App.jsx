@@ -182,6 +182,20 @@ function App() {
             <li onClick={() => handleNavBarSelect('/alcohol')}>Alcohol</li>
             </ul>
         </div>
+
+        {/* Botón de gestión de productos (solo para admins) */}
+        {usuario?.rol === 'admin' && (
+        <div className="buttons">
+          <button 
+            onClick={() => navigate('/admin')} 
+            className="icon-button admin-button"
+            title="Gestión de productos"
+          >
+            🛠️
+          </button>
+        </div>
+)}
+
         {/* Boton de Usuario */}
         <div className="user-dropdown">
           <button onClick={toggleDropdown} className="icon-button">

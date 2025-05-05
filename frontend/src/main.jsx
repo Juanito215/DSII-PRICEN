@@ -12,6 +12,7 @@ import Notas from './notas.jsx'
 import Resultados from './resultados.jsx'
 import ReportarPrecio from './reportarPrecio.jsx'
 import UserProfile from './perfilUsuario.jsx'
+import AdminProductos from './adminProductos.jsx'
 import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom'
 
 createRoot(document.getElementById('root')).render(
@@ -28,8 +29,10 @@ createRoot(document.getElementById('root')).render(
         <Route path="/notas" element={<Notas />} />
         <Route path="/resultados" element={<Resultados />} />
         <Route path="/reportar-precio" element={<ReportarPrecio />} />
+        <Route path="/perfil" element={<UserProfile />} /> 
+        <Route path="/admin" element={<AdminProductos />} />
         <Route path="*" element={<h1>404 Not Found</h1>} />      
-        <Route path="/perfil" element={<UserProfile />} />      
+             
       </Routes>
     </Router>
   </StrictMode>,
