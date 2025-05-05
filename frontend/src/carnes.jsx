@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { use, useEffect, useState } from 'react';
 import './carnes.css';
 import logo from './assets/logos/logo.png';
 import homeIcon from './assets/logos/home icon.svg';
@@ -69,7 +69,6 @@ function Carnes() {
     return token !== null;
   };
 
-  const [notas, setNotas] = useState([]);
   const [mostrarNotas, setMostrarNotas] = useState(false);
 
   useEffect(() => {
@@ -91,11 +90,44 @@ function Carnes() {
     setMostrarModal(false);
     setProductoSeleccionado(null);
   };
+//------------------------------notas------------------------------
+  const [notas, setNotas] = useState([]);
+  //función para obtener el id del usuario desde el token jwt
+  const getUserIdFromToken = () => {
+    const token = localStorage.getItem('token');
+    if (!token) return null;
+
+    try{
+      const payload = token.split('.')[1];
+      // Decodifica el payload de base64      
+      const decodedPayload = JSON.parse(atob(payload));
+      return decodedPayload.id;
+    } catch (error) {
+      console.error('Error al decodificar el token:', error);
+      return null;
+    }
+  };
+
+  useEffect(() => {
+    if (isAuthenticated()) {
+      const userId = getUserIdFromToken();
+      if (userId) {
+        const notasKey = `notas_${userId}`;
+        const notasGuardadas = JSON.parse(localStorage.getItem(notasKey)) || [];
+        setNotas(notasGuardadas);
+      }
+    }
+  }, []);
 
   const handleAddToNotes = (producto) => {
     if (!isAuthenticated()) {
       alert('Debes iniciar sesión para agregar productos.');
       window.location.href = '/login';
+      return;
+    }
+    const userId = getUserIdFromToken();
+    if (!userId) {
+      alert('Error al obtener el ID del usuario.');
       return;
     }
 
@@ -108,20 +140,25 @@ function Carnes() {
       }
 
       const nuevasNotas = [...prevNotas, producto];
-      localStorage.setItem('notas', JSON.stringify(nuevasNotas));
+      const notasKey = `notas_${userId}`;
+      localStorage.setItem(notasKey, JSON.stringify(nuevasNotas));
       alert(`Producto "${producto.nombre}" añadido a tus notas.`);
       return nuevasNotas;
     });
   };
 
   const removeFromNotes = (productId) => {
+    const userId = getUserIdFromToken();
+    if (!userId) return;
+
     setNotas(prevNotas => {
       const nuevasNotas = prevNotas.filter(item => item.id !== productId);
-      localStorage.setItem('notas', JSON.stringify(nuevasNotas));
+      const notasKey = `notas_${userId}`;
+      localStorage.setItem(notasKey, JSON.stringify(nuevasNotas));
       return nuevasNotas;
     });
   };
-
+//--------------------------------------------------------------------
   const getImage = (name) => {
     try {
       return new URL(`/src/assets/carnes/${name}`, import.meta.url).href;
