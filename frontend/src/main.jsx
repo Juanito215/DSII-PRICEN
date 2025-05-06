@@ -13,6 +13,7 @@ import Resultados from './resultados.jsx'
 import ReportarPrecio from './reportarPrecio.jsx'
 import UserProfile from './perfilUsuario.jsx'
 import AdminProductos from './adminProductos.jsx'
+import Ayuda from './help.jsx'
 import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom'
 
 createRoot(document.getElementById('root')).render(
@@ -32,7 +33,7 @@ createRoot(document.getElementById('root')).render(
         <Route path="/perfil" element={<UserProfile />} /> 
         <Route path="/admin" element={<AdminProductos />} />
         <Route path="*" element={<h1>404 Not Found</h1>} />      
-             
+        <Route path="/ayuda" element={<Ayuda />} />
       </Routes>
     </Router>
   </StrictMode>,
