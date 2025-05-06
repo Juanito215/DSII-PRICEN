@@ -242,6 +242,15 @@ function App() {
           </div>
         </div>
 
+        <div className="how-to-use-container">
+          <button
+            className="how-to-use-button"
+            onClick={() => navigate('/ayuda')}
+          >
+            ¿Cómo usar?
+          </button>
+        </div>
+
         {/* Productos */}
         <div className='productos-buscados'>
           <h2>¡Productos más buscados!</h2>
