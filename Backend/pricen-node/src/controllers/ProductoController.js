@@ -5,34 +5,37 @@ const { sequelize } = require("../config/database");
 const { QueryTypes } = require("sequelize");
 // 🔹 Crear producto (Solo Admin)
 exports.createProducto = async (req, res) => {
-    try {
-        // 📌 Verificamos si el usuario tiene rol de "admin"
-        if (!req.user || req.user.rol !== "admin") {
-            return res.status(403).json({ message: "Acceso denegado. Solo los administradores pueden crear productos." });
-        }
-
-        const { nombre, categoria, imagen, descripcion, peso, unidad_medida, marca } = req.body;
-
-        if (!nombre) {
-            return res.status(400).json({ message: "El nombre es obligatorio." });
-        }
-
-        const producto = await Producto.create({
-            nombre,
-            categoria,
-            imagen,
-            descripcion,
-            peso,
-            unidad_medida,
-            marca,
-        });
-
-        res.status(201).json({ message: "Producto creado exitosamente.", producto });
-    } catch (error) {
-        console.error("❌ Error al crear producto:", error);
-        res.status(500).json({ message: "Error en el servidor.", error: error.message });
+  try {
+    if (!req.user || req.user.rol !== "admin") {
+      return res.status(403).json({ message: "Acceso denegado. Solo los administradores pueden crear productos." });
     }
+
+    const { nombre, categoria, descripcion, peso, unidad_medida, marca } = req.body;
+    const imagen = req.file ? req.file.filename : null;
+
+    if (!nombre) {
+      return res.status(400).json({ message: "El nombre es obligatorio." });
+    }
+
+    const producto = await Producto.create({
+      nombre,
+      categoria,
+      imagen,
+      descripcion,
+      peso,
+      unidad_medida,
+      marca,
+    });
+
+    console.log('file', req.file);
+
+    res.status(201).json({ message: "Producto creado exitosamente.", producto });
+  } catch (error) {
+    console.error("❌ Error al crear producto:", error);
+    res.status(500).json({ message: "Error en el servidor.", error: error.message });
+  }
 };
+
 
 // 🔹 Obtener todos los productos
 exports.getProductos = async (req, res) => {

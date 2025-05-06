@@ -1,57 +1,131 @@
+/* Fuente base y fondo general */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #e9f2f5;
+  margin: 0;
+  padding: 0;
+}
+
+/* Navbar superior azul */
+.navbar {
+  background-color: #0b7684;
+  color: white;
+  padding: 1rem 2rem;
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin-bottom: 1.5rem; /* 👈 Añade esta línea */
+}
+
+/* Contenedor principal */
 .admin-productos-container {
-    max-width: 600px;
-    margin: 2rem auto;
-    padding: 2rem;
-    background-color: #f9f9f9;
-    border-radius: 12px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  max-width: 700px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+
+/* Título */
+.admin-productos-container h2 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: #0b7684;
+  font-weight: bold;
+}
+
+/* Formulario */
+.admin-productos-container form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* Inputs y selects */
+.admin-productos-container input[type="text"],
+.admin-productos-container input[type="number"],
+.admin-productos-container textarea,
+.admin-productos-container select,
+.admin-productos-container input[type="file"] {
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  font-size: 1rem;
+  background-color: #ffffff;
+  color: #000000;
+  transition: border 0.2s ease;
+}
+
+.admin-productos-container input[type="text"]:focus,
+.admin-productos-container input[type="number"]:focus,
+.admin-productos-container textarea:focus,
+.admin-productos-container select:focus {
+  border-color: #0b7684;
+  outline: none;
+}
+
+/* Área de texto */
+.admin-productos-container textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+/* Botón */
+.admin-productos-container button {
+  background-color: #0b7684;
+  color: white;
+  border: none;
+  padding: 12px;
+  font-size: 1rem;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.admin-productos-container button:hover {
+  background-color: #095e6a;
+}
+
+/* Tabs de navegación */
+.admin-tabs {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+  gap: 1rem;
+}
+
+.admin-tabs button {
+  background-color: #d3f2f5;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  color: #0b7684;
+}
+
+.admin-tabs button:hover {
+  background-color: #b6e4ea;
+}
+
+.admin-tabs button.activo {
+  background-color: #0b7684;
+  color: white;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .admin-productos-container {
+    padding: 1rem;
+    margin: 1rem;
   }
-  
-  .admin-productos-container h2 {
-    text-align: center;
-    margin-bottom: 1.5rem;
-    color: #333;
+
+  .navbar {
+    font-size: 1.2rem;
+    padding: 0.75rem 1rem;
   }
-  
-  .admin-productos-container form {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-  }
-  
-  .admin-productos-container input[type="text"],
-  .admin-productos-container textarea,
-  .admin-productos-container select,
-  .admin-productos-container input[type="file"] {
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    font-size: 1rem;
-  }
-  
-  .admin-productos-container textarea {
-    resize: vertical;
-    min-height: 80px;
-  }
-  
-  .admin-productos-container button {
-    background-color: #0b7684;
-    color: white;
-    border: none;
-    padding: 12px;
-    font-size: 1rem;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .admin-productos-container button:hover {
-    background-color: #8ccbcf
-  }
-  
-  @media (max-width: 600px) {
-    .admin-productos-container {
-      padding: 1rem;
-    }
-  }
-  
+}

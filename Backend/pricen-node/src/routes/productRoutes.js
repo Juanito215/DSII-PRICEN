@@ -2,9 +2,10 @@ const express = require("express");
 const router = express.Router();
 const productoController = require("../controllers/ProductoController");
 const { verifyToken } = require("../middlewares/authMiddleware"); // Protegemos rutas
+const upload = require("../middlewares/upload"); // Middleware para subir imágenes
 
 // 🔹 Rutas para productos
-router.post("/registerProduct", verifyToken, productoController.createProducto);
+router.post("/registerProduct", verifyToken, upload.single('imagen'), productoController.createProducto);
 router.get("/getProduct", productoController.getProductos);
 router.get("/buscar", productoController.buscarProductos);
 router.get("/con-precio", productoController.getProductosConPrecio);
