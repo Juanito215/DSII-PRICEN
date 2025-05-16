@@ -13,4 +13,5 @@ router.get("/economicos/:categoria", productoController.getProductoMasEconomicoP
 router.put("/:id", verifyToken, productoController.updateProducto);
 router.get("/categoria/:categoria", productoController.getProductosPorCategoria);
 router.delete("/:id", verifyToken, productoController.deleteProducto);
+router.post("/:id/incrementar-visitas", productoController.incrementarVisitas);
 module.exports = router;

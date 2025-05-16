@@ -28,6 +28,14 @@ const Producto = sequelize.define("productos", { // 👈 Asegúrate de que el no
     },
     marca: {
         type: DataTypes.TEXT,
+    },
+    visitas_semana: {
+        type: DataTypes.INTEGER,
+        defaultValue: 0,
+    },
+    ultimo_reset: {
+        type: DataTypes.DATE,
+        defaultValue: DataTypes.NOW,
     }
 }, {
     tableName: "productos", // 👈 PostgreSQL es case-sensitive, debe coincidir con la BD

@@ -413,3 +413,141 @@
 .modal-close-button:hover {
   color: #000000;
 }
+/* carnes.css */
+
+/* Slider buttons dentro del modal */
+.slider-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.slider-buttons button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  font-size: 1.2rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.slider-buttons button:hover {
+  background-color: #0056b3;
+}
+
+/* Asterisco en la esquina superior derecha de productos duplicados */
+.product-asterisk {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background-color: red;
+  color: white;
+  font-weight: bold;
+  padding: 0.2rem 0.4rem;
+  border-radius: 50%;
+  font-size: 1rem;
+  z-index: 1;
+  cursor: help;
+}
+
+.product-asterisk::after {
+  content: "Disponible en otros supermercados";
+  position: absolute;
+  top: -35px;
+  right: 0;
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  font-size: 0.75rem;
+  padding: 0.3rem 0.6rem;
+  border-radius: 0.5rem;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease-in-out;
+}
+
+.product-asterisk:hover::after {
+  opacity: 1;
+}
+
+/* Asegurarse que los productos estén en posición relativa para mostrar el asterisco */
+.product-card {
+  position: relative;
+}
+
+/* Estilos generales del modal */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.modal-content {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 1rem;
+  width: 90%;
+  max-width: 600px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  position: relative;
+}
+
+.modal-image {
+  width: 100%;
+  height: auto;
+  border-radius: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.modal-close-button,
+.modal-add-button,
+.modal-report-button {
+  margin-top: 1rem;
+  margin-right: 0.5rem;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+}
+
+.modal-add-button {
+  background-color: #28a745;
+  color: white;
+}
+
+.modal-report-button {
+  background-color: #ffc107;
+  color: black;
+}
+
+.modal-close-button {
+  background-color: #dc3545;
+  color: white;
+}
+
+.visitas-badge {
+  background-color: #f0f0f0;
+  color: #555;
+  padding: 3px 8px;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 5px;
+}
+
+.visitas-badge::before {
+  content: "👁️";
+  font-size: 0.9rem;
+}
