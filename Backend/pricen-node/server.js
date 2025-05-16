@@ -62,5 +62,6 @@ cron.schedule("0 0 * * 0", async () => {
 
 // Sincronizar la base de datos
 require("./src/config/syncDB");
-
+// Iniciar cron jobs
+require("./cronJobs");
 

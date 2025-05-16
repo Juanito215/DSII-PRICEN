@@ -181,6 +181,7 @@ exports.getProductosPorCategoria = async (req, res) => {
         p.peso,
         p.unidad_medida,
         p.marca,
+        p.visitas_semana,
         pmf.precio,
         s.nombre as supermercado_nombre
       FROM productos p
@@ -247,3 +248,35 @@ exports.getProductoMasEconomicoPorCategoria = async (req, res) => {
     res.status(500).json({ message: "Error interno del servidor" });
   }
 };
+  // controllers/ProductoController.js
+exports.incrementarVisitas = async (req, res) => {
+    try {
+        const { id } = req.params;
+        
+        // 1. Buscar el producto
+        const producto = await Producto.findByPk(id);
+        if (!producto) {
+            return res.status(404).json({ error: "Producto no encontrado" });
+        }
+  
+        // 2. Verificar si necesita reset (7 días desde último reset)
+        const unaSemanaEnMs = 7 * 24 * 60 * 60 * 1000;
+        const necesitaReset = new Date() - producto.ultimo_reset > unaSemanaEnMs;
+  
+        if (necesitaReset) {
+            producto.visitas_semana = 0;
+            producto.ultimo_reset = new Date();
+        }
+  
+        // 3. Incrementar contador
+        producto.visitas_semana += 1;
+        await producto.save();
+  
+        res.json({ 
+            success: true,
+            visitas: producto.visitas_semana 
+        });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+  }; // ← Solo un cierre aquí

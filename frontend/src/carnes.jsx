@@ -1,4 +1,4 @@
-import React, { use, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './carnes.css';
 import logo from './assets/logos/logo.png';
 import homeIcon from './assets/logos/home icon.svg';
@@ -9,17 +9,16 @@ import cheapProductImage from './assets/carnes/lomocerdo.png';
 import { useNavigate } from 'react-router-dom';
 
 function Carnes() {
-  const handleHomeClick = () => {
-    window.location.href = '/';
-  };
-
-  const handleLoginClick = () => {
-    alert('Redirigiendo al login...');
-  };
+  const navigate = useNavigate();
 
   const [productos, setProductos] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [notas, setNotas] = useState([]);
+  const [productoSeleccionado, setProductoSeleccionado] = useState(null);
+  const [mostrarModal, setMostrarModal] = useState(false);
+  const [grupoProductos, setGrupoProductos] = useState([]);
+  const [indexProductoGrupo, setIndexProductoGrupo] = useState(0);
   const [featuredProduct, setFeaturedProduct] = useState(null);
   const [cheapestProduct, setCheapestProduct] = useState(null);
 
@@ -43,7 +42,7 @@ function Carnes() {
 
     const fetchProductoMasEconomico = async () => {
       try {
-        const response = await fetch(`http://localhost:3000/api/productos/economicos/carnes`);
+        const response = await fetch('http://localhost:3000/api/productos/economicos/carnes');
         if (!response.ok) throw new Error('Error al cargar el producto más económico');
         const data = await response.json();
         setCheapestProduct(data);
@@ -64,46 +63,15 @@ function Carnes() {
     fetchProductoMasEconomico();
   }, []);
 
-  const isAuthenticated = () => {
-    const token = localStorage.getItem('token');
-    return token !== null;
-  };
+  const isAuthenticated = () => !!localStorage.getItem('token');
 
-  const [mostrarNotas, setMostrarNotas] = useState(false);
-
-  useEffect(() => {
-    if (isAuthenticated()) {
-      const notasGuardadas = JSON.parse(localStorage.getItem('notas')) || [];
-      setNotas(notasGuardadas);
-    }
-  }, []);
-
-  const [productoSeleccionado, setProductoSeleccionado] = useState(null);
-  const [mostrarModal, setMostrarModal] = useState(false);
-
-  const abrirModal = (producto) => {
-    setProductoSeleccionado(producto);
-    setMostrarModal(true);
-  };
-
-  const cerrarModal = () => {
-    setMostrarModal(false);
-    setProductoSeleccionado(null);
-  };
-//------------------------------notas------------------------------
-  const [notas, setNotas] = useState([]);
-  //función para obtener el id del usuario desde el token jwt
   const getUserIdFromToken = () => {
     const token = localStorage.getItem('token');
     if (!token) return null;
-
-    try{
-      const payload = token.split('.')[1];
-      // Decodifica el payload de base64      
-      const decodedPayload = JSON.parse(atob(payload));
-      return decodedPayload.id;
-    } catch (error) {
-      console.error('Error al decodificar el token:', error);
+    try {
+      const payload = JSON.parse(atob(token.split('.')[1]));
+      return payload.id;
+    } catch {
       return null;
     }
   };
@@ -119,46 +87,77 @@ function Carnes() {
     }
   }, []);
 
-  const handleAddToNotes = (producto) => {
+  const handleAddToNotes = (producto, e) => {
+    if (e) e.stopPropagation();
+    
     if (!isAuthenticated()) {
       alert('Debes iniciar sesión para agregar productos.');
-      window.location.href = '/login';
+      navigate('/login');
       return;
     }
+    
     const userId = getUserIdFromToken();
     if (!userId) {
       alert('Error al obtener el ID del usuario.');
       return;
     }
 
-    setNotas(prevNotas => {
-      const existe = prevNotas.some(p => p.id === producto.id);
+    const notasKey = `notas_${userId}`;
+    const existentes = JSON.parse(localStorage.getItem(notasKey)) || [];
+    
+    if (existentes.find(p => p.id === producto.id)) {
+      alert('Este producto ya está en tus notas.');
+      return;
+    }
+    
+    const actualizadas = [...existentes, producto];
+    localStorage.setItem(notasKey, JSON.stringify(actualizadas));
+    setNotas(actualizadas);
+    alert('Producto añadido a tus notas.');
+  };
+  const [contadorVisitas, setContadorVisitas] = useState({});
 
-      if (existe) {
-        alert(`El producto "${producto.nombre}" ya está en tus notas.`);
-        return prevNotas;
-      }
+  // Modificar la función abrirModal para incrementar el contador
+  const abrirModal = async (producto) => {
+    // Incrementar contador en el backend
+    try {
+      const response = await fetch(`http://localhost:3000/api/productos/${producto.id}/incrementar-visitas`, {
+        method: 'POST'
+      });
+      const data = await response.json();
+      
+      // Actualizar el contador localmente
+    // Actualiza el estado local
+    setProductos(prev => prev.map(p => 
+      p.id === producto.id ? {...p, visitas_semana: data.visitas} : p
+    ));
+    } catch (error) {
+      console.error("Error al incrementar visitas:", error);
+    }
 
-      const nuevasNotas = [...prevNotas, producto];
-      const notasKey = `notas_${userId}`;
-      localStorage.setItem(notasKey, JSON.stringify(nuevasNotas));
-      alert(`Producto "${producto.nombre}" añadido a tus notas.`);
-      return nuevasNotas;
-    });
+    // Resto de la lógica del modal
+    const similares = productos.filter(p =>
+      p.nombre === producto.nombre && p.marca === producto.marca
+    );
+    setGrupoProductos(similares);
+    setIndexProductoGrupo(similares.findIndex(p => p.id === producto.id));
+    setProductoSeleccionado(producto);
+    setMostrarModal(true);
   };
 
-  const removeFromNotes = (productId) => {
-    const userId = getUserIdFromToken();
-    if (!userId) return;
-
-    setNotas(prevNotas => {
-      const nuevasNotas = prevNotas.filter(item => item.id !== productId);
-      const notasKey = `notas_${userId}`;
-      localStorage.setItem(notasKey, JSON.stringify(nuevasNotas));
-      return nuevasNotas;
-    });
+  const cerrarModal = () => {
+    setMostrarModal(false);
+    setProductoSeleccionado(null);
+    setGrupoProductos([]);
+    setIndexProductoGrupo(0);
   };
-//--------------------------------------------------------------------
+
+  const cambiarProductoGrupo = (direccion) => {
+    const nuevoIndex = (indexProductoGrupo + direccion + grupoProductos.length) % grupoProductos.length;
+    setIndexProductoGrupo(nuevoIndex);
+    setProductoSeleccionado(grupoProductos[nuevoIndex]);
+  };
+
   const getImage = (name) => {
     try {
       return new URL(`/src/assets/carnes/${name}`, import.meta.url).href;
@@ -167,9 +166,14 @@ function Carnes() {
     }
   };
 
-  const navigate = useNavigate();
-
+  const handleHomeClick = () => navigate('/');
+  const handleLoginClick = () => navigate('/login');
   const handleNotesClick = () => {
+    if (!isAuthenticated()) {
+      alert('Debes iniciar sesión para ver tus notas.');
+      navigate('/login');
+      return;
+    }
     navigate('/notas', { state: { from: '/carnes' } });
   };
 
@@ -227,20 +231,33 @@ function Carnes() {
         </div>
       </section>
 
-      <section className="featured-product">
-        <div className="product-info">
-          <h2>Producto más visto</h2>
-          <p className="product-description">Lomo fino de res premium, madurado por 21 días para máximo sabor y terneza.</p>
-          <button className="action-button">Anotar</button>
-        </div>
-        <div className="product-image-container">
-          <img src={featuredProductImage} alt="Producto destacado" className="product-image" />
-        </div>
-        <div className="product-price">
-          <span className="price">$32,000</span>
-          <span className="store">Éxito</span>
-        </div>
-      </section>
+      {featuredProduct && (
+        <section className="featured-product">
+          <div className="product-info">
+            <h2>Producto más visto</h2>
+            <p className="product-description">
+              {featuredProduct.descripcion || "Lomo fino de res premium, madurado por 21 días para máximo sabor y terneza."}
+            </p>
+            <button 
+              className="action-button"
+              onClick={() => handleAddToNotes(featuredProduct)}
+            >
+              Anotar
+            </button>
+          </div>
+          <div className="product-image-container">
+            <img 
+              src={getImage(featuredProduct.imagen) || featuredProductImage} 
+              alt="Producto destacado" 
+              className="product-image" 
+            />
+          </div>
+          <div className="product-price">
+            <span className="price">${featuredProduct.precio?.toLocaleString()}</span>
+            <span className="store">{featuredProduct.supermercado_nombre || "Supermercado"}</span>
+          </div>
+        </section>
+      )}
 
       {cheapestProduct && (
         <section className="cheap-product">
@@ -272,28 +289,44 @@ function Carnes() {
 
       <section className="products-section">
         <h2 className="section-title">Nuestros productos</h2>
-        <div className="products-grid">
-          {productos.map((producto) => (
-            <div key={producto.id} className="product-card" onClick={() => abrirModal(producto)}>
-              <img src={getImage(producto.imagen)} />
-              <h3 className="product-name">{producto.nombre}</h3>
-              <div className="product-meta">
-                <span className="product-price">
-                  ${producto.precio?.toLocaleString()}
-                </span>
-                <span className="product-store">
-                  {producto.supermercado_nombre || 'Supermercado'}
-                </span>
-              </div>
-              <button
-                className="add-note-button"
-                onClick={() => handleAddToNotes(producto)}
-                title="Añadir a notas"
+        <div className="products-grid"> 
+          {productos.map((producto) => {
+            const duplicados = productos.filter(
+              p => p.nombre === producto.nombre && p.marca === producto.marca
+            );
+            const esDuplicado = duplicados.length > 1;
+            return (
+              <div
+                key={producto.id}
+                className="product-card"
+                onClick={() => abrirModal(producto)}
               >
-                ➕
-              </button>
-            </div>
-          ))}
+                <img src={getImage(producto.imagen)} alt={producto.nombre} />
+                {esDuplicado && <div className="product-asterisk">*</div>}
+                <h3>{producto.nombre}</h3>
+                {/* Nuevo: Contador de visitas */}
+                <div className="visitas-badge">
+                {producto.visitas_semana || 0} vistas
+                </div>
+                <p>{producto.supermercado_nombre}</p>
+                <div className="product-meta">
+                  <span className="product-price">
+                    ${producto.precio?.toLocaleString()}
+                  </span>
+                </div>
+                <button
+                  className="add-note-button"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleAddToNotes(producto, e);
+                  }}
+                  title="Añadir a notas"
+                >
+                  ➕
+                </button>
+              </div>
+            );
+          })}
         </div>
       </section>
 
@@ -325,6 +358,12 @@ function Carnes() {
               📝 Reportar nuevo precio
             </button>
             <button className="modal-close-button" onClick={cerrarModal}>Cerrar</button>
+            {grupoProductos.length > 1 && (
+              <div className="slider-buttons">
+                <button onClick={() => cambiarProductoGrupo(-1)}>←</button>
+                <button onClick={() => cambiarProductoGrupo(1)}>→</button>
+              </div>
+            )}
           </div>
         </div>
       )}
