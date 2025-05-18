@@ -1,7 +1,8 @@
 const UsuarioProducto = require("../models/UsuarioProducto");
 const Producto = require("../models/Producto");
 const { Op } = require("sequelize");
-
+const { sequelize } = require("../config/database");
+const { QueryTypes } = require("sequelize");
 
 // 🔹 Agregar un producto al carrito o lista del usuario
 exports.agregarProducto = async (req, res) => {
@@ -144,4 +145,38 @@ exports.eliminarProducto = async (req, res) => {
         console.error(" Error al eliminar producto de la lista:", error);
         res.status(500).json({ message: "Error en el servidor." });
     }
+};
+
+exports.obtenerProductosPorUsuario = async (req, res) => {
+  const { usuarioId } = req.params;
+
+  try {
+    const productos = await sequelize.query(`
+      SELECT 
+        p.id,
+        p.nombre,
+        p.imagen,
+        p.categoria,
+        p.descripcion,
+        p.peso,
+        p.unidad_medida,
+        p.marca,
+        p.visitas_semana,
+        pmf.precio,
+        s.nombre AS supermercado_nombre
+      FROM usuario_productos up
+      JOIN productos p ON up.producto_id = p.id
+      LEFT JOIN precio_mas_frecuente pmf ON p.id = pmf.producto_id
+      LEFT JOIN supermercados s ON pmf.supermercado_id = s.id
+      WHERE up.usuario_id = :usuarioId
+    `, {
+      replacements: { usuarioId },
+      type: QueryTypes.SELECT
+    });
+
+    res.status(200).json(productos);
+  } catch (error) {
+    console.error("❌ Error al obtener productos del usuario:", error);
+    res.status(500).json({ message: "Error en el servidor." });
+  }
 };
