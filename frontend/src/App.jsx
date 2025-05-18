@@ -5,13 +5,6 @@ import userIcon from './assets/logos/user icon.svg';
 import notesIcon from './assets/logos/list icon.svg';
 import searchIcon from './assets/logos/search.png';
 import banner from './assets/home/banner-img.png';
-import brilla from './assets/home/brilla.png';
-import brilla2 from './assets/home/brilla2.png';
-import cerveza1 from './assets/home/cerveza bahia.png';
-import cerveza2 from './assets/home/cerveza2.png';
-import cerveza3 from './assets/home/cerveza3.png';
-import chocolatina from './assets/home/chocolatina.png';
-import lomo from './assets/carnes/lomocerdo.png';
 import d1logo from './assets/logos/d1logo.png';
 import aralogo from './assets/logos/aralogo.png';
 import exitologo from './assets/logos/exitologo.png';
@@ -23,28 +16,47 @@ function App() {
   const navigate = useNavigate();
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
+  const getImage = (name, categoria = 'carnes') => {
+    try {
+      // Si es una URL completa, la devolvemos directamente
+      if (name?.startsWith('http')) {
+        return name;
+      }
+      
+      // Para imágenes locales dinámicas por categoría
+      return new URL(`/src/assets/${categoria}/${name}`, import.meta.url).href;
+    } catch (error) {
+      console.error(`Error cargando imagen ${name}:`, error);
+      // Imagen por defecto según categoría o genérica
+      return `/assets/${categoria}/default.png`;
+    }
+  };
 
-  const products = [
-    {id: 1, image: brilla, name: 'Detergente Brilla'},
-    {id: 2, image: cerveza1, name: 'Cerveza Bahia'},
-    {id: 3, image: cerveza2, name: 'Cerveza Club Colombia'},
-    {id: 4, image: cerveza3, name: 'Cerveza Poker'},
-    {id: 5, image: chocolatina, name: 'Chocolatina Jumbo'},
-    {id: 6, image: lomo, name: 'Lomo de cerdo'},
-    {id: 7, image: brilla2, name: 'Detergente Brilla'},
-    {id: 8, image: cerveza3, name: 'Cerveza SI'},
-  ];
 
-  const duplicateProducts = [...products, ...products, ...products];
+  const [productosMasVistos, setProductosMasVistos] = useState([]);
+
+  useEffect(() => {
+    const fetchProductosMasVistos = async () => {
+      try {
+        const response = await fetch('http://localhost:3000/api/productos/mas-vistos?limit=8');
+        const data = await response.json();
+        setProductosMasVistos(data);
+      } catch (error) {
+        console.error('Error al obtener productos más vistos:', error);
+      }
+    };
+  
+    fetchProductosMasVistos();
+  }, []);
 
   const handlePrev = () => {
     setCurrentIndex((prevIndex) => 
-      prevIndex === 0 ? duplicateProducts.length - 1 : prevIndex - 1);
+      prevIndex === 0 ? productosMasVistos.length - 1 : prevIndex - 1);
   };
 
   const handleNext = () => {
     setCurrentIndex((prevIndex) => 
-      prevIndex === duplicateProducts.length - 1 ? 0 : prevIndex + 1);
+      prevIndex === productosMasVistos.length - 1 ? 0 : prevIndex + 1);
   };
 
     // Abre o cierra el sidebar (al hacer click en el menú hamburguesa)
@@ -86,19 +98,6 @@ function App() {
 
     fetchPerfil();
   }, []);
-
-  useEffect(() => {
-    if (currentIndex >= products.length * 2) {
-      setTimeout(() => {
-        setCurrentIndex(products.length);
-      }, 0);
-    }
-    else if (currentIndex <= 0) {
-      setTimeout(() => {
-        setCurrentIndex(products.length);
-      }, 0);
-    }
-  }, [currentIndex, products.length]);
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -251,27 +250,47 @@ function App() {
           </button>
         </div>
 
-        {/* Productos */}
-        <div className='productos-buscados'>
-          <h2>¡Productos más buscados!</h2>
-          <div className='carrusel'>
-            <button className='prev' onClick={handlePrev}>
-              &#10094;
-            </button>
-            <div className='carrusel-img'>
-              {duplicateProducts.slice(currentIndex, currentIndex + 3).map((product, index) => (
-                <div key={`${product.id}-${index}`} className='carrusel-item'>
-                  <img src={product.image} alt={product.name} />
-                  <p>{product.name}</p>
-                </div>
-              ))}
+      {/* Productos más vistos */}
+      <div className='productos-buscados'>
+              <h2>¡Productos más populares!</h2>
+              <div className='carrusel'>
+                {productosMasVistos.length > 0 ? (
+                  <>
+                    <button className='prev' onClick={handlePrev}>
+                      &#10094;
+                    </button>
+                    <div className='carrusel-img'>
+                      {productosMasVistos.slice(currentIndex, currentIndex + 3).map((producto) => (
+                        <div key={producto.id} className='carrusel-item'>
+                          <img 
+                            src={getImage(producto.imagen)} 
+                            alt={producto.nombre} 
+                            onError={(e) => {
+                              e.target.src = '/assets/carnes/default.png';
+                            }}
+                          />
+                          <p>{producto.nombre}</p>
+                          <span className="visitas-badge">
+                            👁️ {producto.visitas_semana || 0} vistas
+                          </span>
+                          {producto.precio && (
+                            <p className="precio">${producto.precio.toLocaleString()}</p>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                    <button className='next' onClick={handleNext}>
+                      &#10095;
+                    </button>
+                  </>
+                ) : (
+                  <p>Cargando productos más populares...</p>
+                )}
+              </div>
             </div>
-            <button className='next' onClick={handleNext}>
-              &#10095;
-            </button>
-          </div>
-        </div>
-        
+
+
+        <div className='linea-decorativa'></div>  
         {/* Supermercados */}
         <div className='supermercados-comparados'>
           <h2>Supermercados comparados</h2>
