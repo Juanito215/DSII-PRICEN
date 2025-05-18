@@ -279,4 +279,36 @@ exports.incrementarVisitas = async (req, res) => {
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
-  }; // ← Solo un cierre aquí
+  };
+  
+exports.getProductosMasVistos = async (req, res) => {
+  try {
+    const limit = req.query.limit || 8; // Puedes ajustar el límite
+    
+    const query = `
+      SELECT 
+        p.id,
+        p.nombre,
+        p.imagen,
+        p.categoria,
+        p.visitas_semana,
+        pmf.precio,
+        s.nombre as supermercado_nombre
+      FROM productos p
+      LEFT JOIN precio_mas_frecuente pmf ON p.id = pmf.producto_id
+      LEFT JOIN supermercados s ON pmf.supermercado_id = s.id
+      ORDER BY p.visitas_semana DESC
+      LIMIT :limit
+    `;
+
+    const productos = await sequelize.query(query, {
+      replacements: { limit },
+      type: QueryTypes.SELECT
+    });
+
+    res.json(productos);
+  } catch (error) {
+    console.error('Error al obtener productos más vistos:', error);
+    res.status(500).json({ error: error.message });
+  }
+};
