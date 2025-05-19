@@ -21,24 +21,40 @@ function Carnes() {
   const [featuredProduct, setFeaturedProduct] = useState(null);
   const [cheapestProduct, setCheapestProduct] = useState(null);
   const [cantidad, setCantidad] = useState(1);
+  const [filtro, setFiltro] = useState('predeterminado');
+
+  const fetchProductos = async (ordenar = null, direccion = null) => {
+    try {
+      let url = 'http://localhost:3000/api/productos/categoria/carnes';
+      
+      if (ordenar && direccion) {
+        url += `?ordenar=${ordenar}&direccion=${direccion}`;
+      } else if (ordenar === 'supermercado') {
+        url += `?ordenar=supermercado&direccion=asc`;
+      } else if (ordenar === 'visitas') {
+        url = 'http://localhost:3000/api/productos/mas-vistos?categoria=carnes';
+      }
+
+      const response = await fetch(url);
+      if (!response.ok) throw new Error('Error al cargar productos');
+      const data = await response.json();
+      setProductos(data);
+      
+      if (data.length > 0 && ordenar !== 'visitas') {
+        setFeaturedProduct(data[0]);
+      }
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
-    const fetchProductos = async () => {
-      try {
-        const response = await fetch('http://localhost:3000/api/productos/categoria/carnes');
-        if (!response.ok) throw new Error('Error al cargar productos');
-        const data = await response.json();
-        setProductos(data);
-        if (data.length > 0) {
-          setFeaturedProduct(data[0]);
-        }
-      } catch (err) {
-        setError(err.message);
-      } finally {
-        setLoading(false);
-      }
-    };
-
+    // Cargar productos iniciales (sin filtro)
+    fetchProductos();
+    
+    // Cargar producto más económico
     const fetchProductoMasEconomico = async () => {
       try {
         const response = await fetch('http://localhost:3000/api/productos/economicos/carnes');
@@ -50,9 +66,35 @@ function Carnes() {
       }
     };
 
-    fetchProductos();
     fetchProductoMasEconomico();
   }, []);
+
+  useEffect(() => {
+    // Aplicar filtro cuando cambia
+    switch(filtro) {
+      case 'precio-asc':
+        fetchProductos('precio', 'asc');
+        break;
+      case 'precio-desc':
+        fetchProductos('precio', 'desc');
+        break;
+      case 'nombre-asc':
+        fetchProductos('nombre', 'asc');
+        break;
+      case 'nombre-desc':
+        fetchProductos('nombre', 'desc');
+        break;
+      case 'supermercado':
+        fetchProductos('supermercado');
+        break;
+      case 'visitas':
+        fetchProductos('visitas');
+        break;
+      default:
+        fetchProductos();
+        break;
+    }
+  }, [filtro]);
 
   const isAuthenticated = () => !!localStorage.getItem('token');
 
@@ -168,7 +210,6 @@ function Carnes() {
   if (loading) return <div className="loading">Cargando productos...</div>;
   if (error) return <div className="error">Error: {error}</div>;
 
-
   return (
     <div className="meat-page">
       <header className="meat-header">
@@ -268,7 +309,29 @@ function Carnes() {
       )}
 
       <section className="products-section">
-        <h2 className="section-title">Nuestros productos</h2>
+        <div className="filtros-container" style={{ display: 'flex', alignItems: 'center', marginBottom: '20px' }}>
+          <h2 className="section-title" style={{ marginRight: '20px' }}>Nuestros productos</h2>
+          <span style={{ marginRight: '10px' }}>Filtros:</span>
+          <select 
+            value={filtro}
+            onChange={(e) => setFiltro(e.target.value)}
+            style={{
+              padding: '8px 12px',
+              borderRadius: '5px',
+              border: '1px solid #ddd',
+              backgroundColor: '#0b7684',
+              cursor: 'pointer'
+            }}
+          >
+            <option value="predeterminado">Predeterminado</option>
+            <option value="precio-asc">Precio: Menor a Mayor</option>
+            <option value="precio-desc">Precio: Mayor a Menor</option>
+            <option value="nombre-asc">Nombre: A-Z</option>
+            <option value="nombre-desc">Nombre: Z-A</option>
+            <option value="supermercado">Supermercado</option>
+            <option value="visitas">Más visitados</option>
+          </select>
+        </div>
         <div className="products-grid">
           {productos.map((producto) => {
             const duplicados = productos.filter(
