@@ -62,7 +62,7 @@ app.use("/api/usuario-producto", usuarioProductoRoutes);
 
 // 🚀 RUTA PARA HISTORIAL DE PUNTOS DE USUARIO
 const historialPuntosRoutes = require('./src/routes/historialPuntosRoutes');
-app.use('/api/historial-puntos', historialPuntosRoutes);
+app.use('/api/historial', historialPuntosRoutes);
 
 // 🚀 RUTA PARA REPORTE DE PRECIOS
 const reportesPreciosRoutes = require("./src/routes/reportePrecioRoutes");

@@ -4,7 +4,7 @@ const Usuario = require("../models/Usuario");
 // ✅ Obtener historial de puntos de un usuario
 exports.obtenerHistorialPuntos = async (req, res) => {
     try {
-        const { usuarioId } = req.params;
+        const usuarioId = req.user.id;
 
         // Verificar si el usuario existe
         const usuario = await Usuario.findByPk(usuarioId);
@@ -53,7 +53,7 @@ exports.agregarPuntos = async (usuarioId, puntos, descripcion) => {
 // ✅ Obtener el total de puntos acumulados por un usuario
 exports.obtenerTotalPuntos = async (req, res) => {
     try {
-        const { usuarioId } = req.params;
+        const usuarioId = req.user.id;
 
         // Verificar si el usuario existe
         const usuario = await Usuario.findByPk(usuarioId);
