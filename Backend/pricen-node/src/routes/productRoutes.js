@@ -15,4 +15,5 @@ router.get("/categoria/:categoria", productoController.getProductosPorCategoria)
 router.delete("/:id", verifyToken, productoController.deleteProducto);
 router.post("/:id/incrementar-visitas", productoController.incrementarVisitas);
 router.get('/mas-vistos', productoController.getProductosMasVistos);
+router.get('/filtrar', productoController.filtrarProductos);
 module.exports = router;

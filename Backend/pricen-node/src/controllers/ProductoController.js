@@ -166,9 +166,24 @@ exports.getProductosConPrecio = async (req, res) => {
 
 exports.getProductosPorCategoria = async (req, res) => {
   try {
-    // Verifica que sequelize sea válido
-    if (!sequelize || typeof sequelize.query !== 'function') {
-      throw new Error('La instancia de Sequelize no está configurada correctamente');
+    const { categoria } = req.params;
+    const { ordenar, direccion } = req.query; // Nuevos parámetros
+
+    // Validar parámetros de ordenamiento
+    const ordenValido = ['precio', 'nombre', 'supermercado', 'visitas'].includes(ordenar);
+    const dirValida = ['asc', 'desc'].includes(direccion);
+    
+    let orderClause = '';
+    if (ordenValido && dirValida) {
+      if (ordenar === 'precio') {
+        orderClause = 'ORDER BY pmf.precio ' + direccion;
+      } else if (ordenar === 'nombre') {
+        orderClause = 'ORDER BY p.nombre ' + direccion;
+      } else if (ordenar === 'supermercado') {
+        orderClause = 'ORDER BY s.nombre ' + direccion;
+      } else if (ordenar === 'visitas') {
+        orderClause = 'ORDER BY p.visitas_semana ' + direccion;
+      }
     }
 
     const query = `
@@ -183,27 +198,23 @@ exports.getProductosPorCategoria = async (req, res) => {
         p.marca,
         p.visitas_semana,
         pmf.precio,
-        s.nombre as supermercado_nombre
+        s.nombre as supermercado_nombre,
+        s.id as supermercado_id
       FROM productos p
       JOIN precio_mas_frecuente pmf ON p.id = pmf.producto_id
       LEFT JOIN supermercados s ON pmf.supermercado_id = s.id
       WHERE p.categoria = :categoria
+      ${orderClause}
     `;
 
     const productos = await sequelize.query(query, {
-      replacements: { categoria: req.params.categoria },
-      type: QueryTypes.SELECT // Usa QueryTypes explícitamente
+      replacements: { categoria },
+      type: QueryTypes.SELECT
     });
 
     res.json(productos);
   } catch (error) {
-    console.error('Error en getProductosPorCategoria:', {
-      message: error.message,
-      stack: error.stack,
-      sql: error.sql,      // Muestra la consulta SQL fallida
-      parameters: error.parameters
-    });
-    
+    console.error('Error en getProductosPorCategoria:', error);
     res.status(500).json({ 
       message: 'Error en el servidor',
       error: error.message 
@@ -310,5 +321,95 @@ exports.getProductosMasVistos = async (req, res) => {
   } catch (error) {
     console.error('Error al obtener productos más vistos:', error);
     res.status(500).json({ error: error.message });
+  }
+};
+
+exports.filtrarProductos = async (req, res) => {
+  try {
+    const { 
+      categoria,
+      precioMin,
+      precioMax,
+      supermercado,
+      ordenar = 'visitas',
+      direccion = 'desc',
+      limite = 20
+    } = req.query;
+
+    // Construcción dinámica de la consulta
+    let whereConditions = ['1 = 1'];
+    const replacements = {};
+
+    if (categoria) {
+      whereConditions.push('p.categoria = :categoria');
+      replacements.categoria = categoria;
+    }
+
+    if (precioMin) {
+      whereConditions.push('pmf.precio >= :precioMin');
+      replacements.precioMin = parseFloat(precioMin);
+    }
+
+    if (precioMax) {
+      whereConditions.push('pmf.precio <= :precioMax');
+      replacements.precioMax = parseFloat(precioMax);
+    }
+
+    if (supermercado) {
+      whereConditions.push('s.id = :supermercado');
+      replacements.supermercado = supermercado;
+    }
+
+    // Validar parámetros de ordenamiento
+    const ordenValido = ['precio', 'nombre', 'supermercado', 'visitas'].includes(ordenar);
+    const dirValida = ['asc', 'desc'].includes(direccion);
+    
+    let orderClause = 'ORDER BY ';
+    if (ordenValido && dirValida) {
+      if (ordenar === 'precio') {
+        orderClause += 'pmf.precio ' + direccion;
+      } else if (ordenar === 'nombre') {
+        orderClause += 'p.nombre ' + direccion;
+      } else if (ordenar === 'supermercado') {
+        orderClause += 's.nombre ' + direccion;
+      } else {
+        orderClause += 'p.visitas_semana ' + direccion;
+      }
+    } else {
+      orderClause += 'p.visitas_semana DESC';
+    }
+
+    const query = `
+      SELECT 
+        p.id,
+        p.nombre,
+        p.imagen,
+        p.categoria,
+        p.visitas_semana,
+        pmf.precio,
+        s.nombre as supermercado_nombre,
+        s.id as supermercado_id
+      FROM productos p
+      LEFT JOIN precio_mas_frecuente pmf ON p.id = pmf.producto_id
+      LEFT JOIN supermercados s ON pmf.supermercado_id = s.id
+      WHERE ${whereConditions.join(' AND ')}
+      ${orderClause}
+      LIMIT :limite
+    `;
+
+    replacements.limite = parseInt(limite);
+
+    const productos = await sequelize.query(query, {
+      replacements,
+      type: QueryTypes.SELECT
+    });
+
+    res.json(productos);
+  } catch (error) {
+    console.error('Error en filtrarProductos:', error);
+    res.status(500).json({ 
+      message: 'Error en el servidor',
+      error: error.message 
+    });
   }
 };
