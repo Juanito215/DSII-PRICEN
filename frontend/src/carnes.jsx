@@ -1,5 +1,5 @@
 // carnes.jsx
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import './carnes.css';
 import logo from './assets/logos/logo.png';
 import homeIcon from './assets/logos/home icon.svg';
@@ -11,7 +11,8 @@ import { useNavigate } from 'react-router-dom';
 
 function Carnes() {
   const navigate = useNavigate();
-  const [productos, setProductos] = useState([]);
+  const [productosOriginales, setProductosOriginales] = useState([]);
+  const [productosMostrados, setProductosMostrados] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [productoSeleccionado, setProductoSeleccionado] = useState(null);
@@ -22,6 +23,39 @@ function Carnes() {
   const [cheapestProduct, setCheapestProduct] = useState(null);
   const [cantidad, setCantidad] = useState(1);
   const [filtro, setFiltro] = useState('predeterminado');
+  // Función para normalizar texto (eliminar tildes y convertir a minúsculas)
+  const normalizarTexto = (texto) => {
+    return texto
+      .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+      .toLowerCase()
+      .trim();
+  };
+
+  // Agrupar productos por nombre y marca
+  const productosAgrupados = useMemo(() => {
+    const grupos = {};
+    
+    productosOriginales.forEach(producto => {
+      const clave = `${normalizarTexto(producto.nombre)}-${normalizarTexto(producto.marca || '')}`;
+      
+      if (!grupos[clave]) {
+        grupos[clave] = [];
+      }
+      grupos[clave].push(producto);
+    });
+
+    return grupos;
+  }, [productosOriginales]);
+
+  // Obtener productos únicos para mostrar (uno por grupo)
+  const obtenerProductosUnicos = useMemo(() => {
+    return Object.values(productosAgrupados).map(grupo => grupo[0]);
+  }, [productosAgrupados]);
+  // Verificar si un producto tiene variantes
+  const tieneVariantes = (producto) => {
+    const clave = `${normalizarTexto(producto.nombre)}-${normalizarTexto(producto.marca || '')}`;
+    return productosAgrupados[clave]?.length > 1;
+  };
 
   const fetchProductos = async (ordenar = null, direccion = null) => {
     try {
@@ -38,7 +72,7 @@ function Carnes() {
       const response = await fetch(url);
       if (!response.ok) throw new Error('Error al cargar productos');
       const data = await response.json();
-      setProductos(data);
+      setProductosOriginales(data);
       
       if (data.length > 0 && ordenar !== 'visitas') {
         setFeaturedProduct(data[0]);
@@ -95,6 +129,12 @@ function Carnes() {
         break;
     }
   }, [filtro]);
+
+  useEffect(() => {
+    // Actualizar productos mostrados cuando cambian los productos originales
+    setProductosMostrados(obtenerProductosUnicos);
+  }, [productosOriginales, obtenerProductosUnicos]);
+
 
   const isAuthenticated = () => !!localStorage.getItem('token');
 
@@ -160,22 +200,34 @@ function Carnes() {
     }
   };
 
-  const abrirModal = async (producto) => {
+   const abrirModal = async (producto) => {
     try {
       const response = await fetch(`http://localhost:3000/api/productos/${producto.id}/incrementar-visitas`, {
         method: 'POST'
       });
       const data = await response.json();
-      setProductos(prev =>
-        prev.map(p => p.id === producto.id ? { ...p, visitas_semana: data.visitas } : p)
+      
+      // Actualizar contador de visitas en todos los productos del grupo
+      const clave = `${normalizarTexto(producto.nombre)}-${normalizarTexto(producto.marca || '')}`;
+      setProductosOriginales(prev => 
+        prev.map(p => {
+          const pClave = `${normalizarTexto(p.nombre)}-${normalizarTexto(p.marca || '')}`;
+          if (pClave === clave) {
+            return { ...p, visitas_semana: data.visitas };
+          }
+          return p;
+        })
       );
     } catch (error) {
       console.error("Error al incrementar visitas:", error);
     }
 
-    const similares = productos.filter(p => p.nombre === producto.nombre && p.marca === producto.marca);
-    setGrupoProductos(similares);
-    setIndexProductoGrupo(similares.findIndex(p => p.id === producto.id));
+    // Obtener todas las variantes del producto
+    const clave = `${normalizarTexto(producto.nombre)}-${normalizarTexto(producto.marca || '')}`;
+    const variantes = productosAgrupados[clave] || [producto];
+    
+    setGrupoProductos(variantes);
+    setIndexProductoGrupo(variantes.findIndex(p => p.id === producto.id));
     setProductoSeleccionado(producto);
     setCantidad(1);
     setMostrarModal(true);
@@ -332,12 +384,9 @@ function Carnes() {
             <option value="visitas">Más visitados</option>
           </select>
         </div>
-        <div className="products-grid">
-          {productos.map((producto) => {
-            const duplicados = productos.filter(
-              p => p.nombre === producto.nombre && p.marca === producto.marca
-            );
-            const esDuplicado = duplicados.length > 1;
+          <div className="products-grid">
+          {productosMostrados.map((producto) => {
+            const tieneVar = tieneVariantes(producto);
             return (
               <div
                 key={producto.id}
@@ -345,7 +394,7 @@ function Carnes() {
                 onClick={() => abrirModal(producto)}
               >
                 <img src={getImage(producto.imagen)} alt={producto.nombre} />
-                {esDuplicado && <div className="product-asterisk">*</div>}
+                {tieneVar && <div className="product-asterisk">*</div>}
                 <h3>{producto.nombre}</h3>
                 <div className="visitas-badge">{producto.visitas_semana || 0} vistas</div>
                 <p>{producto.supermercado_nombre}</p>
@@ -402,6 +451,7 @@ function Carnes() {
             {grupoProductos.length > 1 && (
               <div className="slider-buttons">
                 <button onClick={() => cambiarProductoGrupo(-1)}>←</button>
+                <span>{indexProductoGrupo + 1} de {grupoProductos.length}</span>
                 <button onClick={() => cambiarProductoGrupo(1)}>→</button>
               </div>
             )}
@@ -411,5 +461,4 @@ function Carnes() {
     </div>
   );
 }
-
 export default Carnes;
