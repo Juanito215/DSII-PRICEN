@@ -7,6 +7,7 @@ import searchIcon from './assets/logos/search.png';
 import banner from './assets/home/banner-img.png';
 import d1logo from './assets/logos/d1logo.png';
 import aralogo from './assets/logos/aralogo.png';
+import rewarded from './assets/logos/rewarded.svg';
 import exitologo from './assets/logos/exitologo.png';
 import { useNavigate } from 'react-router-dom';
 
@@ -199,7 +200,16 @@ function App() {
             🛠️
           </button>
         </div>
-)}
+        )}    
+      {/* Banner de recompensas */}
+      <div className="reward-container">
+        <button
+          className="reward-button"
+          onClick={() => navigate('/recompensas')}
+        >
+          <img src={rewarded} alt="Recompensas" />
+        </button>
+      </div>
 
         {/* Boton de Usuario */}
         <div className="user-dropdown">

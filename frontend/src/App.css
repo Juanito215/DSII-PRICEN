@@ -36,6 +36,8 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 44px;
+  height: 44px;
 }
 
 /* Ícono de hamburguesa */
@@ -127,14 +129,25 @@ body {
   width: 20px;
 }
 
-/* Botones de navegación */
+/* Botones de navegación - MODIFICADO PARA TAMAÑO UNIFORME */
 .nav-buttons {
   display: flex;
   gap: 15px;
   align-items: center;
-  min-width: 100px;
-  justify-content: flex-end;
 }
+/* Agrandar botones de Usuario y Notas */
+.user-dropdown .icon-button,
+.buttons .icon-button {
+  width: 56px;         /* Aumenta el contenedor */
+  height: 56px;
+}
+
+.user-dropdown .icon-button img,
+.buttons .icon-button img {
+  width: 32px;         /* Aumenta el ícono */
+  height: 32px;
+}
+
 
 .icon-button {
   background: none;
@@ -146,6 +159,9 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 44px;
+  height: 44px;
+  box-sizing: border-box;
 }
 
 .icon-button:hover {
@@ -157,7 +173,7 @@ body {
   width: 28px;
 }
 
-/* Botón de administrador */
+/* Botón de administrador - MODIFICADO PARA TAMAÑO UNIFORME */
 .icon-button.admin-button {
   background-color: white;
   border: 2px solid #0b7684;
@@ -169,6 +185,8 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 44px;
+  height: 44px;
   transition: background-color 0.3s, transform 0.2s;
 }
 
@@ -178,11 +196,83 @@ body {
   transform: scale(1.05);
 }
 
+.reward-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
 
-/* User dropdown */
+.reward-button {
+  background-color: white ;
+  color: white;
+  padding: 5px 8px;
+  font-size: 8px;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+.reward-button:hover {
+  background-color: #8ccbcf;
+}
+
+.reward-button img {
+  height: 24px;
+  width: 24px;
+}
+
+/* User dropdown - MODIFICADO PARA TAMAÑO UNIFORME */
 .user-dropdown {
   position: relative;
 }
+
+.user-dropdown .icon-button {
+  width: 44px;
+  height: 44px;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 45px;
+  right: 0;
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  padding: 10px;
+  z-index: 999;
+}
+
+.dropdown-menu button {
+  display: block;
+  width: 100%;
+  background: none;
+  border: none;
+  text-align: left;
+  padding: 8px 10px;
+  cursor: pointer;
+  font-size: 14px;
+  color: #333;
+}
+
+.dropdown-menu button:hover {
+  background-color: #f0f0f0;
+}
+
+/* Boton de notas - MODIFICADO PARA TAMAÑO UNIFORME */
+.buttons .icon-button {
+  width: 44px;
+  height: 44px;
+}
+
+/* Resto del CSS permanece igual... */
 
 /* Contenido principal */
 .main-content {
@@ -222,7 +312,7 @@ body {
   text-align: left;
 }
 
-/* Resto de tus estilos permanecen igual... */
+/* Resto del CSS permanece igual... */
 
 /* Botón CTA */
 .banner-button {
@@ -570,4 +660,3 @@ body {
   .how-to-use-button:hover {
     background: #81d4d4;
   }
-

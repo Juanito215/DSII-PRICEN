@@ -1,0 +1,130 @@
+.recompensas-container {
+  max-width: 1000px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: #f5f7fa;
+  border-radius: 1rem;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.07);
+  font-family: 'Segoe UI', sans-serif;
+  color: #333;
+}
+
+.titulo {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: #1a3d7c; /* Azul oscuro */
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.puntos {
+  font-size: 1.1rem;
+  text-align: center;
+  margin-bottom: 2rem;
+  color: #1a3d7c;
+  font-weight: 500;
+}
+
+.lista-recompensas {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.recompensa-card {
+  background-color: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: transform 0.2s ease;
+  border: 1px solid #e1e4ea;
+}
+
+.recompensa-card:hover {
+  transform: scale(1.02);
+  border-color: #cfd8f2;
+}
+
+.recompensa-card h3 {
+  font-size: 1.3rem;
+  color: #1a3d7c;
+  margin-bottom: 0.5rem;
+}
+
+.recompensa-card p {
+  font-size: 0.95rem;
+  color: #555;
+  margin-bottom: 0.8rem;
+}
+
+.recompensa-card button {
+  margin-top: auto;
+  padding: 0.6rem 1rem;
+  background-color: #287bff; /* Azul principal */
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  box-shadow: 0 2px 4px rgba(40, 123, 255, 0.2);
+}
+
+.recompensa-card button:hover {
+  background-color: #1a60d3;
+}
+
+.recompensa-card button:disabled {
+  background-color: #a9a9a9;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.recompensas-reclamadas {
+  background-color: #eaf0fb;
+  padding: 1.2rem 1.5rem;
+  border-radius: 0.8rem;
+  margin-top: 2rem;
+  border: 1px solid #d0ddf7;
+}
+
+.recompensas-reclamadas h3 {
+  font-size: 1.4rem;
+  margin-bottom: 0.8rem;
+  color: #1a3d7c;
+}
+
+.recompensas-reclamadas ul {
+  padding-left: 1.2rem;
+}
+
+.recompensas-reclamadas li {
+  margin-bottom: 0.5rem;
+  font-size: 1rem;
+  color: #3a3a3a;
+  list-style-type: disc;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .titulo {
+    font-size: 1.6rem;
+  }
+
+  .recompensa-card {
+    padding: 1.2rem;
+  }
+
+  .recompensa-card h3 {
+    font-size: 1.1rem;
+  }
+
+  .recompensa-card button {
+    font-size: 0.85rem;
+  }
+}

@@ -14,6 +14,7 @@ import ReportarPrecio from './reportarPrecio.jsx'
 import UserProfile from './perfilUsuario.jsx'
 import AdminProductos from './adminProductos.jsx'
 import Ayuda from './help.jsx'
+import Recompensas from './recompensas.jsx'
 import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom'
 
 createRoot(document.getElementById('root')).render(
@@ -34,6 +35,7 @@ createRoot(document.getElementById('root')).render(
         <Route path="/admin" element={<AdminProductos />} />
         <Route path="*" element={<h1>404 Not Found</h1>} />      
         <Route path="/ayuda" element={<Ayuda />} />
+        <Route path="/recompensas" element={<Recompensas />} />
       </Routes>
     </Router>
   </StrictMode>,
