@@ -9,6 +9,11 @@ import d1logo from './assets/logos/d1logo.png';
 import aralogo from './assets/logos/aralogo.png';
 import rewarded from './assets/logos/rewarded.svg';
 import exitologo from './assets/logos/exitologo.png';
+import moonIcon from './assets/logos/darkmode.svg'; // Añade este icono
+import sunIcon from './assets/logos/lightmode.svg'; // Añade este icono
+import textIncreaseIcon from './assets/logos/textincrease.svg'; // Añade este icono
+import textDecreaseIcon from './assets/logos/textdecrease.svg'; // Añade este icono
+import resetIcon from './assets/logos/reset.svg'; // Añade este icono
 import { useNavigate } from 'react-router-dom';
 
 function App() {
@@ -16,7 +21,34 @@ function App() {
   const [searchTerm, setSearchTerm] = useState('');
   const navigate = useNavigate();
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [darkMode, setDarkMode] = useState(false);
+  const [fontSize, setFontSize] = useState(16); // Tamaño base en px
+  const [showAccessibilityMenu, setShowAccessibilityMenu] = useState(false);
 
+  // Aplicar los cambios de accesibilidad al cuerpo del documento
+  useEffect(() => {
+    document.body.className = darkMode ? 'dark-mode' : 'light-mode';
+    document.body.style.fontSize = `${fontSize}px`;
+  }, [darkMode, fontSize]);
+
+  // Funciones para manejar accesibilidad
+  const toggleDarkMode = () => {
+    setDarkMode(!darkMode);
+  };
+
+  const increaseFontSize = () => {
+    setFontSize(prev => Math.min(prev + 2, 24)); // Máximo 24px
+  };
+
+  const decreaseFontSize = () => {
+    setFontSize(prev => Math.max(prev - 2, 12)); // Mínimo 12px
+  };
+
+  const resetAccessibility = () => {
+    setDarkMode(false);
+    setFontSize(16);
+  };
+  
   const getImage = (name, categoria = 'carnes') => {
     try {
       // Si es una URL completa, la devolvemos directamente
@@ -233,6 +265,40 @@ function App() {
         <div className="buttons">
           <button onClick={handleNotesClick} className="icon-button">
             <img src={notesIcon} alt="Notas" />
+          </button>
+        </div>
+        {/* Botones de accesibilidad */}
+        <div className="accessibility-controls">
+          <button 
+            className="icon-button" 
+            onClick={toggleDarkMode}
+            aria-label={darkMode ? "Cambiar a modo claro" : "Cambiar a modo oscuro"}
+          >
+            <img src={darkMode ? sunIcon : moonIcon} alt="Modo oscuro/claro" />
+          </button>
+          
+          <button 
+            className="icon-button" 
+            onClick={increaseFontSize}
+            aria-label="Aumentar tamaño de texto"
+          >
+            <img src={textIncreaseIcon} alt="Aumentar texto" />
+          </button>
+          
+          <button 
+            className="icon-button" 
+            onClick={decreaseFontSize}
+            aria-label="Disminuir tamaño de texto"
+          >
+            <img src={textDecreaseIcon} alt="Disminuir texto" />
+          </button>
+          
+          <button 
+            className="icon-button" 
+            onClick={resetAccessibility}
+            aria-label="Reiniciar ajustes de accesibilidad"
+          >
+            <img src={resetIcon} alt="Reiniciar" />
           </button>
         </div>
       </div>

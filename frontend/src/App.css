@@ -660,3 +660,141 @@ body {
   .how-to-use-button:hover {
     background: #81d4d4;
   }
+
+/* Controles de accesibilidad */
+.accessibility-controls {
+  display: flex;
+  gap: 10px;
+  margin-left: auto;
+  margin-right: 20px;
+}
+
+/* Modos de color */
+.light-mode {
+  --bg-color: #a0a9b3;
+  --text-color: #333;
+  --primary-color: #0b7684;
+  --secondary-color: #8ccbcf;
+  --navbar-bg: #0b7684;
+  --card-bg: white;
+  --banner-bg: #0b7684;
+  --footer-bg: #0b7684;
+}
+
+.dark-mode {
+--bg-color: #1a1a1a;       /* Fondo oscuro */
+  --text-color: #f0f0f0;     /* Texto claro */
+  --primary-color: #8ccbcf;  /* Turquesa para acentos */
+  --secondary-color: #2c5364; /* Azul oscuro suave */
+  --navbar-bg: #2c5364;      /* Azul oscuro para navbar */
+  --banner-bg: #2c5364;      /* Azul grisáceo para banner */
+  --footer-bg: #1e3d4a;      /* Azul oscuro para footer */
+  --card-bg: #2d2d2d;        /* Fondo de tarjetas */
+  background-color: #202020;
+}
+
+/* Aplicar variables de color */
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
+
+.carrusel-item {
+  background-color: var(--card-bg);
+  color: var(--text-color);
+}
+
+.productos-buscados h2,
+.supermercados-comparados h2 {
+  color: var(--primary-color);
+}
+
+/* Mejoras de accesibilidad para focus */
+button:focus, input:focus, a:focus {
+  outline: 3px solid var(--secondary-color);
+  outline-offset: 2px;
+}
+
+/* Asegurar contraste adecuado */
+a, button {
+  color: var(--primary-color);
+}
+
+/* Texto en modo oscuro */
+.dark-mode .carrusel-item p,
+.dark-mode .supermercado p {
+  color: var(--text-color);
+}
+/* Ajustes específicos para texto en modo oscuro */
+.dark-mode .banner h1,
+.dark-mode .banner p,
+.dark-mode .footer-logo p,
+.dark-mode .footer-column h3,
+.dark-mode .footer-column ul li a {
+  color: var(--text-color);
+}
+
+/* Botón del banner en modo oscuro */
+.dark-mode .banner-button {
+  background-color: var(--primary-color);
+  color: #1a1a1a;
+}
+
+/* Efecto hover para enlaces en footer (modo oscuro) */
+.dark-mode .footer-column ul li a:hover {
+  color: var(--primary-color);
+}
+/* Transiciones suaves para modo oscuro */
+.banner, .footer, .navbar, .carrusel-item {
+  transition: background-color 0.5s ease, color 0.5s ease;
+}
+
+/* Transición para botones de accesibilidad */
+.accessibility-controls button {
+  transition: transform 0.2s ease;
+}
+
+.accessibility-controls button:hover {
+  transform: scale(1.1);
+}
+/* Elementos de texto con unidades relativas */
+p, h1, h2, h3, h4, h5, h6, 
+.banner-text, .banner h1, .banner p,
+.productos-buscados h2, .supermercados-comparados h2,
+.carrusel-item p, .supermercado p,
+.footer-logo p, .footer-column h3, .footer-column ul li a,
+.sidebar li, .how-to-use-button {
+  font-size: 1em; /* Todos heredan del body */
+}
+
+/* Tamaños relativos específicos para mantener jerarquía */
+h1 { font-size: 2.5rem; }
+h2 { font-size: 2rem; }
+h3 { font-size: 1.75rem; }
+.banner h1 { font-size: 2.2rem; }
+.banner p { font-size: 1.2rem; }
+/* Contenedor principal que escala todo el contenido */
+.main-content {
+  font-size: 1em; /* Hereda del body que ya está escalado */
+}
+
+/* Elementos que deben mantener proporción */
+.banner-button, .how-to-use-button, 
+.carrusel-button, .icon-button {
+  font-size: 1em;
+  padding: 0.5em 1em; /* Padding relativo */
+}
+
+/* Ajustes para elementos específicos */
+.navbar {
+  font-size: 1em; /* Escala con el texto base */
+}
+
+.logo-app img {
+  height: calc(2.5em + 10px); /* Tamaño relativo pero con mínimo */
+}
+
+.search-bar input {
+  font-size: 1em;
+  padding: 0.5em 1em;
+}
