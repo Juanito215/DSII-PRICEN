@@ -68,6 +68,13 @@ app.use('/api/historial', historialPuntosRoutes);
 const reportesPreciosRoutes = require("./src/routes/reportePrecioRoutes");
 app.use("/api/reportes-precios", reportesPreciosRoutes);
 
+// 🚀 RUTA PARA RECOMPENSA
+const recompensaRoutes = require("./src/routes/recompensaRoute");
+app.use("/api/recompensas", recompensaRoutes);
+
+// 🚀 RUTA PARA CANJE
+const canjeRoutes = require("./src/routes/canjeRoute");
+app.use("/api/canjes", canjeRoutes);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

@@ -15,7 +15,7 @@ body {
   font-size: 1.5rem;
   font-weight: bold;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  margin-bottom: 1.5rem; /* 👈 Añade esta línea */
+  margin-bottom: 1.5rem;
 }
 
 /* Contenedor principal */
@@ -43,7 +43,7 @@ body {
   gap: 1rem;
 }
 
-/* Inputs y selects */
+/* Inputs, selects y textarea */
 .admin-productos-container input[type="text"],
 .admin-productos-container input[type="number"],
 .admin-productos-container textarea,
@@ -56,6 +56,9 @@ body {
   background-color: #ffffff;
   color: #000000;
   transition: border 0.2s ease;
+  width: 100%;
+  box-sizing: border-box;
+  font-family: inherit;
 }
 
 .admin-productos-container input[type="text"]:focus,
@@ -70,6 +73,7 @@ body {
 .admin-productos-container textarea {
   resize: vertical;
   min-height: 80px;
+  font-family: inherit;
 }
 
 /* Botón */
@@ -83,6 +87,8 @@ body {
   cursor: pointer;
   font-weight: bold;
   transition: background-color 0.3s ease;
+  width: 150px;
+  align-self: flex-start;
 }
 
 .admin-productos-container button:hover {
@@ -117,6 +123,17 @@ body {
   color: white;
 }
 
+/* Select con flecha personalizada */
+.admin-productos-container select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background: white url('data:image/svg+xml;utf8,<svg fill="none" stroke="%230b7684" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><polyline points="6 9 12 15 18 9"></polyline></svg>') no-repeat right 12px center;
+  background-size: 14px 14px;
+  padding-right: 40px;
+  cursor: pointer;
+}
+
 /* Responsive */
 @media (max-width: 600px) {
   .admin-productos-container {
@@ -127,5 +144,20 @@ body {
   .navbar {
     font-size: 1.2rem;
     padding: 0.75rem 1rem;
+  }
+
+  .admin-tabs {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .admin-tabs button {
+    width: 100%;
+    padding: 12px 0;
+  }
+
+  .admin-productos-container button {
+    width: 100%;
+    align-self: stretch;
   }
 }

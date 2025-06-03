@@ -413,3 +413,20 @@ exports.filtrarProductos = async (req, res) => {
     });
   }
 };
+
+// 🔹 Obtener producto por ID
+exports.getProductoById = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const producto = await Producto.findByPk(id);
+    if (!producto) {
+      return res.status(404).json({ message: "Producto no encontrado." });
+    }
+
+    res.json(producto);
+  } catch (error) {
+    console.error("❌ Error al obtener producto por ID:", error);
+    res.status(500).json({ message: "Error en el servidor." });
+  }
+};
