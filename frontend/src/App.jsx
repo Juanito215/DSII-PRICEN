@@ -176,132 +176,81 @@ function App() {
   return (
     <>
       <div className="navbar">
-        {/* Botón de menú hamburguesa */}
-        <div classname="navbar-left">
-          {/*Botones */}
-          <button className='menu-button' onClick={handleNavBarClick}>
+        <div className="navbar-left">
+            <button className="menu-button" onClick={handleNavBarClick}>
             <span className="hamburger-icon"></span>
-          </button>
+            </button>
+            <div className="logo-app">
+            <img src={logo} alt="Logo" />
+            <header>
+                {usuario ? (
+                <p>Hola, <strong>{usuario.nombre}</strong> 👋</p>
+                ) : (
+                <p>No has iniciado sesión</p>
+                )}
+            </header>
+            </div>
         </div>
-        {/* Logo a la izquierda */}
-        <div className="logo-app">
-          <img src={logo} alt="Logo" />
-          <header>
-            {usuario ? (
-              <p>Hola, <strong>{usuario.nombre}</strong> 👋</p>
-            ) : (
-              <p>No has iniciado sesión</p>
-            )}
-          </header>
-        </div>
-        {/* Barra de búsqueda en el centro - Ahora funcional */}
+
         <form className="search-bar" onSubmit={handleSearch}>
-          <input 
-            type="text" 
+            <input 
+            type="text"
             placeholder="¿Qué producto estás buscando?" 
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-          />
-          <button type="submit" className="search-button">
+            />
+            <button type="submit" className="search-button">
             <img src={searchIcon} alt="Buscar" />
-          </button>
+            </button>
         </form>
 
-        {/* Botón de categorías */}
-        <div className={`sidebar ${sidebarOpen ? 'open' : ''}`}>
-          <button classname="close-sidebar" onClick={handleNavBarClick}>
-            &times;
-          </button>
-          <h3>Categorías</h3>
-          <ul>
-            <li onClick={() => handleNavBarSelect('/aseo')}>Aseo</li>
-            <li onClick={() => handleNavBarSelect('/carnes')}>Carnes</li>
-            <li onClick={() => handleNavBarSelect('/frutasVerduras')}>Frutas y verduras</li>
-            <li onClick={() => handleNavBarSelect('/alcohol')}>Alcohol</li>
-            </ul>
-        </div>
-
-        {/* Botón de gestión de productos (solo para admins) */}
-        {usuario?.rol === 'admin' && (
-        <div className="buttons">
-          <button 
-            onClick={() => navigate('/admin')} 
-            className="icon-button admin-button"
-            title="Gestión de productos"
-          >
-            🛠️
-          </button>
-        </div>
-        )}    
-      {/* Banner de recompensas */}
-      <div className="reward-container">
-        <button
-          className="reward-button"
-          onClick={() => navigate('/recompensas')}
-        >
-          <img src={rewarded} alt="Recompensas" />
-        </button>
-      </div>
-
-        {/* Boton de Usuario */}
-        <div className="user-dropdown">
-          <button onClick={toggleDropdown} className="icon-button">
-            <img src={userIcon} alt="Usuario" />
-          </button>
-          {showDropdown && isLoggedIn && (
-            <div className="dropdown-menu">
-              <button onClick={() => navigate('/perfil')}>Perfil</button>
-              <button onClick={handleLogout}>Cerrar sesión</button>
-            </div>
-          )}
-          {showDropdown && !isLoggedIn && (
-            <div className="dropdown-menu">
-              <button onClick={() => navigate('/login')}>Iniciar sesión</button>
-            </div>
-          )}
-        </div>
-
-        {/* Boton de notas */}
-        <div className="buttons">
-          <button onClick={handleNotesClick} className="icon-button">
+        <div className="navbar-right">
+            {usuario?.rol === 'admin' && (
+            <button onClick={() => navigate('/admin')} className="icon-button" title="Admin">
+                🛠️
+            </button>
+            )}
+            <button onClick={() => navigate('/recompensas')} className="icon-button">
+            <img src={rewarded} alt="Recompensas" />
+            </button>
+            <button onClick={handleNotesClick} className="icon-button">
             <img src={notesIcon} alt="Notas" />
-          </button>
+            </button>
+            <div className="user-dropdown">
+            <button onClick={toggleDropdown} className="icon-button">
+                <img src={userIcon} alt="Usuario" />
+            </button>
+            {showDropdown && isLoggedIn && (
+                <div className="dropdown-menu">
+                <button onClick={() => navigate('/perfil')}>Perfil</button>
+                <button onClick={handleLogout}>Cerrar sesión</button>
+                </div>
+            )}
+            {showDropdown && !isLoggedIn && (
+                <div className="dropdown-menu">
+                <button onClick={() => navigate('/login')}>Iniciar sesión</button>
+                </div>
+            )}
+            </div>
         </div>
-        {/* Botones de accesibilidad */}
-        <div className="accessibility-controls">
-          <button 
-            className="icon-button" 
-            onClick={toggleDarkMode}
-            aria-label={darkMode ? "Cambiar a modo claro" : "Cambiar a modo oscuro"}
-          >
-            <img src={darkMode ? sunIcon : moonIcon} alt="Modo oscuro/claro" />
-          </button>
-          
-          <button 
-            className="icon-button" 
-            onClick={increaseFontSize}
-            aria-label="Aumentar tamaño de texto"
-          >
-            <img src={textIncreaseIcon} alt="Aumentar texto" />
-          </button>
-          
-          <button 
-            className="icon-button" 
-            onClick={decreaseFontSize}
-            aria-label="Disminuir tamaño de texto"
-          >
-            <img src={textDecreaseIcon} alt="Disminuir texto" />
-          </button>
-          
-          <button 
-            className="icon-button" 
-            onClick={resetAccessibility}
-            aria-label="Reiniciar ajustes de accesibilidad"
-          >
+        {/* Barra lateral de accesibilidad */}
+        <div className="accessibility-sidebar">
+        <button className="icon-button" onClick={toggleDarkMode}>
+            <img src={darkMode ? sunIcon : moonIcon} alt="Modo" />
+        </button>
+        <button className="icon-button" onClick={increaseFontSize}>
+            <img src={textIncreaseIcon} alt="Aumentar" />
+        </button>
+        <button className="icon-button" onClick={decreaseFontSize}>
+            <img src={textDecreaseIcon} alt="Disminuir" />
+        </button>
+        <button className="icon-button" onClick={resetAccessibility}>
             <img src={resetIcon} alt="Reiniciar" />
-          </button>
+        </button>
         </div>
-      </div>
+
+        </div>
+
 
       {/* Contenido principal*/}
       <div className="main-content">

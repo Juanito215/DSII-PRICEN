@@ -128,50 +128,99 @@ body {
   height: 20px;
   width: 20px;
 }
+/* Alinea los botones del lado derecho de la navbar en fila */
+.navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
 
 /* Botones de navegación - MODIFICADO PARA TAMAÑO UNIFORME */
-.nav-buttons {
-  display: flex;
-  gap: 15px;
-  align-items: center;
-}
-/* Agrandar botones de Usuario y Notas */
-.user-dropdown .icon-button,
-.buttons .icon-button {
-  width: 56px;         /* Aumenta el contenedor */
-  height: 56px;
-}
+/* ======== BOTONES UNIFORMES EN NAVBAR ======== */
 
-.user-dropdown .icon-button img,
-.buttons .icon-button img {
-  width: 32px;         /* Aumenta el ícono */
-  height: 32px;
-}
-
-
-.icon-button {
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 8px;
+/* Botones en general */
+.navbar .icon-button {
+  background-color: white;
+  border: 2px solid #0b7684;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
-  transition: background-color 0.3s;
+  padding: 5px;
   display: flex;
   align-items: center;
   justify-content: center;
+  box-sizing: border-box;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+/* Íconos dentro de los botones */
+.navbar .icon-button img {
+  width: 24px;
+  height: 24px;
+}
+
+/* Hover para todos los botones del navbar */
+.navbar .icon-button:hover {
+  background-color: #8ccbcf;
+  transform: scale(1.1);
+}
+
+/* Botón de usuario también uniforme */
+.navbar .user-dropdown .icon-button {
+  background-color: white;
+  border: 2px solid #0b7684;
   width: 44px;
   height: 44px;
-  box-sizing: border-box;
 }
 
-.icon-button:hover {
-  background-color: rgba(255, 255, 255, 0.1);
+/* Espaciado horizontal en el lado derecho del navbar */
+.navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 15px;
 }
 
-.icon-button img {
-  height: 28px;
-  width: 28px;
+/* ======================================
+   Barra lateral de accesibilidad (nueva)
+   ====================================== */
+.accessibility-sidebar {
+  position: fixed;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  background-color: white;
+  padding: 5px;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  box-shadow: -2px 0 6px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  z-index: 1050;
 }
+
+.accessibility-sidebar .icon-button {
+  width: 44px;
+  height: 44px;
+  background-color: white;
+  border: 2px solid #0b7684;
+  border-radius: 50%;
+  padding: 5px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.accessibility-sidebar .icon-button:hover {
+  background-color: #8ccbcf;
+  transform: scale(1.1);
+}
+
+.accessibility-sidebar .icon-button img {
+  width: 24px;
+  height: 24px;
+}
+
 
 /* Botón de administrador - MODIFICADO PARA TAMAÑO UNIFORME */
 .icon-button.admin-button {

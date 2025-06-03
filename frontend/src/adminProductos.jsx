@@ -280,9 +280,9 @@ const AdminProductos = () => {
             required
           >
             <option value="">Seleccione un supermercado</option>
-            <option value="1">D1</option>
-            <option value="3">Ara</option>
-            <option value="4">Exito</option>
+            <option value="1">Exito</option>
+            <option value="3">D1</option>
+            <option value="4">Ara</option>
           </select>
           <button type="submit">Crear producto</button>
         </form>

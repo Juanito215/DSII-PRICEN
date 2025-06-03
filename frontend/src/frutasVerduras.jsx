@@ -246,7 +246,7 @@ function FrutasVerduras() {
     setProductoSeleccionado(grupoProductos[nuevoIndex]);
   };
 
-  const getImage = (name) => `/src/assets/verduras/${name}`;
+  const getImage = (name) => `/src/assets/frutasVerduras/${name}`;
 
   const handleHomeClick = () => navigate('/');
   const handleLoginClick = () => navigate('/login');
