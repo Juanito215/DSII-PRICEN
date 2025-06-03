@@ -18,6 +18,9 @@ import Recompensas from './recompensas.jsx'
 import Privacidad from './privacidad.jsx'
 import TerminosYCondiciones from './terminosYcondiciones.jsx'
 import PreguntasFrecuentes from './preguntasFrecuentes.jsx'
+import Alcohol from './alcohol.jsx'
+import Lacteos from './lacteos.jsx'
+import Skincare from './skincare.jsx'
 import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom'
 
 createRoot(document.getElementById('root')).render(
@@ -42,6 +45,9 @@ createRoot(document.getElementById('root')).render(
         <Route path="/privacidad" element={<Privacidad />} />
         <Route path="/terminos-y-condiciones" element={<TerminosYCondiciones />} />
         <Route path="/preguntas-frecuentes" element={<PreguntasFrecuentes />} />
+        <Route path="/alcohol" element={<Alcohol />} />
+        <Route path="/lacteos" element={<Lacteos />} />
+        <Route path="/skincare" element={<Skincare />} />
       </Routes>
     </Router>
   </StrictMode>,

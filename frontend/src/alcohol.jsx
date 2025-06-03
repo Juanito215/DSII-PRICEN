@@ -1,14 +1,13 @@
 import React, { useEffect, useState, useMemo } from 'react';
-import './frutasVerduras.css';
+import './alcohol.css';
 import logo from './assets/logos/logo.png';
 import homeIcon from './assets/logos/home icon.svg';
 import userIcon from './assets/logos/user icon.svg';
 import notesIcon from './assets/logos/list icon.svg';
-import featuredProductImage from './assets/verduras/image 4.png';
-import cheapProductImage from './assets/verduras/image 5.png';
+import featuredProductImage from './assets/alcohol/alcohol-banner.jpg';
 import { useNavigate } from 'react-router-dom';
 
-function FrutasVerduras() {
+function Alcohol() {
   const navigate = useNavigate();
   const [productosOriginales, setProductosOriginales] = useState([]);
   const [productosMostrados, setProductosMostrados] = useState([]);
@@ -60,14 +59,14 @@ function FrutasVerduras() {
 
   const fetchProductos = async (ordenar = null, direccion = null) => {
     try {
-      let url = 'http://localhost:3000/api/productos/categoria/frutasVerduras';
+      let url = 'http://localhost:3000/api/productos/categoria/alcohol';
       
       if (ordenar && direccion) {
         url += `?ordenar=${ordenar}&direccion=${direccion}`;
       } else if (ordenar === 'supermercado') {
         url += `?ordenar=supermercado&direccion=asc`;
       } else if (ordenar === 'visitas') {
-        url = 'http://localhost:3000/api/productos/mas-vistos?categoria=frutasVerduras';
+        url = 'http://localhost:3000/api/productos/mas-vistos?categoria=alcohol';
       }
 
       const response = await fetch(url);
@@ -92,7 +91,7 @@ function FrutasVerduras() {
     // Cargar producto más económico
     const fetchProductoMasEconomico = async () => {
       try {
-        const response = await fetch('http://localhost:3000/api/productos/economicos/frutasVerduras');
+        const response = await fetch('http://localhost:3000/api/productos/economicos/alcohol');
         if (!response.ok) throw new Error('Error al cargar el producto más económico');
         const data = await response.json();
         setCheapestProduct(data);
@@ -246,7 +245,7 @@ function FrutasVerduras() {
     setProductoSeleccionado(grupoProductos[nuevoIndex]);
   };
 
-  const getImage = (name) => `/src/assets/verduras/${name}`;
+  const getImage = (name) => `/src/assets/alcohol/${name}`;
 
   const handleHomeClick = () => navigate('/');
   const handleLoginClick = () => navigate('/login');
@@ -256,15 +255,15 @@ function FrutasVerduras() {
       navigate('/login');
       return;
     }
-    navigate('/notas', { state: { from: '/frutas-verduras' } });
+    navigate('/notas', { state: { from: '/alcohol' } });
   };
 
   if (loading) return <div className="loading">Cargando productos...</div>;
   if (error) return <div className="error">Error: {error}</div>;
 
   return (
-    <div className="fruits-page">
-      <header className="fruits-header">
+    <div className="alcohol-page">
+      <header className="alcohol-header">
         <div className="logo-container">
           <img src={logo} alt="Logo" className="logo" />
         </div>
@@ -288,14 +287,14 @@ function FrutasVerduras() {
         </div>
       </header>
 
-      <section className="hero-section-verduras">
+      <section className="hero-section-alcohol">
         <div className="hero-content">
-          <h1 className="hero-title">Frutas y verduras</h1>
-          <h2 className="hero-subtitle">¡Calidad y frescura de la tierra!</h2>
+          <h1 className="hero-title">Bebidas Alcohólicas</h1>
+          <h2 className="hero-subtitle">Los mejores licores al mejor precio</h2>
           <div className="search-container">
             <input
               type="text"
-              placeholder="Buscar productos de frutas y verduras..."
+              placeholder="Buscar bebidas alcohólicas..."
               className="search-input"
             />
             <button className="search-button">
@@ -315,7 +314,7 @@ function FrutasVerduras() {
           <div className="product-info">
             <h2>Producto más visto</h2>
             <p className="product-description">
-              {featuredProduct.descripcion || "Limon Pajarito"}
+              {featuredProduct.descripcion || "Bebida alcohólica premium de alta calidad"}
             </p>
             <button className="action-button" onClick={() => handleAddToNotes(featuredProduct)}>
               Anotar
@@ -330,7 +329,7 @@ function FrutasVerduras() {
           </div>
           <div className="product-price">
             <span className="price">${featuredProduct.precio?.toLocaleString()}</span>
-            <span className="store">{featuredProduct.supermercado_nombre || "D1"}</span>
+            <span className="store">{featuredProduct.supermercado_nombre || "Supermercado"}</span>
           </div>
         </section>
       )}
@@ -347,7 +346,7 @@ function FrutasVerduras() {
           <div className="product-info">
             <h2>Producto más económico</h2>
             <p className="product-description">
-              {cheapestProduct.descripcion || "Frescura en cada sabor."}
+              {cheapestProduct.descripcion || "La opción más económica en bebidas alcohólicas"}
             </p>
             <button className="action-button" onClick={() => handleAddToNotes(cheapestProduct)}>
               Anotar
@@ -355,7 +354,7 @@ function FrutasVerduras() {
           </div>
           <div className="product-price">
             <span className="price">${cheapestProduct.precio?.toLocaleString()}</span>
-            <span className="store">{cheapestProduct.supermercado_nombre || "ARA"}</span>
+            <span className="store">{cheapestProduct.supermercado_nombre || "Supermercado"}</span>
           </div>
         </section>
       )}
@@ -419,7 +418,8 @@ function FrutasVerduras() {
             />
             <h2>{productoSeleccionado.nombre}</h2>
             <p><strong>Descripción:</strong> {productoSeleccionado.descripcion || "Sin descripción"}</p>
-            <p><strong>Peso:</strong> {productoSeleccionado.peso} {productoSeleccionado.unidad_medida || "Sin peso"}</p>
+            <p><strong>Volumen:</strong> {productoSeleccionado.peso} {productoSeleccionado.unidad_medida || "ml"}</p>
+            <p><strong>Grado alcohólico:</strong> {productoSeleccionado.grado_alcoholico || "N/A"}%</p>
             <p><strong>Precio:</strong> ${productoSeleccionado.precio?.toLocaleString()}</p>
             <p><strong>Supermercado:</strong> {productoSeleccionado.supermercado_nombre}</p>
 
@@ -462,4 +462,4 @@ function FrutasVerduras() {
   );
 }
 
-export default FrutasVerduras;
+export default Alcohol;
