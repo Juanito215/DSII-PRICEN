@@ -398,26 +398,21 @@ function App() {
               <h3>About Us</h3>
               <ul>
                 <li><a href="/about">¿Quienes somos?</a></li>
-                <li><a href="/mission">Acerca de</a></li>
-                <li><a href="/team">Nuestro equipo</a></li>
-                <li><a href="/contact">Contactanos</a></li>
-              </ul>
-            </div>
-            <div className='footer-column'>
-              <h3>Services</h3>
-              <ul>
-                <li><a href="/services">¿Qué hacemos?</a></li>
-                <li><a href="/products">Productos</a></li>
-                <li><a href="/offers">Ofertas</a></li>
-                <li><a href="/brands">Marcas</a></li>
+                <li><a href="/preguntas-frecuentes">Preguntas-Frecuentes</a></li>
               </ul>
             </div>
             <div className='footer-column'>
               <h3>Servicios</h3>
               <ul>
-                <li><a href="/privacy">Privacidad</a></li>
-                <li><a href="/terms">Términos y condiciones</a></li>
-                <li><a href="/cookies">Cookies</a></li>
+                <li><a href="/ayuda">Ayuda</a></li>
+                <li><a href="/categorias">Productos</a></li>
+              </ul>
+            </div>
+            <div className='footer-column'>
+              <h3>Aviso Legal</h3>
+              <ul>
+                <li><a href="/privacidad">Privacidad</a></li>
+                <li><a href="/terminos-y-condiciones">Terminos y Condiciones</a></li>
               </ul>
             </div>  
           </div>

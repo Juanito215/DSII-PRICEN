@@ -15,6 +15,9 @@ import UserProfile from './perfilUsuario.jsx'
 import AdminProductos from './adminProductos.jsx'
 import Ayuda from './help.jsx'
 import Recompensas from './recompensas.jsx'
+import Privacidad from './privacidad.jsx'
+import TerminosYCondiciones from './terminosYcondiciones.jsx'
+import PreguntasFrecuentes from './preguntasFrecuentes.jsx'
 import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom'
 
 createRoot(document.getElementById('root')).render(
@@ -36,6 +39,9 @@ createRoot(document.getElementById('root')).render(
         <Route path="*" element={<h1>404 Not Found</h1>} />      
         <Route path="/ayuda" element={<Ayuda />} />
         <Route path="/recompensas" element={<Recompensas />} />
+        <Route path="/privacidad" element={<Privacidad />} />
+        <Route path="/terminos-y-condiciones" element={<TerminosYCondiciones />} />
+        <Route path="/preguntas-frecuentes" element={<PreguntasFrecuentes />} />
       </Routes>
     </Router>
   </StrictMode>,
