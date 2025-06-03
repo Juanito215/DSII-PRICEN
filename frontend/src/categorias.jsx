@@ -10,6 +10,8 @@ import carnesImg from './assets/carnes/carnesBanner.png';
 import aseoImg from './assets/aseo/aseoBanner.png';
 import frutasVerdurasImg from './assets/verduras/fruits-header.avif';
 import alcoholImg from './assets/home/alcohol.png';
+import lacteosImg from './assets/lacteos/lacteos-banner.jpg';
+import skincareImg from './assets/Skincare/skincare-banner.jpg';
 
 function Categorias() {
   const navigate = useNavigate();
@@ -27,7 +29,9 @@ function Categorias() {
     { id: 1, nombre: 'Carnes', imagen: carnesImg, ruta: '/carnes' },
     { id: 2, nombre: 'Aseo', imagen: aseoImg, ruta: '/aseo' },
     { id: 3, nombre: 'Frutas y Verduras', imagen: frutasVerdurasImg, ruta: '/frutasVerduras' },
-    { id: 4, nombre: 'Alcohol', imagen: alcoholImg, ruta: '/categoria/alcohol' },
+    { id: 4, nombre: 'Alcohol', imagen: alcoholImg, ruta: '/alcohol' },
+    {id: 5, nombre: 'Lácteos', imagen: lacteosImg, ruta: '/lacteos'},
+    {id: 6, nombre: 'Skincare', imagen: skincareImg, ruta: '/skincare'},
     // Puedes agregar más categorías aquí
   ];
 

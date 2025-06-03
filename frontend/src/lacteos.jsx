@@ -1,14 +1,13 @@
 import React, { useEffect, useState, useMemo } from 'react';
-import './frutasVerduras.css';
+import './lacteos.css';
 import logo from './assets/logos/logo.png';
 import homeIcon from './assets/logos/home icon.svg';
 import userIcon from './assets/logos/user icon.svg';
 import notesIcon from './assets/logos/list icon.svg';
-import featuredProductImage from './assets/verduras/image 4.png';
-import cheapProductImage from './assets/verduras/image 5.png';
+import featuredProductImage from './assets/lacteos/lacteos-banner.jpg';
 import { useNavigate } from 'react-router-dom';
 
-function FrutasVerduras() {
+function Lacteos() {
   const navigate = useNavigate();
   const [productosOriginales, setProductosOriginales] = useState([]);
   const [productosMostrados, setProductosMostrados] = useState([]);
@@ -23,7 +22,7 @@ function FrutasVerduras() {
   const [cantidad, setCantidad] = useState(1);
   const [filtro, setFiltro] = useState('predeterminado');
 
-  // Función para normalizar texto (eliminar tildes y convertir a minúsculas)
+  // Función para normalizar texto
   const normalizarTexto = (texto) => {
     return texto
       .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
@@ -47,7 +46,7 @@ function FrutasVerduras() {
     return grupos;
   }, [productosOriginales]);
 
-  // Obtener productos únicos para mostrar (uno por grupo)
+  // Obtener productos únicos para mostrar
   const obtenerProductosUnicos = useMemo(() => {
     return Object.values(productosAgrupados).map(grupo => grupo[0]);
   }, [productosAgrupados]);
@@ -60,14 +59,14 @@ function FrutasVerduras() {
 
   const fetchProductos = async (ordenar = null, direccion = null) => {
     try {
-      let url = 'http://localhost:3000/api/productos/categoria/frutasVerduras';
+      let url = 'http://localhost:3000/api/productos/categoria/lacteos';
       
       if (ordenar && direccion) {
         url += `?ordenar=${ordenar}&direccion=${direccion}`;
       } else if (ordenar === 'supermercado') {
         url += `?ordenar=supermercado&direccion=asc`;
       } else if (ordenar === 'visitas') {
-        url = 'http://localhost:3000/api/productos/mas-vistos?categoria=frutasVerduras';
+        url = 'http://localhost:3000/api/productos/mas-vistos?categoria=lacteos';
       }
 
       const response = await fetch(url);
@@ -86,13 +85,11 @@ function FrutasVerduras() {
   };
 
   useEffect(() => {
-    // Cargar productos iniciales (sin filtro)
     fetchProductos();
     
-    // Cargar producto más económico
     const fetchProductoMasEconomico = async () => {
       try {
-        const response = await fetch('http://localhost:3000/api/productos/economicos/frutasVerduras');
+        const response = await fetch('http://localhost:3000/api/productos/economicos/lacteos');
         if (!response.ok) throw new Error('Error al cargar el producto más económico');
         const data = await response.json();
         setCheapestProduct(data);
@@ -105,7 +102,6 @@ function FrutasVerduras() {
   }, []);
 
   useEffect(() => {
-    // Aplicar filtro cuando cambia
     switch(filtro) {
       case 'precio-asc':
         fetchProductos('precio', 'asc');
@@ -132,22 +128,10 @@ function FrutasVerduras() {
   }, [filtro]);
 
   useEffect(() => {
-    // Actualizar productos mostrados cuando cambian los productos originales
     setProductosMostrados(obtenerProductosUnicos);
   }, [productosOriginales, obtenerProductosUnicos]);
 
   const isAuthenticated = () => !!localStorage.getItem('token');
-
-  const getUserIdFromToken = () => {
-    const token = localStorage.getItem('token');
-    if (!token) return null;
-    try {
-      const payload = JSON.parse(atob(token.split('.')[1]));
-      return payload.id;
-    } catch {
-      return null;
-    }
-  };
 
   const handleAddToNotes = async (producto, cantidad = 1, e) => {
     if (e) e.stopPropagation();
@@ -159,17 +143,10 @@ function FrutasVerduras() {
       return;
     }
 
-    let userId;
     try {
       const payload = JSON.parse(atob(token.split('.')[1]));
-      userId = payload.id;
-    } catch (error) {
-      console.error("Error al decodificar token:", error);
-      alert("Error de autenticación.");
-      return;
-    }
+      const userId = payload.id;
 
-    try {
       const res = await fetch('http://localhost:3000/api/usuario-producto', {
         method: 'POST',
         headers: {
@@ -183,16 +160,11 @@ function FrutasVerduras() {
         }),
       });
 
-      const responseText = await res.text();
-      console.log("Respuesta del backend:", res.status, responseText);
-
-      if (res.status === 400) {
-        alert("⚠️ Backend dijo 400:\n" + responseText);
-      } else if (res.ok) {
+      if (res.ok) {
         alert("Producto añadido a tus notas.");
       } else {
+        const responseText = await res.text();
         alert("Error al agregar producto: " + responseText);
-        throw new Error("Error inesperado");
       }
     } catch (err) {
       console.error("Error al agregar producto a notas:", err);
@@ -207,7 +179,6 @@ function FrutasVerduras() {
       });
       const data = await response.json();
       
-      // Actualizar contador de visitas en todos los productos del grupo
       const clave = `${normalizarTexto(producto.nombre)}-${normalizarTexto(producto.marca || '')}`;
       setProductosOriginales(prev => 
         prev.map(p => {
@@ -222,7 +193,6 @@ function FrutasVerduras() {
       console.error("Error al incrementar visitas:", error);
     }
 
-    // Obtener todas las variantes del producto
     const clave = `${normalizarTexto(producto.nombre)}-${normalizarTexto(producto.marca || '')}`;
     const variantes = productosAgrupados[clave] || [producto];
     
@@ -246,7 +216,7 @@ function FrutasVerduras() {
     setProductoSeleccionado(grupoProductos[nuevoIndex]);
   };
 
-  const getImage = (name) => `/src/assets/verduras/${name}`;
+  const getImage = (name) => `/src/assets/lacteos/${name}`;
 
   const handleHomeClick = () => navigate('/');
   const handleLoginClick = () => navigate('/login');
@@ -256,15 +226,15 @@ function FrutasVerduras() {
       navigate('/login');
       return;
     }
-    navigate('/notas', { state: { from: '/frutas-verduras' } });
+    navigate('/notas', { state: { from: '/lacteos' } });
   };
 
   if (loading) return <div className="loading">Cargando productos...</div>;
   if (error) return <div className="error">Error: {error}</div>;
 
   return (
-    <div className="fruits-page">
-      <header className="fruits-header">
+    <div className="lacteos-page">
+      <header className="lacteos-header">
         <div className="logo-container">
           <img src={logo} alt="Logo" className="logo" />
         </div>
@@ -288,14 +258,14 @@ function FrutasVerduras() {
         </div>
       </header>
 
-      <section className="hero-section-verduras">
+      <section className="hero-section-lacteos">
         <div className="hero-content">
-          <h1 className="hero-title">Frutas y verduras</h1>
-          <h2 className="hero-subtitle">¡Calidad y frescura de la tierra!</h2>
+          <h1 className="hero-title">Lácteos</h1>
+          <h2 className="hero-subtitle">Frescura y calidad en cada producto</h2>
           <div className="search-container">
             <input
               type="text"
-              placeholder="Buscar productos de frutas y verduras..."
+              placeholder="Buscar productos lácteos..."
               className="search-input"
             />
             <button className="search-button">
@@ -315,7 +285,7 @@ function FrutasVerduras() {
           <div className="product-info">
             <h2>Producto más visto</h2>
             <p className="product-description">
-              {featuredProduct.descripcion || "Limon Pajarito"}
+              {featuredProduct.descripcion || "Producto lácteo de alta calidad"}
             </p>
             <button className="action-button" onClick={() => handleAddToNotes(featuredProduct)}>
               Anotar
@@ -330,7 +300,7 @@ function FrutasVerduras() {
           </div>
           <div className="product-price">
             <span className="price">${featuredProduct.precio?.toLocaleString()}</span>
-            <span className="store">{featuredProduct.supermercado_nombre || "D1"}</span>
+            <span className="store">{featuredProduct.supermercado_nombre || "Supermercado"}</span>
           </div>
         </section>
       )}
@@ -347,7 +317,7 @@ function FrutasVerduras() {
           <div className="product-info">
             <h2>Producto más económico</h2>
             <p className="product-description">
-              {cheapestProduct.descripcion || "Frescura en cada sabor."}
+              {cheapestProduct.descripcion || "La opción más económica en productos lácteos"}
             </p>
             <button className="action-button" onClick={() => handleAddToNotes(cheapestProduct)}>
               Anotar
@@ -355,25 +325,19 @@ function FrutasVerduras() {
           </div>
           <div className="product-price">
             <span className="price">${cheapestProduct.precio?.toLocaleString()}</span>
-            <span className="store">{cheapestProduct.supermercado_nombre || "ARA"}</span>
+            <span className="store">{cheapestProduct.supermercado_nombre || "Supermercado"}</span>
           </div>
         </section>
       )}
 
       <section className="products-section">
-        <div className="filtros-container" style={{ display: 'flex', alignItems: 'center', marginBottom: '20px' }}>
-          <h2 className="section-title" style={{ marginRight: '20px' }}>Nuestros productos</h2>
-          <span style={{ marginRight: '10px' }}>Filtros:</span>
+        <div className="filtros-container">
+          <h2 className="section-title">Nuestros productos</h2>
+          <span>Filtros:</span>
           <select 
             value={filtro}
             onChange={(e) => setFiltro(e.target.value)}
-            style={{
-              padding: '8px 12px',
-              borderRadius: '5px',
-              border: '1px solid #ddd',
-              backgroundColor: '#0b7684',
-              cursor: 'pointer'
-            }}
+            className="filtro-select"
           >
             <option value="predeterminado">Predeterminado</option>
             <option value="precio-asc">Precio: Menor a Mayor</option>
@@ -402,6 +366,9 @@ function FrutasVerduras() {
                   <span className="product-price">
                     ${producto.precio?.toLocaleString()}
                   </span>
+                  <span className="product-weight">
+                    {producto.peso} {producto.unidad_medida}
+                  </span>
                 </div>
               </div>
             );
@@ -419,7 +386,8 @@ function FrutasVerduras() {
             />
             <h2>{productoSeleccionado.nombre}</h2>
             <p><strong>Descripción:</strong> {productoSeleccionado.descripcion || "Sin descripción"}</p>
-            <p><strong>Peso:</strong> {productoSeleccionado.peso} {productoSeleccionado.unidad_medida || "Sin peso"}</p>
+            <p><strong>Tipo:</strong> {productoSeleccionado.tipo_lacteo || "Producto lácteo"}</p>
+            <p><strong>Presentación:</strong> {productoSeleccionado.peso} {productoSeleccionado.unidad_medida || "gr/ml"}</p>
             <p><strong>Precio:</strong> ${productoSeleccionado.precio?.toLocaleString()}</p>
             <p><strong>Supermercado:</strong> {productoSeleccionado.supermercado_nombre}</p>
 
@@ -431,23 +399,27 @@ function FrutasVerduras() {
                 min="1"
                 value={cantidad}
                 onChange={(e) => setCantidad(Number(e.target.value))}
-                style={{ marginLeft: '10px', width: '60px' }}
               />
             </div>
 
-            <button className="modal-add-button" onClick={() => {
-              handleAddToNotes(productoSeleccionado, cantidad);
-              cerrarModal();
-            }}>
-              ➕ Añadir a notas
-            </button>
-            <button className="modal-report-button" onClick={() => {
-              cerrarModal();
-              navigate('/reportar-precio', { state: { producto: productoSeleccionado } });
-            }}>
-              📝 Reportar nuevo precio
-            </button>
-            <button className="modal-close-button" onClick={cerrarModal}>Cerrar</button>
+            <div className="modal-buttons">
+              <button className="modal-add-button" onClick={() => {
+                handleAddToNotes(productoSeleccionado, cantidad);
+                cerrarModal();
+              }}>
+                ➕ Añadir a notas
+              </button>
+              <button className="modal-report-button" onClick={() => {
+                cerrarModal();
+                navigate('/reportar-precio', { state: { producto: productoSeleccionado } });
+              }}>
+                📝 Reportar precio
+              </button>
+              <button className="modal-close-button" onClick={cerrarModal}>
+                Cerrar
+              </button>
+            </div>
+
             {grupoProductos.length > 1 && (
               <div className="slider-buttons">
                 <button onClick={() => cambiarProductoGrupo(-1)}>←</button>
@@ -462,4 +434,4 @@ function FrutasVerduras() {
   );
 }
 
-export default FrutasVerduras;
+export default Lacteos;

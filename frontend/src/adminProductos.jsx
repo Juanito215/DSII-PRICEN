@@ -227,13 +227,18 @@ const AdminProductos = () => {
             required
             min="0"
           />
-          <input
+          <select
             type="text"
             placeholder="Unidad"
             value={unidad}
             onChange={e => setUnidad(e.target.value)}
-            required
-          />
+            required>
+            <option value="">Seleccione una unidad</option>
+            <option value="kg">Kilogramos (kg)</option>
+            <option value="g">Gramos (g)</option>
+            <option value="l">Litros (l)</option>
+            <option value="ml">Mililitros (ml)</option>
+          </select>
           <input
             type="text"
             placeholder="Marca"
@@ -251,8 +256,8 @@ const AdminProductos = () => {
             <option value="lacteos">Lácteos</option>
             <option value="aseo">Aseo</option>
             <option value="alcohol">Alcohol</option>
-            <option value="frutas y verduras">Frutas y Verduras</option>
-            <option value="cuidado personal">Cuidado Personal</option>
+            <option value="frutasVerduras">Frutas y Verduras</option>
+            <option value="Skincare">Cuidado Personal</option>
           </select>
           <input
             type="file"
@@ -275,9 +280,9 @@ const AdminProductos = () => {
             required
           >
             <option value="">Seleccione un supermercado</option>
-            <option value="1">Supermercado Éxito</option>
-            <option value="3">Tiendas D1</option>
-            <option value="4">Tiendas Ara</option>
+            <option value="1">D1</option>
+            <option value="3">Ara</option>
+            <option value="4">Exito</option>
           </select>
           <button type="submit">Crear producto</button>
         </form>
@@ -350,8 +355,8 @@ const AdminProductos = () => {
               <option value="carnes">Carnes</option>
               <option value="lacteos">Lácteos</option>
               <option value="aseo">Aseo</option>
-              <option value="alcohol">Alcohol</option>
-              <option value="frutas y verduras">Frutas y Verduras</option>
+              <option value="alcohol">alcohol</option>
+              <option value="frutas y verduras">FrutasVerduras</option>
               <option value="cuidado personal">Cuidado Personal</option>
             </select>
             <input
