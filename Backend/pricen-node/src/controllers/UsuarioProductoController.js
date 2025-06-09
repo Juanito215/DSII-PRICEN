@@ -125,28 +125,43 @@ exports.actualizarCantidad = async (req, res) => {
     }
 };
 
-// 🔹 Eliminar un producto de la lista del usuario
-exports.eliminarProducto = async (req, res) => {
+// En UsuarioProductoController.js
+exports.eliminarProductoPorIds = async (req, res) => {
     try {
-        const { id } = req.params;
-        const usuario_id = req.user.id;
+        const { productoId } = req.params;
+        const usuario_id = req.user.id; // ID del usuario autenticado (del token)
+
+        console.log(`Eliminando producto ${productoId} para usuario ${usuario_id}`);
 
         const usuarioProducto = await UsuarioProducto.findOne({
-            where: { id, usuario_id },
+            where: { 
+                usuario_id, // Usamos directamente el ID del usuario autenticado
+                producto_id: productoId 
+            },
         });
 
         if (!usuarioProducto) {
-            return res.status(404).json({ message: "Producto no encontrado en la lista." });
+            return res.status(404).json({ 
+                message: "Producto no encontrado en tu lista",
+                success: false
+            });
         }
 
         await usuarioProducto.destroy();
-        res.json({ message: "Producto eliminado de la lista." });
+        
+        res.json({ 
+            success: true,
+            message: "Producto eliminado correctamente"
+        });
     } catch (error) {
-        console.error(" Error al eliminar producto de la lista:", error);
-        res.status(500).json({ message: "Error en el servidor." });
+        console.error("Error al eliminar producto:", error);
+        res.status(500).json({ 
+            success: false,
+            message: "Error en el servidor",
+            error: error.message 
+        });
     }
 };
-
 exports.obtenerProductosPorUsuario = async (req, res) => {
   const { usuarioId } = req.params;
 

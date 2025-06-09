@@ -4,12 +4,77 @@
   padding: 0;
   box-sizing: border-box;
 }
+/* ======================================
+   CORRECCIONES RESPONSIVE GENERALES
+   ====================================== */
+
+/* 1. Ajuste del contenedor principal */
+.alcohol-page,
+.aseo-page,
+.fruits-page,
+.skincare-page,
+.meat-page {
+  width: 100%;
+  margin-right: 0; /* Eliminamos el margen derecho que causa problemas */
+  padding: 0 15px; /* Añadimos padding para móviles */
+  box-sizing: border-box;
+}
+
+/* 2. Corrección para el header */
+.alcohol-header,
+.aseo-header,
+.fruits-header,
+.skincare-header,
+.meat-header {
+  padding: 15px;
+  right: 0;
+}
+
+/* 3. Ajuste del hero section */
+.hero-section-alcohol,
+.hero-section-aseo,
+.hero-section-verduras,
+.hero-section-skincare,
+.hero-section-carnes {
+  height: auto;
+  min-height: 300px;
+  margin-bottom: 30px;
+}
+
+/* 4. Corrección para el grid de productos */
+.products-grid {
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 15px;
+  width: 100%;
+  padding: 0 10px;
+  box-sizing: border-box;
+}
+
+/* 7. Ajuste de la sección de productos */
+.products-section {
+  padding: 0 15px 30px !important;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* 1. Reset del body y html */
+html, body {
+  width: 100%;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  background-color: #f8f9fa; /* Mismo color que tu meat-page */
+}
 
 .meat-page {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   color: #333;
   width: 100%;
   background-color: #f8f9fa;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 /* Header */
@@ -66,6 +131,8 @@
   justify-content: center;
   position: relative;
   margin-bottom: 40px;
+  width: 100%;
+  overflow: hidden;
 }
 
 .hero-content {
@@ -550,4 +617,147 @@
 .visitas-badge::before {
   content: "👁️";
   font-size: 0.9rem;
+}
+/* ======================================
+   Media Queries para Diseño Responsive - Carnes
+   ====================================== */
+
+/* Pantallas medianas (769px - 1024px) */
+@media (max-width: 1024px) {
+  .hero-section-carnes {
+    height: 400px;
+  }
+  
+  .hero-title {
+    font-size: 3rem;
+  }
+  
+  .hero-subtitle {
+    font-size: 1.5rem;
+  }
+  
+  .featured-product {
+    flex-direction: column;
+  }
+  
+  .featured-product .product-info {
+    padding: 25px;
+  }
+  
+  .featured-product .product-image-container {
+    width: 100%;
+    height: 250px;
+  }
+  
+  .featured-product .product-price {
+    position: static;
+    margin-top: 15px;
+    text-align: center;
+  }
+  
+  .cheap-product {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .cheap-product .product-image-container {
+    width: 100%;
+    max-width: 300px;
+    margin: 0 auto;
+  }
+}
+
+/* Tablets (577px - 768px) */
+@media (max-width: 768px) {
+  .meat-header {
+    padding: 15px;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .header-buttons {
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .hero-section-carnes {
+    height: 350px;
+  }
+  
+  .hero-title {
+    font-size: 2.5rem;
+  }
+  
+  .hero-subtitle {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+  }
+  
+  .search-input {
+    padding: 12px 20px;
+  }
+  
+  .featured-product h2 {
+    font-size: 1.8rem;
+  }
+  
+  .product-description {
+    font-size: 1rem;
+  }
+  
+  .action-button {
+    padding: 10px 20px;
+  }
+  
+  .section-title {
+    font-size: 1.8rem;
+  }
+  
+  .products-grid {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 15px;
+  }
+  
+  .product-card .product-image-container {
+    height: 180px;
+  }
+  
+  .modal-content {
+    padding: 20px;
+  }
+}
+
+/* 4. Ajustes para móviles verticales */
+@media (max-width: 767px) and (orientation: portrait) {
+  body {
+    background-color: #f8f9fa !important; /* Fuerza el color de fondo */
+  }
+  
+  .meat-page {
+    overflow: hidden; /* Previene scroll no deseado */
+  }
+  
+  .hero-section-carnes {
+    height: auto;
+    min-height: 300px; /* Altura mínima para móviles */
+    margin-bottom: 0; /* Elimina margen que podría causar espacio negro */
+  }
+  
+  .products-section {
+    padding-bottom: 20px;
+    background-color: #f8f9fa; /* Asegura el color de fondo */
+    flex-grow: 1; /* Ocupa el espacio restante */
+  }
+}
+/* 5. Corrección para Safari en iOS */
+@supports (-webkit-touch-callout: none) {
+  body {
+    /* Safari tiene un comportamiento especial con el viewport */
+    height: -webkit-fill-available;
+  }
+  
+  .meat-page {
+    min-height: -webkit-fill-available;
+  }
 }

@@ -847,3 +847,130 @@ h3 { font-size: 1.75rem; }
   font-size: 1em;
   padding: 0.5em 1em;
 }
+/* ======================================
+   Media Queries para Diseño Responsive
+   ====================================== */
+
+/* Pantallas grandes (más de 1200px) - Ya está optimizado en el CSS base */
+
+/* Tablets y pantallas medianas (768px - 1199px) */
+@media (max-width: 1199px) {
+  .banner {
+    height: auto;
+    flex-direction: column;
+    padding: 30px 20px;
+    text-align: center;
+  }
+  
+  .banner-text {
+    width: 100%;
+    padding-left: 0;
+    margin-bottom: 30px;
+  }
+  
+  .banner h1, .banner p {
+    text-align: center;
+  }
+  
+  .banner-img {
+    height: auto;
+    max-width: 80%;
+  }
+  
+  .carrusel-item {
+    flex: 0 0 calc(33.333% - 20px);
+  }
+  
+  .footer {
+    flex-direction: column;
+    align-items: center;
+    padding-right: 0;
+    width: 100%;
+    margin-left: 0;
+  }
+  
+  .footer-logo {
+    margin-bottom: 30px;
+  }
+  
+  .footer-links {
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+  }
+  
+  .footer-column {
+    text-align: center;
+  }
+}
+
+/* Pantallas pequeñas (576px - 767px) */
+@media (max-width: 767px) {
+  .navbar {
+    padding: 10px 3%;
+  }
+  
+  .search-container {
+    display: none; /* Ocultar barra de búsqueda en móviles */
+  }
+  
+  .banner h1 {
+    font-size: 2rem;
+  }
+  
+  .banner p {
+    font-size: 1rem;
+  }
+  
+  .carrusel {
+    padding: 0 40px;
+  }
+  
+  .carrusel-item {
+    flex: 0 0 calc(50% - 15px);
+    min-width: 160px;
+  }
+  
+  .supermercados-lista {
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  
+  .accessibility-sidebar {
+    top: auto;
+    bottom: 20px;
+    transform: none;
+    flex-direction: row;
+    border-radius: 10px;
+    padding: 5px 10px;
+  }
+}
+
+/* Móviles pequeños (hasta 575px) */
+@media (max-width: 575px) {
+  .logo-app img {
+    height: 40px;
+  }
+  
+  .banner h1 {
+    font-size: 1.8rem;
+  }
+  
+  .carrusel-item {
+    flex: 0 0 100%;
+    min-width: 0;
+  }
+  
+  .supermercado img {
+    width: 80px;
+  }
+  
+  .sidebar {
+    width: 80%;
+  }
+  
+  .how-to-use-button {
+    padding: 0.6rem 1rem;
+    font-size: 0.9rem;
+  }
+}

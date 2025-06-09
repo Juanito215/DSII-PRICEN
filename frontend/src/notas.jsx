@@ -49,19 +49,31 @@ function Notas() {
     }
   }, [navigate, location.state, token, userId]);
 
-  const handleRemove = async (productoId) => {
-    try {
-      await fetch(`http://localhost:3000/api/usuario-producto/${userId}/${productoId}`, {
-        method: 'DELETE',
-        headers,
-      });
-      setNotas(prev => prev.filter(p => p.id !== productoId));
-      if (productoSeleccionado?.id === productoId) cerrarModal();
-    } catch (error) {
-      console.error("Error al eliminar el producto:", error);
-      alert("No se pudo eliminar el producto.");
+const handleRemove = async (productoId) => {
+  try {
+    const response = await fetch(`http://localhost:3000/api/usuario-producto/${userId}/${productoId}`, {
+      method: 'DELETE',
+      headers: {
+        'Authorization': `Bearer ${token}`, // Corregido: usa la variable token ya definida
+        'Content-Type': 'application/json'
+      }
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.message || 'Error al eliminar el producto');
     }
-  };
+
+    // Actualizar el estado local
+    setNotas(prev => prev.filter(p => p.id !== productoId));
+    if (productoSeleccionado?.id === productoId) cerrarModal();
+    
+    alert("Producto eliminado correctamente");
+  } catch (error) {
+    console.error("Error al eliminar:", error);
+    alert(error.message || "No se pudo eliminar el producto. Verifica la consola para más detalles.");
+  }
+};
 
   const abrirModal = (producto) => {
     const similares = notas.filter(p =>
@@ -91,9 +103,12 @@ function Notas() {
     navigate(lastPage);
   };
 
-  const getImage = (name) => {
+  const getImage = (name, categoria) => {
     try {
-      return new URL(`/src/assets/${productoSeleccionado?.categoria || 'carnes'}/${name}`, import.meta.url).href;
+      const categoriaFinal = categoria || 'default'; // Si no se proporciona categoría, usamos 'default'
+      
+      // Para imágenes locales dinámicas por categoría
+      return new URL(`/src/assets/${categoriaFinal}/${name}`, import.meta.url).href;
     } catch {
       return '/assets/default.png';
     }
@@ -133,7 +148,7 @@ function Notas() {
                   onClick={() => abrirModal(producto)}
                 >
                   {esDuplicado && <div className="product-asterisk">*</div>}
-                  <img src={getImage(producto.imagen)} alt={producto.nombre} />
+                  <img src={getImage(producto.imagen, producto.categoria)} alt={producto.nombre} />
                   <h3>{producto.nombre}</h3>
                   <div className="visitas-badge">{producto.visitas_semana || 0} vistas</div>
                   <p>{producto.supermercado_nombre}</p>
