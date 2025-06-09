@@ -1,23 +1,42 @@
 /* General */
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap');
 .about-container {
-    font-family: 'Arial', sans-serif;
+    font-family: 'Lato', Arial, sans-serif; /* Cambiado a Lato */
     color: #333;
     background-color: #fff;
     padding: 0;
     margin: 0;
-  }
-  
-  /* Navbar */
-  .about-navbar {
-    background-color: 
-  #0b7684;
+}
+
+.about-text h1,
+.about-text h2,
+.contact-section h2,
+.about-footer h3,
+.about-footer h4 {
+    font-family: 'Lato', Arial, sans-serif;
+    font-weight: 700; /* Bold */
+}
+
+.about-text p,
+.contact-section p,
+.about-footer p,
+.about-footer a,
+.form-group label,
+.contact-form button {
+    font-family: 'Lato', Arial, sans-serif;
+    font-weight: 400; /* Regular */
+}
+
+/* Navbar */
+.about-navbar {
+    background-color: #0b7684;
     color: white;
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 15px 50px;
-  }
-  
+    font-family: 'Lato', Arial, sans-serif; /* Añadido */
+}  
   .about-logo {
     display: flex;
     align-items: center;

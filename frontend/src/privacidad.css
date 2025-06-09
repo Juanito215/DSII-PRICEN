@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap');
+
 .privacidad-container {
   max-width: 800px;
   margin: 100px auto 40px auto;
@@ -6,6 +8,7 @@
   border-radius: 12px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   color: #333;
+  font-family: 'Lato', sans-serif; 
 }
 
 .privacidad-titulo {
@@ -13,6 +16,8 @@
   color: #0b7684;
   margin-bottom: 30px;
   text-align: center;
+  font-family: 'Lato', sans-serif;
+  font-weight: 700; /* Lato Bold */
 }
 
 .privacidad-seccion {
@@ -23,10 +28,14 @@
   color: #0b7684;
   font-size: 1.3rem;
   margin-bottom: 10px;
+  font-family: 'Lato', sans-serif;
+  font-weight: 700; 
 }
 
 .privacidad-seccion p {
   font-size: 1rem;
   line-height: 1.6;
   color: #444;
+  font-family: 'Lato', sans-serif;
+  font-weight: 400; 
 }

@@ -1,8 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap');
 .terminos-container {
   max-width: 800px;
   margin: 60px auto;
   padding: 40px 20px;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: 'Lato', sans-serif;
   color: #2d2d2d;
   background-color: #ffffff;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
@@ -11,7 +12,7 @@
 
 .terminos-title {
   font-size: 2.5rem;
-  font-weight: bold;
+  font-weight: 700; /* Lato Bold */
   margin-bottom: 30px;
   text-align: center;
   color: #1a1a1a;
@@ -23,7 +24,7 @@
 
 .terminos-section h2 {
   font-size: 1.25rem;
-  font-weight: 600;
+  font-weight: 700; /* Lato Bold */
   color: #1e3a8a;
   margin-bottom: 10px;
 }
@@ -31,6 +32,7 @@
 .terminos-section p {
   font-size: 1rem;
   line-height: 1.6;
+  font-weight: 400; /* Lato Regular */
   color: #444;
 }
 
@@ -39,4 +41,5 @@
   color: #888;
   text-align: center;
   margin-top: 40px;
+  font-weight: 400; /* Lato Regular */
 }

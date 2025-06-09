@@ -1,4 +1,16 @@
 /* Estilos generales */
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap');
+
+
+body, html {
+  font-family: 'Lato', Arial, sans-serif;
+  width: 100%;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  background-color: #f8f9fa; /* Color de fondo general */
+}
 * {
   margin: 0;
   padding: 0;
@@ -40,6 +52,18 @@
   min-height: 300px;
   margin-bottom: 30px;
 }
+
+h1, h2, h3, h4, h5, h6,
+.hero-title,
+.hero-subtitle,
+.featured-product h2,
+.cheap-product .product-info h3,
+.section-title,
+.product-card .product-name {
+  font-family: 'Lato', sans-serif;
+  font-weight: 700; /* Lato Bold */
+}
+
 
 /* 4. Corrección para el grid de productos */
 .products-grid {

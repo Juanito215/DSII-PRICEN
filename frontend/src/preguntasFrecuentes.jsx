@@ -20,7 +20,7 @@ const faqs = [
   },
   {
     pregunta: '¿Cómo contacto con soporte?',
-    respuesta: 'Puedes escribirnos a soporte@tuapp.com o usar el formulario de contacto en la sección de Ayuda.',
+    respuesta: 'Puedes escribirnos a soporte@pricen.co o usar el formulario de contacto en la sección de Ayuda.',
   },
 ];
 
