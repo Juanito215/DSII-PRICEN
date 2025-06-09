@@ -9,6 +9,5 @@ router.get("/", verifyToken, usuarioProductoController.obtenerLista);
 router.get("/buscar", verifyToken, usuarioProductoController.buscarProductoPorNombre);
 router.get('/:usuarioId', verifyToken, usuarioProductoController.obtenerProductosPorUsuario);
 router.put("/:id", verifyToken, usuarioProductoController.actualizarCantidad);
-router.delete("/:id", verifyToken, usuarioProductoController.eliminarProducto);
-
+router.delete("/:usuarioId/:productoId", verifyToken, usuarioProductoController.eliminarProductoPorIds);
 module.exports = router;

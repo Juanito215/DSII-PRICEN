@@ -49,15 +49,16 @@ function App() {
     setFontSize(16);
   };
   
-  const getImage = (name, categoria = 'carnes') => {
+  const getImage = (name, categoria) => {
     try {
       // Si es una URL completa, la devolvemos directamente
       if (name?.startsWith('http')) {
         return name;
       }
+      const categoriaFinal = categoria || 'default'; // Si no se proporciona categoría, usamos 'default'
       
       // Para imágenes locales dinámicas por categoría
-      return new URL(`/src/assets/${categoria}/${name}`, import.meta.url).href;
+      return new URL(`/src/assets/${categoriaFinal}/${name}`, import.meta.url).href;
     } catch (error) {
       console.error(`Error cargando imagen ${name}:`, error);
       // Imagen por defecto según categoría o genérica
@@ -288,7 +289,7 @@ function App() {
                       {productosMasVistos.slice(currentIndex, currentIndex + 3).map((producto) => (
                         <div key={producto.id} className='carrusel-item'>
                           <img 
-                            src={getImage(producto.imagen)} 
+                            src={getImage(producto.imagen, producto.categoria)} 
                             alt={producto.nombre} 
                             onError={(e) => {
                               e.target.src = '/assets/carnes/default.png';
