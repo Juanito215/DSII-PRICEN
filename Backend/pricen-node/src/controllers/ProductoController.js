@@ -110,29 +110,44 @@ exports.deleteProducto = async (req, res) => {
   }
 };
 
-// 🔎 Buscar productos por nombre
+// 🔎 Buscar productos por nombre (con precios)
 exports.buscarProductos = async (req, res) => {
-    const { query } = req.query;
-  
-    try {
-      if (!query || query.trim() === "") {
-        return res.status(400).json({ message: "Debe proporcionar un término de búsqueda." });
-      }
-  
-      const productos = await Producto.findAll({
-        where: {
-          nombre: {
-            [Op.iLike]: `%${query}%`  // 🔍 Búsqueda insensible a mayúsculas y similares
-          }
-        }
-      });
-  
-      res.json(productos);
-    } catch (error) {
-      console.error("❌ Error al buscar productos:", error);
-      res.status(500).json({ message: "Error en el servidor." });
+  const { query } = req.query;
+
+  try {
+    if (!query || query.trim() === "") {
+      return res.status(400).json({ message: "Debe proporcionar un término de búsqueda." });
     }
-  };
+
+    const productos = await sequelize.query(`
+      SELECT 
+        p.id,
+        p.nombre,
+        p.imagen,
+        p.categoria,
+        p.descripcion,
+        p.peso,
+        p.unidad_medida,
+        p.marca,
+        p.visitas_semana,
+        pmf.precio,
+        s.nombre as supermercado_nombre,
+        s.id as supermercado_id
+      FROM productos p
+      JOIN precio_mas_frecuente pmf ON p.id = pmf.producto_id
+      LEFT JOIN supermercados s ON pmf.supermercado_id = s.id
+      WHERE LOWER(p.nombre) LIKE LOWER(:query)
+    `, {
+      replacements: { query: `%${query}%` },
+      type: QueryTypes.SELECT
+    });
+
+    res.json(productos);
+  } catch (error) {
+    console.error("❌ Error al buscar productos:", error);
+    res.status(500).json({ message: "Error en el servidor." });
+  }
+};
 
   // 🔹 Obtener productos con su precio más frecuente
 exports.getProductosConPrecio = async (req, res) => {
